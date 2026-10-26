@@ -31,30 +31,27 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        .screen {
-            display: none;
-            min-height: 100vh;
-            width: 100%;
-        }
-
-        .screen.active {
-            display: block !important;
-        }
-
-        /* 1. PANTALLA DE ACCESO (GRAFITO) */
+        /* 1. PANTALLA DE ACCESO (CENTRADO PERFECTO) */
         #login-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             background-color: var(--bg-dark);
-            min-height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
+            z-index: 9999;
             padding: 20px;
         }
 
         .login-box {
-            max-width: 420px;
+            max-width: 400px;
             width: 100%;
             text-align: center;
+            margin: 0 auto;
         }
 
         .login-title {
@@ -66,20 +63,15 @@
 
         .login-subtitle {
             font-family: var(--font-sans);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             letter-spacing: 0.15em;
             color: #888;
             text-transform: uppercase;
-            margin-bottom: 40px;
-        }
-
-        .login-form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+            margin-bottom: 35px;
         }
 
         .login-input {
+            width: 100%;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.15);
             padding: 14px 18px;
@@ -90,9 +82,11 @@
             letter-spacing: 0.1em;
             border-radius: 2px;
             outline: none;
+            margin-bottom: 15px;
         }
 
         .login-btn {
+            width: 100%;
             background: var(--text-dark);
             color: var(--bg-dark);
             border: none;
@@ -116,8 +110,10 @@
 
         /* 2. PANTALLA PRINCIPAL (MARFIL) */
         #app-screen {
+            display: none;
             background-color: var(--bg-light);
             color: var(--text-light);
+            min-height: 100vh;
             padding-bottom: 60px;
         }
 
@@ -382,20 +378,18 @@
 <body>
 
     <!-- 1. PANTALLA DE ACCESO -->
-    <div id="login-screen" class="screen active">
+    <div id="login-screen">
         <div class="login-box">
             <h1 class="login-title">F O N D O</h1>
             <p class="login-subtitle">Atención ampliada contra la inmediatez</p>
-            <div class="login-form">
-                <input type="password" id="access-code" class="login-input" placeholder="[ Ingrese Clave de Cofrade ]" onkeydown="if(event.key === 'Enter') validateKey()">
-                <button type="button" class="login-btn" onclick="validateKey()">Ingresar al Resguardo</button>
-            </div>
+            <input type="password" id="access-code" class="login-input" placeholder="[ Ingrese Clave de Cofrade ]">
+            <button type="button" id="enter-btn" class="login-btn">Ingresar al Resguardo</button>
             <p id="login-error" class="login-error">Credencial no válida.</p>
         </div>
     </div>
 
     <!-- 2. PANTALLA PRINCIPAL DE CONTENIDOS -->
-    <div id="app-screen" class="screen">
+    <div id="app-screen">
         <header>
             <div>
                 <h1 class="brand-title" onclick="showArchive()">F O N D O</h1>
@@ -524,15 +518,15 @@
             }
         };
 
-        // Autologin si ya tiene la clave guardada
-        if (localStorage.getItem("fondo_auth") === "true") {
-            showApp();
+        function checkAuth() {
+            if (localStorage.getItem("fondo_auth") === "true") {
+                showApp();
+            }
         }
 
         function validateKey() {
-            const inputField = document.getElementById("access-code");
-            const val = inputField.value.trim().toUpperCase();
-            if (val === VALID_KEY) {
+            const inputVal = document.getElementById("access-code").value.trim().toUpperCase();
+            if (inputVal === VALID_KEY) {
                 localStorage.setItem("fondo_auth", "true");
                 showApp();
             } else {
@@ -574,6 +568,18 @@
             document.getElementById("article-view").style.display = "block";
             window.scrollTo(0, 0);
         }
+
+        // Asignación directa de eventos al cargar la ventana
+        window.onload = function() {
+            checkAuth();
+            
+            document.getElementById("enter-btn").onclick = validateKey;
+            document.getElementById("access-code").onkeyup = function(e) {
+                if (e.key === "Enter") {
+                    validateKey();
+                }
+            };
+        };
     </script>
 </body>
 </html>
