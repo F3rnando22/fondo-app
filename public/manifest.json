@@ -1,0 +1,16 @@
+{
+  "name": "FONDO - Atención Ampliada",
+  "short_name": "FONDO",
+  "description": "Espacio reservado para la lectura profunda.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1A1A18",
+  "theme_color": "#1A1A18",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
