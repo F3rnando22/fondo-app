@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FONDO — Atención Ampliada</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #1A1A18;
+      color: #E0DCD3;
+      font-family: Georgia, serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #lock-screen {
+      text-align: center;
+      padding: 20px;
+      max-width: 400px;
+      width: 100%;
+    }
+    .brand-title { letter-spacing: 8px; font-size: 2.2rem; margin-bottom: 8px; font-weight: 400; }
+    .brand-subtitle { opacity: 0.7; font-size: 0.9rem; margin-bottom: 35px; font-style: italic; }
+    input[type="password"] {
+      background: transparent;
+      border: 1px solid #4A5568;
+      color: #E0DCD3;
+      padding: 12px 20px;
+      text-align: center;
+      letter-spacing: 2px;
+      border-radius: 4px;
+      outline: none;
+      width: 100%;
+      font-size: 0.95rem;
+      font-family: monospace;
+      margin-bottom: 15px;
+    }
+    .error-msg { color: #e53e3e; font-size: 0.85rem; display: none; margin-top: 10px; }
+    #reader-screen {
+      display: none;
+      background-color: #F4F1EA;
+      color: #222220;
+      width: 100%;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    .reader-content { max-width: 680px; margin: 0 auto; }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #D3CFC6;
+      padding-bottom: 15px;
+      margin-bottom: 40px;
+    }
+    .header-logo { font-weight: bold; letter-spacing: 4px; font-size: 1.1rem; }
+    .logout-btn { background: none; border: none; color: #666; cursor: pointer; font-size: 0.8rem; }
+    .issue-tag { font-size: 0.75rem; letter-spacing: 2px; color: #003366; font-weight: bold; display: block; margin-bottom: 10px; }
+    h1.article-title { font-size: 2.4rem; line-height: 1.2; margin-bottom: 15px; font-weight: normal; }
+    p.lead { font-size: 1.2rem; line-height: 1.5; color: #4A5568; font-style: italic; margin-bottom: 25px; }
+    hr { border: none; border-top: 1px solid #D3CFC6; margin: 25px 0; }
+    .body-text p { font-size: 1.1rem; line-height: 1.8; margin-bottom: 20px; text-align: justify; }
+    .drop-cap { float: left; font-size: 3.5rem; line-height: 0.8; padding-right: 10px; color: #003366; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <!-- PANTALLA DE BLOQUEO -->
+  <div id="lock-screen">
+    <h1 class="brand-title">F O N D O</h1>
+    <p class="brand-subtitle">Atención ampliada contra la inmediatez</p>
+    <form id="login-form">
+      <input type="password" id="pass-input" placeholder="[ Ingrese Clave de Cofrade ]" autocomplete="off" />
+    </form>
+    <p id="error-text" class="error-msg">Clave no válida o revocada.</p>
+  </div>
+
+  <!-- PANTALLA DE LECTURA -->
+  <div id="reader-screen">
+    <div class="reader-content">
+      <div class="header">
+        <span class="header-logo">F O N D O</span>
+        <button class="logout-btn" onclick="logout()">Cerrar Sesión</button>
+      </div>
+
+      <span class="issue-tag">ENTREGA PROTOTIPO N° 01</span>
+      <h1 class="article-title">El Desgaste de la Atención</h1>
+      <p class="lead">Un ensayo breve sobre la resistencia cognitiva frente al consumo de estímulos fragmentados.</p>
+      
+      <hr />
+
+      <div class="body-text">
+        <p><span class="drop-cap">L</span>a velocidad con la que consumimos información ha transformado silenciosamente nuestra estructura de pensamiento. Lo que antes exigía un ritmo pausado de lectura y asimilación ha sido reemplazado por ráfagas constantes de estímulos diseñados para capturar la atención de manera superficial y efímera.</p>
+        <p>FONDO nace como un dispositivo de entrenamiento mental y resguardo para la lectura profunda. Este espacio no compite por la primicia ni responde a las urgencias de la coyuntura. Cada entrega es un ejercicio de contemplación, investigación y silencio en medio del ruido digital.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const KEY = "FND-DEMO-2026";
+
+    if (localStorage.getItem("fondo_auth") === "true") {
+      showReader();
+    }
+
+    document.getElementById("login-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const input = document.getElementById("pass-input").value.trim().toUpperCase();
+      if (input === KEY) {
+        localStorage.setItem("fondo_auth", "true");
+        showReader();
+      } else {
+        document.getElementById("error-text").style.display = "block";
+      }
+    });
+
+    function showReader() {
+      document.body.style.backgroundColor = "#F4F1EA";
+      document.getElementById("lock-screen").style.display = "none";
+      document.getElementById("reader-screen").style.display = "block";
+    }
+
+    function logout() {
+      localStorage.removeItem("fondo_auth");
+      location.reload();
+    }
+  </script>
+</body>
+</html>
