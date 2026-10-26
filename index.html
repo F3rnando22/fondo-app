@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FONDO — Atención Ampliada</title>
     <meta name="theme-color" content="#18181a">
-    <link rel="manifest" href="manifest.json">
     <style>
         :root {
             --bg-dark: #18181a;
@@ -252,7 +251,7 @@
             line-height: 1.6;
         }
 
-        /* GRILLA HORIZONTAL 3 COLUMNAS (ENTREGAS 3, 2, 1) */
+        /* GRILLA HORIZONTAL 3 COLUMNAS */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -444,8 +443,8 @@
         <div class="login-box">
             <h1 class="login-title">F O N D O</h1>
             <p class="login-subtitle">Atención ampliada contra la inmediatez</p>
-            <form class="login-form" onsubmit="handleLogin(event)">
-                <input type="password" id="access-code" class="login-input" placeholder="[ Ingrese Clave de Cofrade ]" required>
+            <form id="login-form" class="login-form">
+                <input type="password" id="access-code" class="login-input" placeholder="[ Ingrese Clave de Cofrade ]" required autocomplete="off">
                 <button type="submit" class="login-btn">Ingresar al Resguardo</button>
             </form>
             <p id="login-error" class="login-error">Credencial no válida.</p>
@@ -469,7 +468,7 @@
                     <span class="archive-title">Archivo de Entregas</span>
                 </div>
 
-                <!-- FILA SUPERIOR: HERO (ENTREGA 4 - ÚLTIMA) -->
+                <!-- FILA SUPERIOR: HERO (ENTREGA 4) -->
                 <div class="hero-card" onclick="openArticle(4)">
                     <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="Entrega 4" class="hero-img">
                     <div class="hero-content">
@@ -533,9 +532,7 @@
                     </div>
                 </div>
 
-                <div id="art-body" class="art-body">
-                    <!-- Contenido dinámico -->
-                </div>
+                <div id="art-body" class="art-body"></div>
 
                 <!-- SALVOCONDUCTO -->
                 <div class="salvoconducto-box">
@@ -558,98 +555,4 @@
                 title: "El Desgaste de la Atención",
                 sub: "La resistencia cognitiva frente al consumo de estímulos fragmentados.",
                 meta: "Entrega N° 01 • 01 Octubre 2026 • 12 min de lectura",
-                img: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=800&q=80",
-                body: `
-                    <p>La velocidad con la que consumimos información ha transformado silenciosamente nuestra estructura de pensamiento. Lo que antes exigía un ritmo pausado de lectura y asimilación ha sido reemplazado por ráfagas constantes de estímulos diseñados para capturar la atención de manera superficial y efímera.</p>
-                    <p>FONDO nace como un dispositivo de entrenamiento mental y resguardo para la lectura profunda. Este espacio no compite por la primicia ni responde a las urgencias de la coyuntura. Cada entrega es un ejercicio de contemplación, investigación y silencio en medio del ruido digital.</p>
-                    <p>Recuperar el control sobre nuestra propia atención no es un lujo estético; es un acto de soberanía intelectual. Cuando cedemos el ritmo de nuestros pensamientos a un flujo interminable de notificaciones, perdemos la capacidad de profundizar en los problemas complejos.</p>
-                `
-            },
-            2: {
-                title: "Elogio del Papel Graso",
-                sub: "Crónica sobre la correspondencia lenta, el registro en bitácora y la textura táctil como soporte de la verdad.",
-                meta: "Entrega N° 02 • 10 Octubre 2026 • 15 min de lectura",
-                img: "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80",
-                body: `
-                    <p>En las viejas libretas de campo, la tinta se asienta sobre la fibra del papel dejando una huella imborrable. No hay botón de borrado ni edición instantánea; cada palabra escrita exige una decisión previa, una pausa reflexiva antes de fijar la idea.</p>
-                    <p>El periodismo de investigación de largo aliento comparte esa misma naturaleza táctil. Exige tiempo de maduración, verificación presencial y una distancia crítica respecto de las versiones oficiales que se propagan en segundos por las redes.</p>
-                    <p>Volver al papel graso y a la lectura sin interrupciones es recuperar la materialidad de la experiencia humana, allí donde las palabras adquieren peso y responsabilidad.</p>
-                `
-            },
-            3: {
-                title: "Cartografía del Silencio",
-                sub: "Investigación sobre los espacios físicos y mentales despojados de señal en el sur de la provincia.",
-                meta: "Entrega N° 03 • 18 Octubre 2026 • 11 min de lectura",
-                img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80",
-                body: `
-                    <p>Existen aún zonas donde la cobertura celular se disuelve por completo, cediendo el espacio a un silencio geográfico casi extinto. En esos parajes, el tiempo recupera su dimensión natural y las conversaciones vuelven a tener principio, desarrollo y fin.</p>
-                    <p>Esta investigación explora cómo la desconexión forzada en áreas rurales permite a investigadores y escritores recuperar la claridad conceptual perdida en la vorágine urbana.</p>
-                `
-            },
-            4: {
-                title: "La Paradoja del Río",
-                sub: "Un ensayo sobre las secuencias de cambio, la permanencia de la memoria y la ilusión del movimiento continuo en la era de la prisa.",
-                meta: "Entrega N° 04 • 26 Octubre 2026 • 14 min de lectura",
-                img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
-                body: `
-                    <p>Ningún hombre se baña dos veces en el mismo río, pero la corriente conserva su cauce. La célebre intuición filosófica adquiere hoy un significado renovado: en medio del cambio frenético de las plataformas digitales, lo fundamental permanece inalterable.</p>
-                    <p>Sostener la mirada atenta sobre los procesos lentos es la única forma de descifrar las transformaciones de fondo. Frente a la espuma de la novedad diaria, este ensayo propone volver a la corriente principal de los hechos con paciencia de arqueólogo.</p>
-                `
-            }
-        };
-
-        // Verificación de sesión al cargar
-        window.onload = function() {
-            if (localStorage.getItem("fondo_auth") === "true") {
-                showApp();
-            }
-        };
-
-        function handleLogin(e) {
-            e.preventDefault();
-            const input = document.getElementById("access-code").value.trim();
-            if (input === VALID_KEY) {
-                localStorage.setItem("fondo_auth", "true");
-                showApp();
-            } else {
-                document.getElementById("login-error").style.display = "block";
-            }
-        }
-
-        function showApp() {
-            document.getElementById("login-screen").classList.remove("active");
-            document.getElementById("app-screen").classList.add("active");
-            showArchive();
-        }
-
-        function logout() {
-            localStorage.removeItem("fondo_auth");
-            document.getElementById("app-screen").classList.remove("active");
-            document.getElementById("login-screen").classList.add("active");
-            document.getElementById("access-code").value = "";
-            document.getElementById("login-error").style.display = "none";
-        }
-
-        function showArchive() {
-            document.getElementById("article-view").style.display = "none";
-            document.getElementById("archive-view").style.display = "block";
-            window.scrollTo(0, 0);
-        }
-
-        function openArticle(id) {
-            const art = ARTICLES[id];
-            if (!art) return;
-
-            document.getElementById("art-meta").innerText = art.meta;
-            document.getElementById("art-title").innerText = art.title;
-            document.getElementById("art-sub").innerText = art.sub;
-            document.getElementById("art-cover").src = art.img;
-            document.getElementById("art-body").innerHTML = art.body;
-
-            document.getElementById("archive-view").style.display = "none";
-            document.getElementById("article-view").style.display = "block";
-            window.scrollTo(0, 0);
-        }
-    </script>
-</body>
-</html>
+                img: "
