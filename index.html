@@ -9,7 +9,6 @@
         :root {
             --bg-dark: #18181a;
             --text-dark: #e6e4df;
-            --accent-dark: #2a2a2d;
             --bg-light: #f9f8f3;
             --text-light: #1c1c1a;
             --muted-light: #6b6a65;
@@ -39,12 +38,13 @@
         }
 
         .screen.active {
-            display: block;
+            display: block !important;
         }
 
         /* 1. PANTALLA DE ACCESO (GRAFITO) */
         #login-screen {
             background-color: var(--bg-dark);
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -90,11 +90,6 @@
             letter-spacing: 0.1em;
             border-radius: 2px;
             outline: none;
-            transition: border-color 0.3s;
-        }
-
-        .login-input:focus {
-            border-color: #aaa;
         }
 
         .login-btn {
@@ -109,18 +104,13 @@
             text-transform: uppercase;
             cursor: pointer;
             border-radius: 2px;
-            transition: opacity 0.2s;
-        }
-
-        .login-btn:hover {
-            opacity: 0.9;
         }
 
         .login-error {
             color: #e57373;
             font-family: var(--font-sans);
             font-size: 0.8rem;
-            margin-top: 10px;
+            margin-top: 15px;
             display: none;
         }
 
@@ -163,11 +153,6 @@
             font-size: 0.75rem;
             color: var(--muted-light);
             cursor: pointer;
-            letter-spacing: 0.05em;
-        }
-
-        .logout-btn:hover {
-            color: var(--text-light);
         }
 
         main {
@@ -176,7 +161,6 @@
             padding: 0 20px;
         }
 
-        /* VISTA ARCHIVO (INDEX) */
         .archive-header {
             margin-bottom: 30px;
         }
@@ -202,11 +186,6 @@
             padding: 30px;
             margin-bottom: 40px;
             cursor: pointer;
-            transition: box-shadow 0.3s;
-        }
-
-        .hero-card:hover {
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
         .hero-img {
@@ -215,11 +194,6 @@
             min-height: 280px;
             object-fit: cover;
             filter: grayscale(80%);
-            transition: filter 0.3s;
-        }
-
-        .hero-card:hover .hero-img {
-            filter: grayscale(20%);
         }
 
         .hero-content {
@@ -265,12 +239,6 @@
             display: flex;
             flex-direction: column;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .grid-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.04);
         }
 
         .grid-img {
@@ -279,11 +247,6 @@
             object-fit: cover;
             filter: grayscale(80%);
             margin-bottom: 15px;
-            transition: filter 0.3s;
-        }
-
-        .grid-card:hover .grid-img {
-            filter: grayscale(20%);
         }
 
         .grid-title {
@@ -301,7 +264,7 @@
             flex-grow: 1;
         }
 
-        /* VISTA LECTURA ARTÍCULO */
+        /* LECTURA ARTÍCULO */
         .article-view {
             max-width: 680px;
             margin: 0 auto;
@@ -317,10 +280,6 @@
             cursor: pointer;
             margin-bottom: 30px;
             display: inline-block;
-        }
-
-        .back-link:hover {
-            color: var(--text-light);
         }
 
         .art-header {
@@ -378,25 +337,12 @@
             color: #2b2b29;
         }
 
-        .art-body p:first-of-type::first-letter {
-            font-size: 3.2rem;
-            float: left;
-            line-height: 0.8;
-            padding-right: 12px;
-            padding-top: 4px;
-            font-family: var(--font-serif);
-        }
-
-        /* BLOQUE SALVOCONDUCTO */
         .salvoconducto-box {
             margin-top: 50px;
             padding: 25px;
             background: #fff;
             border-left: 3px solid var(--text-light);
-            border-top: 1px solid var(--border-light);
-            border-right: 1px solid var(--border-light);
-            border-bottom: 1px solid var(--border-light);
-            font-family: var(--font-serif);
+            border: 1px solid var(--border-light);
         }
 
         .salvo-title {
@@ -430,9 +376,6 @@
             .grid-container {
                 grid-template-columns: 1fr;
             }
-            .art-title {
-                font-size: 2rem;
-            }
         }
     </style>
 </head>
@@ -443,10 +386,10 @@
         <div class="login-box">
             <h1 class="login-title">F O N D O</h1>
             <p class="login-subtitle">Atención ampliada contra la inmediatez</p>
-            <form id="login-form" class="login-form">
-                <input type="password" id="access-code" class="login-input" placeholder="[ Ingrese Clave de Cofrade ]" required autocomplete="off">
-                <button type="submit" class="login-btn">Ingresar al Resguardo</button>
-            </form>
+            <div class="login-form">
+                <input type="password" id="access-code" class="login-input" placeholder="[ Ingrese Clave de Cofrade ]" onkeydown="if(event.key === 'Enter') validateKey()">
+                <button type="button" class="login-btn" onclick="validateKey()">Ingresar al Resguardo</button>
+            </div>
             <p id="login-error" class="login-error">Credencial no válida.</p>
         </div>
     </div>
@@ -462,7 +405,7 @@
         </header>
 
         <main>
-            <!-- VISTA DE ÍNDICE Y ARCHIVO -->
+            <!-- VISTA DE ARCHIVO -->
             <div id="archive-view">
                 <div class="archive-header">
                     <span class="archive-title">Archivo de Entregas</span>
@@ -479,7 +422,7 @@
                     </div>
                 </div>
 
-                <!-- FILA INFERIOR: GRILLA DE 3 COLUMNAS (ENTREGAS 3, 2, 1) -->
+                <!-- FILA INFERIOR: GRILLA DE 3 COLUMNAS -->
                 <div class="grid-container">
                     
                     <!-- ENTREGA 3 -->
@@ -555,4 +498,82 @@
                 title: "El Desgaste de la Atención",
                 sub: "La resistencia cognitiva frente al consumo de estímulos fragmentados.",
                 meta: "Entrega N° 01 • 01 Octubre 2026 • 12 min de lectura",
-                img: "
+                img: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=800&q=80",
+                body: `<p>La velocidad con la que consumimos información ha transformado silenciosamente nuestra estructura de pensamiento. Lo que antes exigía un ritmo pausado de lectura y asimilación ha sido reemplazado por ráfagas constantes de estímulos diseñados para capturar la atención de manera superficial y efímera.</p><p>FONDO nace como un dispositivo de entrenamiento mental y resguardo para la lectura profunda. Este espacio no compite por la primicia ni responde a las urgencias de la coyuntura. Cada entrega es un ejercicio de contemplación, investigación y silencio en medio del ruido digital.</p>`
+            },
+            2: {
+                title: "Elogio del Papel Graso",
+                sub: "Crónica sobre la correspondencia lenta, el registro en bitácora y la textura táctil como soporte de la verdad.",
+                meta: "Entrega N° 02 • 10 Octubre 2026 • 15 min de lectura",
+                img: "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80",
+                body: `<p>En las viejas libretas de campo, la tinta se asienta sobre la fibra del papel dejando una huella imborrable. No hay botón de borrado ni edición instantánea; cada palabra escrita exige una decisión previa, una pausa reflexiva antes de fijar la idea.</p><p>El periodismo de investigación de largo aliento comparte esa misma naturaleza táctil. Exige tiempo de maduración, verificación presencial y una distancia crítica respecto de las versiones oficiales.</p>`
+            },
+            3: {
+                title: "Cartografía del Silencio",
+                sub: "Investigación sobre los espacios físicos y mentales despojados de señal en el sur de la provincia.",
+                meta: "Entrega N° 03 • 18 Octubre 2026 • 11 min de lectura",
+                img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80",
+                body: `<p>Existen aún zonas donde la cobertura celular se disuelve por completo, cediendo el espacio a un silencio geográfico casi extinto. En esos parajes, el tiempo recupera su dimensión natural y las conversaciones vuelven a tener principio, desarrollo y fin.</p>`
+            },
+            4: {
+                title: "La Paradoja del Río",
+                sub: "Un ensayo sobre las secuencias de cambio, la permanencia de la memoria y la ilusión del movimiento continuo en la era de la prisa.",
+                meta: "Entrega N° 04 • 26 Octubre 2026 • 14 min de lectura",
+                img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+                body: `<p>Ningún hombre se baña dos veces en el mismo río, pero la corriente conserva su cauce. La célebre intuición filosófica adquiere hoy un significado renovado: en medio del cambio frenético de las plataformas digitales, lo fundamental permanece inalterable.</p><p>Sostener la mirada atenta sobre los procesos lentos es la única forma de descifrar las transformaciones de fondo.</p>`
+            }
+        };
+
+        // Autologin si ya tiene la clave guardada
+        if (localStorage.getItem("fondo_auth") === "true") {
+            showApp();
+        }
+
+        function validateKey() {
+            const inputField = document.getElementById("access-code");
+            const val = inputField.value.trim().toUpperCase();
+            if (val === VALID_KEY) {
+                localStorage.setItem("fondo_auth", "true");
+                showApp();
+            } else {
+                document.getElementById("login-error").style.display = "block";
+            }
+        }
+
+        function showApp() {
+            document.getElementById("login-screen").style.display = "none";
+            document.getElementById("app-screen").style.display = "block";
+            showArchive();
+        }
+
+        function logout() {
+            localStorage.removeItem("fondo_auth");
+            document.getElementById("app-screen").style.display = "none";
+            document.getElementById("login-screen").style.display = "flex";
+            document.getElementById("access-code").value = "";
+            document.getElementById("login-error").style.display = "none";
+        }
+
+        function showArchive() {
+            document.getElementById("article-view").style.display = "none";
+            document.getElementById("archive-view").style.display = "block";
+            window.scrollTo(0, 0);
+        }
+
+        function openArticle(id) {
+            const art = ARTICLES[id];
+            if (!art) return;
+
+            document.getElementById("art-meta").innerText = art.meta;
+            document.getElementById("art-title").innerText = art.title;
+            document.getElementById("art-sub").innerText = art.sub;
+            document.getElementById("art-cover").src = art.img;
+            document.getElementById("art-body").innerHTML = art.body;
+
+            document.getElementById("archive-view").style.display = "none";
+            document.getElementById("article-view").style.display = "block";
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
