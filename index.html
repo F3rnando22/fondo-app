@@ -112,7 +112,7 @@
     }
 
     .progress-fill {
-      width: 42%; /* Ajustar según cantidad actual (ej: 42 de 100) */
+      width: 42%;
       height: 100%;
       background: var(--accent-oro);
     }
@@ -329,19 +329,26 @@
       try {
         const response = await fetch(file);
         if (!response.ok) throw new Error('No se pudo cargar el archivo');
-        const html = await response.text();
+        let html = await response.text();
         
-        // Inyectamos el contenido y le sumamos al final el bloque institucional para los no suscriptores
+        // El bloque de llamada a la suscripción con el tono exacto de FONDO
         const callToActionHTML = `
-          ${html}
-          <div style="background-color: #f1efea; border: 1px solid #e0de88; padding: 30px; margin-top: 60px; text-align: center; border-radius: 2px;">
+          <div style="background-color: #f1efea; border: 1px solid #e0de88; padding: 30px; margin: 40px 0; text-align: center; border-radius: 2px;">
             <h3 style="margin: 0 0 10px 0; font-size: 0.9rem; letter-spacing: 2px; color: #8c6d3b; text-transform: uppercase;">[ FONDO — Atención Ampliada ]</h3>
-            <p style="font-size: 0.95rem; color: #4a4a4d; margin-bottom: 20px; line-height: 1.6;">Si todavía no formas parte, hazlo ahora y asegura el acceso continuo a nuestras investigaciones exclusivas.</p>
+            <p style="font-size: 0.95rem; color: #4a4a4d; margin-bottom: 20px; line-height: 1.6;">Si todavía no formas parte, hazlo ahora.</p>
             <button onclick="alert('Redirigiendo a suscripción...')" style="background-color: #18181a; color: #f9f8f3; border: none; padding: 12px 24px; font-family: Georgia, serif; font-size: 0.8rem; letter-spacing: 1.5px; cursor: pointer; text-transform: uppercase;">SÚMATE AHORA</button>
           </div>
         `;
 
-        document.getElementById('article-content').innerHTML = callToActionHTML;
+        // Buscamos dónde está el bloque de resguardo para insertar el bloque justo antes
+        if (html.includes('resguardo-card')) {
+          html = html.replace('<div class="resguardo-card">', callToActionHTML + '<div class="resguardo-card">');
+        } else {
+          // Si por alguna razón no lo encuentra, lo añadimos al final
+          html += callToActionHTML;
+        }
+
+        document.getElementById('article-content').innerHTML = html;
         document.getElementById('catalog-view').style.display = 'none';
         document.getElementById('reader-view').style.display = 'block';
         window.scrollTo(0, 0);
