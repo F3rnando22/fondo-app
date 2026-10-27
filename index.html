@@ -29,7 +29,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ACCESO (GATEKEEPER) */
+    /* PANTALLA DE ACCESO (GATEKEEPER) */
     #gatekeeper {
       text-align: center;
       padding: 20px;
@@ -83,7 +83,7 @@
       font-size: 0.85rem;
     }
 
-    /* APP (MARFIL/GRAFITO) */
+    /* APLICACIÓN PRINCIPAL (MARFIL/GRAFITO) */
     #app {
       display: none;
       background-color: var(--bg-marfil);
@@ -111,7 +111,7 @@
     }
 
     .container {
-      max-width: 720px;
+      max-width: 900px;
       margin: 0 auto;
       padding: 40px 20px 80px 20px;
     }
@@ -121,20 +121,39 @@
       letter-spacing: 2px;
       text-transform: uppercase;
       color: var(--accent-oro);
-      margin-bottom: 16px;
+      margin-bottom: 20px;
       display: block;
       border-bottom: 1px solid var(--accent-oro);
       padding-bottom: 6px;
-      margin-top: 30px;
+      margin-top: 20px;
     }
 
+    /* ENTREGA 1: HERO DESTACADO CON FOTO GRANDE JERARQUIZADA */
     .hero-card {
       border: 1px solid var(--accent-oro);
-      padding: 32px;
+      padding: 0;
       background: #ffffff;
       cursor: pointer;
-      margin-bottom: 40px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      margin-bottom: 50px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .hero-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
+
+    .hero-cover-img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-content {
+      padding: 32px;
     }
 
     .hero-badge {
@@ -145,15 +164,15 @@
     }
 
     .hero-title {
-      font-size: 1.7rem;
-      line-height: 1.3;
+      font-size: 1.9rem;
+      line-height: 1.25;
       margin: 12px 0;
       color: var(--text-grafito);
     }
 
     .hero-snippet {
-      font-size: 0.95rem;
-      color: #555;
+      font-size: 1rem;
+      color: #4a4a4d;
       line-height: 1.6;
       margin-bottom: 20px;
     }
@@ -162,23 +181,44 @@
       font-size: 0.8rem;
       color: var(--accent-oro);
       font-weight: bold;
+      letter-spacing: 1px;
     }
 
-    .entries-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+    /* GRILLA HORIZONTAL (3 COLUMNAS) DEBAJO */
+    .horizontal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
     }
 
     .entry-card {
       border: 1px solid var(--gris-borde);
-      padding: 20px;
       background: #ffffff;
       cursor: pointer;
-      transition: border-color 0.2s;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s, transform 0.2s;
     }
 
-    .entry-card:hover { border-color: var(--accent-oro); }
+    .entry-card:hover {
+      border-color: var(--accent-oro);
+      transform: translateY(-2px);
+    }
+
+    .entry-card-thumb {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .entry-card-content {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
 
     .entry-card-badge {
       font-size: 0.7rem;
@@ -188,7 +228,8 @@
     }
 
     .entry-card-title {
-      font-size: 1.2rem;
+      font-size: 1.15rem;
+      line-height: 1.3;
       margin: 8px 0;
       color: var(--text-grafito);
     }
@@ -197,15 +238,23 @@
       font-size: 0.85rem;
       color: #666;
       line-height: 1.5;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
+      flex-grow: 1;
     }
 
     .entry-card-meta {
       font-size: 0.75rem;
       color: var(--accent-oro);
+      font-weight: bold;
     }
 
+    /* VISTA DE LECTURA (MARFIL) */
     #reader-view { display: none; }
+
+    .reader-container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
 
     .back-btn {
       background: none;
@@ -215,12 +264,12 @@
       font-size: 0.85rem;
       cursor: pointer;
       padding: 0;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
       letter-spacing: 1px;
     }
 
     .entry-title {
-      font-size: 2rem;
+      font-size: 2.1rem;
       line-height: 1.25;
       margin: 0 0 16px 0;
       color: var(--text-grafito);
@@ -332,7 +381,7 @@
 </head>
 <body>
 
-  <!-- ACCESO POR CLAVE -->
+  <!-- PANTALLA 1: ACCESO POR CLAVE -->
   <div id="gatekeeper">
     <div class="brand-title">F O N D O</div>
     <div class="brand-sub">Atención ampliada contra la inmediatez</div>
@@ -342,7 +391,7 @@
     </div>
   </div>
 
-  <!-- APLICACIÓN PRINCIPAL -->
+  <!-- PANTALLA 2: APLICACIÓN PRINCIPAL -->
   <div id="app">
     <header class="app-header">
       <div class="brand" onclick="showCatalog()">F O N D O</div>
@@ -352,212 +401,235 @@
       
       <!-- HOME / CATÁLOGO GENERAL -->
       <div id="catalog-view">
-        <span class="catalog-section-title">ENTREGA DESTACADA DE LA SEMANA</span>
+        
+        <!-- JERARQUÍA SUPERIOR: ENTREGA DESTACADA CON FOTO GRANDE -->
+        <span class="catalog-section-title">ENTREGA DESTACADA — ARCHIVO INAUGURAL</span>
+        
         <div class="hero-card" onclick="openReader('entrega-1')">
-          <span class="hero-badge">ENTREGA INAUGURAL N° 01 — CRÓNICA COMPLETA</span>
-          <h2 class="hero-title">Archivo criminal: la enigmática desaparición de la veterinaria Adriana Celihueta</h2>
-          <p class="hero-snippet">Investigación íntegra en cuatro capítulos sobre la misteriosa ausencia en Necochea que rozó al poder político, movilizó excavaciones históricas y permanece sin respuestas tras 35 años.</p>
-          <div class="hero-meta">POR FERNANDO DEL RIO — LECTURA COMPLETA DE ARCHIVO →</div>
+          <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80" alt="Investigación Caso Celihueta" class="hero-cover-img">
+          <div class="hero-content">
+            <span class="hero-badge">ENTREGA INAUGURAL N° 01 — INVESTIGACIÓN COMPLETA</span>
+            <h2 class="hero-title">Archivo criminal: la enigmática desaparición de la veterinaria Adriana Celihueta</h2>
+            <p class="hero-snippet">Investigación íntegra en cuatro capítulos sobre la misteriosa ausencia en Necochea que rozó al poder político, movilizó excavaciones históricas y permanece sin respuestas tras 35 años.</p>
+            <div class="hero-meta">POR FERNANDO DEL RIO — LEER INVESTIGACIÓN INTEGRAL →</div>
+          </div>
         </div>
 
-        <span class="catalog-section-title">ENTREGAS DE LA ETAPA PILOTO</span>
-        <div class="entries-grid">
+        <!-- JERARQUÍA INFERIOR: GRILLA HORIZONTAL (3 COLUMNAS CON MINIATURAS) -->
+        <span class="catalog-section-title">PRÓXIMAS ENTREGAS DE LA ETAPA PILOTO</span>
+        
+        <div class="horizontal-grid">
+          
+          <!-- ENTREGA 02 -->
           <div class="entry-card" onclick="openReader('entrega-2')">
-            <span class="entry-card-badge">ENTREGA N° 02 — EN ESPERA DE CONTENIDO</span>
-            <h3 class="entry-card-title">Segunda Entrega del Archivo Piloto</h3>
-            <p class="entry-card-snippet">Espacio reservado para la segunda crónica o investigación del proyecto FONDO. Se activará al cargar el material correspondiente.</p>
-            <div class="entry-card-meta">POR FERNANDO DEL RIO — PRÓXIMAMENTE →</div>
+            <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=600&q=80" alt="Entrega 02" class="entry-card-thumb">
+            <div class="entry-card-content">
+              <span class="entry-card-badge">ENTREGA N° 02 — EN ESPERA</span>
+              <h3 class="entry-card-title">Segunda Entrega del Archivo Piloto</h3>
+              <p class="entry-card-snippet">Espacio reservado para la segunda crónica o investigación del catálogo FONDO.</p>
+              <div class="entry-card-meta">POR FERNANDO DEL RIO →</div>
+            </div>
           </div>
 
+          <!-- ENTREGA 03 -->
           <div class="entry-card" onclick="openReader('entrega-3')">
-            <span class="entry-card-badge">ENTREGA N° 03 — EN ESPERA DE CONTENIDO</span>
-            <h3 class="entry-card-title">Tercera Entrega del Archivo Piloto</h3>
-            <p class="entry-card-snippet">Espacio reservado para la tercera crónica o investigación del proyecto FONDO. Se activará al cargar el material correspondiente.</p>
-            <div class="entry-card-meta">POR FERNANDO DEL RIO — PRÓXIMAMENTE →</div>
+            <img src="https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=600&q=80" alt="Entrega 03" class="entry-card-thumb">
+            <div class="entry-card-content">
+              <span class="entry-card-badge">ENTREGA N° 03 — EN ESPERA</span>
+              <h3 class="entry-card-title">Tercera Entrega del Archivo Piloto</h3>
+              <p class="entry-card-snippet">Espacio reservado para la tercera crónica o investigación del catálogo FONDO.</p>
+              <div class="entry-card-meta">POR FERNANDO DEL RIO →</div>
+            </div>
           </div>
 
+          <!-- ENTREGA 04 -->
           <div class="entry-card" onclick="openReader('entrega-4')">
-            <span class="entry-card-badge">ENTREGA N° 04 — EN ESPERA DE CONTENIDO</span>
-            <h3 class="entry-card-title">Cuarta Entrega del Archivo Piloto</h3>
-            <p class="entry-card-snippet">Espacio reservado para la cuarta crónica o investigación del proyecto FONDO. Se activará al cargar el material correspondiente.</p>
-            <div class="entry-card-meta">POR FERNANDO DEL RIO — PRÓXIMAMENTE →</div>
+            <img src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=600&q=80" alt="Entrega 04" class="entry-card-thumb">
+            <div class="entry-card-content">
+              <span class="entry-card-badge">ENTREGA N° 04 — EN ESPERA</span>
+              <h3 class="entry-card-title">Cuarta Entrega del Archivo Piloto</h3>
+              <p class="entry-card-snippet">Espacio reservado para la cuarta crónica o investigación del catálogo FONDO.</p>
+              <div class="entry-card-meta">POR FERNANDO DEL RIO →</div>
+            </div>
           </div>
+
         </div>
       </div>
 
-      <!-- LECTOR (VISTA DE LECTURA CON TEXTO ÍNTEGRO) -->
+      <!-- VISTA LECTOR (DENTRO DE LA NOTA) -->
       <div id="reader-view">
-        <button class="back-btn" onclick="showCatalog()">← VOLVER AL CATÁLOGO</button>
+        <div class="reader-container">
+          <button class="back-btn" onclick="showCatalog()">← VOLVER AL CATÁLOGO</button>
 
-        <div id="content-entrega-1" class="reader-article">
-          <h1 class="entry-title">Archivo criminal: la enigmática desaparición de la veterinaria Adriana Celihueta</h1>
-          <div class="entry-subtitle">La crónica completa en cuatro capítulos sobre el enigma que marcó a Necochea en 1987.</div>
-          <div class="meta-bar"><span>POR FERNANDO DEL RIO</span><span>INVESTIGACIÓN INTEGRAL</span></div>
-          
-          <h2 class="chapter-title">PARTE 1: La enigmática desaparición</h2>
-          <p class="drop-cap">En una estantería repleta de viejos expedientes hay dos pilones de papel. Del hilo que los mantiene unidos cuelga un rótulo acartonado que a trazo de fibrón destaca el apellido “Celihueta”. Allí se oculta una verdad tan maniatada como las 2000 fojas, una verdad que lucha contra el olvido cada vez más inevitable. Y es en el olvido judicial donde muchas víctimas mueren su segunda muerte.</p>
-          <p>La historia criminal registra la desaparición de la veterinaria Adriana Celihueta en 1987 como un enigma, como uno de esos casos que aparecen de tanto en tanto y que se clavan cual espina en la garganta de los que gritan por su esclarecimiento. Hace ya 35 años que la suerte corrida por Adriana Celihueta aquella noche de verano es un secreto que, aún hoy, lastima a Necochea y Quequén, dos comunidades atravesadas por un muro de silencio que el paso del tiempo en lugar de agrietar lo ha sellado.</p>
-          <p>Del caso Celihueta se dijeron tantas cosas que hasta pueden reconfigurarse todas sus medias verdades y medias mentiras, y contarse varias posibles historias de lo sucedido. Ninguna de ellas respaldadas en más pruebas irrefutables que las otras. Y la sensación más fuerte que aún persists es que se investigó mal. No que se investigó poco, pero sí mal. Algunos no tienen dudas de que eso obedeció a una estructura de encubrimiento político al que se subyugaron no solo policías necochenses sino también jueces, peritos y fiscales de Mar del Plata. Unos pocos creen que no se resolvió jamás por la incapacidad de los investigadores. Casi ninguno acepta la posibilidad de un crimen perfecto, en el cual por más que se analice y sobreanalice la evidencia jamás se podrá llegar al esclarecimiento.</p>
-          <p>Repasar la investigación de este caso es una tarea ardua después de tanto tiempo, conectar con todo aquel día a día que angustió a la familia Celihueta y encontrarse con la desazón que dejaba cada excavación frustrada, cada hipótesis desistida, cada avance que acababa siendo un desvío y una pérdida de tiempo, supone un esfuerzo que apenas tendrá la recompensa de desafiar al olvido.</p>
-          <p><strong>El inicio del misterio</strong></p>
-          <p>A las 21.45 del jueves 15 de enero de 1987 Adriana Celihueta terminó de cenar junto a sus padres Carlos y Mimí, en la casa de calle 64 de Necochea. Tenía 29 años y estaba recibida de veterinaria, pero igual continuaba viviendo con ellos porque era una mujer con ciertas particularidades en su personalidad y en su manera de entender la vida. También porque estaba a la espera de dejarlos en lo inmediato: el 21 de febrero tenía programada la boda con Luis Iparraguirre, su novio desde que tenía 18 años, y su posterior mudanza a Castex, en La Pampa.</p>
-          <p>Esa noche Adriana Celihueta parecía haber desechado la sugerencia de su madre de ir hasta la casa de su suegra en lugar de llamarla para que le deletreara bien su apellido, ya que debía mandar a imprimir las invitaciones para el casamiento que se iba a llevar a cabo en la ciudad pampeana donde vivía Iparraguirre.</p>
-          <p>Ya a la tarde habían hablado de la inconveniencia de resolver ese sencillo trámite por teléfono. Que “quedaba mejor” ir. Pero Adriana lo postergó incluso hasta la hora de la cena y la madre se lo recordó.</p>
-          <p>—Todavía te falta ir a lo de tu suegra –le dijo la madre que sabía que a Adriana le costaba salir de su casa y era remolona.</p>
-          <p>Media hora después, a las 21.30, Adriana dijo que sí que iría. Pero con una condición.</p>
-          <p>—Dejá los platos Mami, que los lavo cuando vuelvo.</p>
-          <p>Ángela Adriana Celihueta (el primer nombre pocos lo usaban) no tenía ningún otro motivo para salir esa noche de su casa excepto el de asegurarse que en las participaciones el apellido de quien habría de ser su suegra estuviera bien escrito. Era importante tener el dato para que, a la mañana siguiente, regresara a la imprenta y diera la aprobación final de las invitaciones. A juzgar por las declaraciones de su madre, solo por eso se dispuso a salir en la cálida noche de cierre de primera quincena.</p>
-          <p>El recorrido era sencillo: 50 metros hasta la avenida 75, ocho cuadras hasta la calle 48 y tomando por ésta hacia el norte, otras cinco cuadras y media. La separaban poco más de 1500 metros. Y una vuelta casi similar.</p>
-          <p>Siempre según lo relatado por sus padres, la veterinaria salió, ya sin más demoras, con el Dodge Polara verde de la familia hacia la casa de su futura suegra en calle 48 al 3100. Minutos antes Carlos, su padre, se había ido a acostar y su madre estaba por hacerlo.</p>
-          <p>A las 2 de la mañana, aproximadamente, el padre se espabiló y al notar que no había retornado su hija despertó a su esposa. Tras ponerla al tanto de su preocupación, que de inmediato fue compartida, Carlos Celihueta partió en bicicleta primero para la casa de la familia Iparraguirre, donde su futura consuegra le reafirmó los temores: que allí nunca había llegado Adriana Celihueta. Entonces se dirigió a la comisaría porque sospechaba lo que era una certeza: que su hija había desaparecido. En ese momento comenzó la fallida investigación.</p>
+          <div id="content-entrega-1" class="reader-article">
+            <h1 class="entry-title">Archivo criminal: la enigmática desaparición de la veterinaria Adriana Celihueta</h1>
+            <div class="entry-subtitle">La crónica completa en cuatro capítulos sobre el enigma que marcó a Necochea en 1987.</div>
+            <div class="meta-bar"><span>POR FERNANDO DEL RIO</span><span>INVESTIGACIÓN INTEGRAL</span></div>
+            
+            <h2 class="chapter-title">PARTE 1: La enigmática desaparición</h2>
+            <p class="drop-cap">En una estantería repleta de viejos expedientes hay dos pilones de papel. Del hilo que los mantiene unidos cuelga un rótulo acartonado que a trazo de fibrón destaca el apellido “Celihueta”. Allí se oculta una verdad tan maniatada como las 2000 fojas, una verdad que lucha contra el olvido cada vez más inevitable. Y es en el olvido judicial donde muchas víctimas mueren su segunda muerte.</p>
+            <p>La historia criminal registra la desaparición de la veterinaria Adriana Celihueta en 1987 como un enigma, como uno de esos casos que aparecen de tanto en tanto y que se clavan cual espina en la garganta de los que gritan por su esclarecimiento. Hace ya 35 años que la suerte corrida por Adriana Celihueta aquella noche de verano es un secreto que, aún hoy, lastima a Necochea y Quequén, dos comunidades atravesadas por un muro de silencio que el paso del tiempo en lugar de agrietar lo ha sellado.</p>
+            <p>Del caso Celihueta se dijeron tantas cosas que hasta pueden reconfigurarse todas sus medias verdades y medias mentiras, y contarse varias posibles historias de lo sucedido. Ninguna de ellas respaldadas en más pruebas irrefutables que las otras. Y la sensación más fuerte que aún persiste es que se investigó mal. No que se investigó poco, pero sí mal. Algunos no tienen dudas de que eso obedeció a una estructura de encubrimiento político al que se subyugaron no solo policías necochenses sino también jueces, peritos y fiscales de Mar del Plata. Unos pocos creen que no se resolvió jamás por la incapacidad de los investigadores. Casi ninguno acepta la posibilidad de un crimen perfecto, en el cual por más que se analice y sobreanalice la evidencia jamás se podrá llegar al esclarecimiento.</p>
+            <p>Repasar la investigación de este caso es una tarea ardua después de tanto tiempo, conectar con todo aquel día a día que angustió a la familia Celihueta y encontrarse con la desazón que dejaba cada excavación frustrada, cada hipótesis desistida, cada avance que acababa siendo un desvío y una pérdida de tiempo, supone un esfuerzo que apenas tendrá la recompensa de desafiar al olvido.</p>
+            <p><strong>El inicio del misterio</strong></p>
+            <p>A las 21.45 del jueves 15 de enero de 1987 Adriana Celihueta terminó de cenar junto a sus padres Carlos y Mimí, en la casa de calle 64 de Necochea. Tenía 29 años y estaba recibida de veterinaria, pero igual continuaba viviendo con ellos porque era una mujer con ciertas particularidades en su personalidad y en su manera de entender la vida. También porque estaba a la espera de dejarlos en lo inmediato: el 21 de febrero tenía programada la boda con Luis Iparraguirre, su novio desde que tenía 18 años, y su posterior mudanza a Castex, en La Pampa.</p>
+            <p>Esa noche Adriana Celihueta parecía haber desechado la sugerencia de su madre de ir hasta la casa de su suegra en lugar de llamarla para que le deletreara bien su apellido, ya que debía mandar a imprimir las invitaciones para el casamiento que se iba a llevar a cabo en la ciudad pampeana donde vivía Iparraguirre.</p>
+            <p>Ya a la tarde habían hablado de la inconveniencia de resolver ese sencillo trámite por teléfono. Que “quedaba mejor” ir. Pero Adriana lo postergó incluso hasta la hora de la cena y la madre se lo recordó.</p>
+            <p>—Todavía te falta ir a lo de tu suegra –le dijo la madre que sabía que a Adriana le costaba salir de su casa y era remolona.</p>
+            <p>Media hora después, a las 21.30, Adriana dijo que sí que iría. Pero con una condición.</p>
+            <p>—Dejá los platos Mami, que los lavo cuando vuelvo.</p>
+            <p>Ángela Adriana Celihueta (el primer nombre pocos lo usaban) no tenía ningún otro motivo para salir esa noche de su casa excepto el de asegurarse que en las participaciones el apellido de quien habría de ser su suegra estuviera bien escrito. Era importante tener el dato para que, a la mañana siguiente, regresara a la imprenta y diera la aprobación final de las invitaciones. A juzgar por las declaraciones de su madre, solo por eso se dispuso a salir en la cálida noche de cierre de primera quincena.</p>
+            <p>El recorrido era sencillo: 50 metros hasta la avenida 75, ocho cuadras hasta la calle 48 y tomando por ésta hacia el norte, otras cinco cuadras y media. La separaban poco más de 1500 metros. Y una vuelta casi similar.</p>
+            <p>Siempre según lo relatado por sus padres, la veterinaria salió, ya sin más demoras, con el Dodge Polara verde de la familia hacia la casa de su futura suegra en calle 48 al 3100. Minutos antes Carlos, su padre, se había ido a acostar y su madre estaba por hacerlo.</p>
+            <p>A las 2 de la mañana, aproximadamente, el padre se espabiló y al notar que no había retornado su hija despertó a su esposa. Tras ponerla al tanto de su preocupación, que de inmediato fue compartida, Carlos Celihueta partió en bicicleta primero para la casa de la familia Iparraguirre, donde su futura consuegra le reafirmó los temores: que allí nunca había llegado Adriana Celihueta. Entonces se dirigió a la comisaría porque sospechaba lo que era una certeza: que su hija había desaparecido. En ese momento comenzó la fallida investigación.</p>
 
-          <figure class="editorial-img">
-            <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80" alt="Documentos policiales">
-            <figcaption>Carlos Celihueta, siempre encima de la investigación y de la policía.</figcaption>
-          </figure>
+            <figure class="editorial-img">
+              <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80" alt="Documentos policiales">
+              <figcaption>Carlos Celihueta, siempre encima de la investigación y de la policía.</figcaption>
+            </figure>
 
-          <p><strong>Un bamboleo judicial</strong></p>
-          <p>La causa que investiga la desaparición de Celihueta lleva el número 39.303 del año 1987 y se pierde entre miles de expedientes del Depósito Judicial de Mar del Plata. Ocupa una de las estanterías laterales y tiene el color ámbar que le otorga el paso del tiempo. En sus más de 11 cuerpos se oculta una verdad que nadie encontró. Toda aquella causa comienza con un desorden que, involuntario o provocado, la caracterizaría por los siguientes 11 cuerpos y anexos hasta su final.</p>
-          <p>A diferencia de lo que podría esperarse, la foja 1 no es el inicio, no es la denuncia primigenia de averiguación de paradero que Carlos Celihueta, afligido, presentó en la comisaría poco antes de las 3 de la madrugada del 16 de enero de 1987 al advertir que su hija no había regresado. Lo que refleja el primer escrito de todo el voluminoso expediente es el hallazgo del vehículo Dodge Polara en el Parque Lillo a la mañana siguiente. Hallazgo realizado por la familia Celihueta, no por la policía.</p>
-          <p>Así, con esa inversión cronológica, da su primer paso una de las investigaciones más tumultuosas que se recuerde para un episodio criminal de alto impacto como fue en los finales de la década del '80 el de Celihueta.</p>
-          <p>Por carecer Necochea de Departamento Judicial, la investigación, excepto en su faceta policial, se radicó en Mar del Plata y cambió varias veces de magistrados. Comenzó siendo competencia de Pedro Hooft, aunque ese mismo 16 de enero –fecha de presentación de la denuncia policial e inicio de las actuaciones- entraba en vacaciones. Excusado Hooft, intervino fugazmente Jorge García Collins, más tarde José Martinelli y cuando éste ordenó en agosto de 1988 (un año y medio después del hecho) cerrar las actuaciones por ausencia de delito, la Cámara de apelaciones no resolvió la cuestión de fondo, sino que dijo que quien debía trabajar sobre la causa era Hooft, porque la desaparición de Adriana Celihueta había sucedido el 15 de enero a la noche.</p>
-          <p>La errante documentación no encontró su lugar en los Tribunales de Mar del Plata tras esa resolución debido a que el juzgado de Hooft, ya no existía como tal por un desdoblamiento y ahora tenía a su cargo a Graciela Arrola de Galandrini. Sin embargo, Arrola de Galandrini había sido la fiscal al intervenir García Collins, de manera que se excusó porque no podía ser acusadora y juez en una misma causa. Recién en diciembre de 1988 se lo designó al magistrado Reinaldo Fortunato y al fiscal Eduardo Alemano como responsables de la investigación. Ya con el cambio de sistema judicial bonaerense, la causa recayó en la fiscalía de Susana Kluka hasta su archivo final firmado por el juez Jorge Peralta en 2007.</p>
-          <p>Habrá quien pueda atribuir el fracaso del expediente al encubrimiento político, a la corrupción, al desinterés marplatense, al connivencia policial, pero aún si nada de eso hubiera existido, habría bastado con el desconcertante cambio de manos de la investigación por los pasillos tribunalicios para asegurarlo.</p>
-          <p><strong>Los primeros pasos</strong></p>
-          <p>Carlos Celihueta era un reconocido tornero de aquella ciudad que tenía dos hijas, Silvia y Ángela Adriana. En la denuncia realizada en la comisaría de Necochea por la desaparición de Ángela Adriana se lee que “su hija en el día de la fecha siendo las 21 horas aproximadamente salió con destino al domicilio de su futura suegra en el automóvil marca Dodge Polara modelo 1970, patente B 048.942, color verde. Que luego siendo la 01.00 horas quien habla se constituyó en el domicilio de la suegra Familia Iparraguirre, manifestándosele que a ese lugar esta joven no había concurrido. Que luego el dicente comenzó la búsqueda por distintos lugares de la ciudad no tuvo resultado positivo alguno”.</p>
-          <p>En ese texto hay dos errores claves: el primero de ellos es que la denuncia se realizó el día 16, cerca de las 3 de la mañana, de modo que no salió “en el día de la fecha siendo las 21 horas”. El otro es que nunca pudo a la 1 de la madrugada pasar por lo de la familia Iparraguirre, porque advirtió la ausencia de su hija a las 2.30. De cualquier modo, estas cuestiones tienen más que ver con el nerviosismo del momento y con la impericia policial (o desinterés) al tomar la denuncia. Carlos recordaría tiempo después esa despreocupación policial montada en torno a una frase muy común por entonces: “Es grande su hija, ya va a volver”.</p>
-          <p>Cuando Celihueta al día siguiente amplió su declaración ya en la subcomisaría Díaz Velez (cambió la dependencia por la ubicación en la que apareció el auto) fue más preciso al decir que su “hija salió de su domicilio siendo las 21.45 y al ver que a las 2.30 no había regresado se dirigió personalmente a la casa de la futura yerna de su hija quien lo atendió y le manifestó que no se había hecho presente en el lugar”. Más adelante dice que “a las 7.45 horas se presentó en su domicilio el sobrino de un amigo quien le comunicó que el rodado Dodge Polara se hallaba abandonado sin ocupantes en la Avda 2 al fondo del Camping Lillo del Predio Municipal”.</p>
-          <p>El automóvil Dodge Polara estaba allí, en un estacionamiento natural, entre médanos, del Parque Lillo, frente a la playa. Con las dos ventanillas delanteras bajas, sin llaves de contacto y con el llavero de la casa sobre el asiento delantero. También estaban algunos de los documentos de Adriana Celihueta esparcidos camino al mar. Más allá, sobre la arena, su cartera de cuero negro sería encontrada por un matrimonio al día siguiente.</p>
-          <p>Siempre se sospechó que tanto el automóvil como la documentación de Adriana Celihueta hallados en el Parque Lillo habían sido plantados.</p>
-          <p>Aquella inicial foja 1, dirigida al oficial principal Ricardo Triches y con la firma el oficial de servicio Adrián Paolucci, menciona la desaparición de Celihueta, el hallazgo del vehículo y por primera vez incorpora el dato de un revólver calibre 22 que el padre de Celihueta notó faltar de su casa. “En el día de la fecha se tomó conocimiento por parte del progenitor de la misma que en las inmediaciones del camino costero y Playa de estacionamientos de autoportantes de este medio él había hallado el automóvil con cual se desplazaba su hija, hallando sobre el asiento del mismo sus llaves de su domicilio, encontrándose el vehículo con sus puertas cerradas y la ventanillas bajas asimismo y a unos 30 (treinta) metros de donde se hallare estacionado el coche su yerno Daniel Theiler halló en dirección al mar el portadocumentos de la mencionada Ángela el cual contenía en su interior carnet de conducir DNI y otros papeles. Posteriormente el padre habiendo efectuado en su domicilio un raconto de sus pertenencias estableció que le faltaba un revólver calibre 22 marca Rubi extra N°31431”.</p>
-          <p>No hay dudas de que el elemento de la falta del revólver surgió el mismo día 16 de enero. Esta es una referencia que será muy comentada en toda la investigación porque abonaba dos de las hipótesis: la del suicidio o la de la necesidad de defenderse.</p>
-          <p>Que haya sido Adriana Celihueta quien se llevara el arma de la casa jamás pudo ser más que una conjetura, fuerte, sólida, casi la única posibilidad, pero no una certeza comprobada de algún modo. Aunque estaba sobre el mueble del living-comedor de la casa, sus padres no vieron que el arma fuera tomada por Adriana esa noche. En el automóvil abandonado tampoco estaba con lo cual no hubo nunca un solo indicio de que ella se la hubiera llevado. Fue uno de los puntos grises de esta historia.</p>
-          <p>Otra de las circunstancias irregulares de la causa sucedió a las pocas horas de conocerse el hecho. Vale resaltar en este tramo que el Dodge Polara podría entenderse como la Escena del Crimen, porque fue la última referencia concreta que se tiene de Adriana Celihueta. Sin embargo, jamás se realizó un peritaje al vehículo que, mágicamente, se incorporó a la causa. Es que una vez hallado el automóvil, Carlos Celihueta recorrió la zona de médanos, fue a ver el lugar en el que se habían encontrado los documentos y luego manejó el Dodge hasta su casa. Aunque avisó a la policía, la policía no fue de inmediato.</p>
-          <p>Sin embargo, en fojas 4 de la causa se asegura que un auxiliar levantador de rastros junto a personal de la subcomisaría Díaz Vélez fue al lugar del hallazgo e inspeccionó el auto. Un auto fantasma. “No se observan huellas –refiere el escrito-, marcas o indicios de violencia en el interior de dicho rodado, como así tampoco huellas papilares visibles y que puedan ser levantadas por el mismo no obstante ello procede a diseminar polvo químico obteniendo resultados negativos”. El acta esconde su propia ilicitud en la llamativa necesidad de explicación del escriba que dice: “bajando a continuación al asiento natural de esta subcomisaría donde por razones de comodidad es labrada la presente”.</p>
-          <p>Aunque esas desprolijidades puedan parecer un tema menor, sucesos posteriores se agregaron al expediente para alimentar la idea conspirativa, la noción concreta de que la policía de Necochea tiró hacia “atrás” la investigación para encubrir al poder político involucrado directa o indirectamente en el crimen.</p>
+            <p><strong>Un bamboleo judicial</strong></p>
+            <p>La causa que investiga la desaparición de Celihueta lleva el número 39.303 del año 1987 y se pierde entre miles de expedientes del Depósito Judicial de Mar del Plata. Ocupa una de las estanterías laterales y tiene el color ámbar que le otorga el paso del tiempo. En sus más de 11 cuerpos se oculta una verdad que nadie encontró. Toda aquella causa comienza con un desorden que, involuntario o provocado, la caracterizaría por los siguientes 11 cuerpos y anexos hasta su final.</p>
+            <p>A diferencia de lo que podría esperarse, la foja 1 no es el inicio, no es la denuncia primigenia de averiguación de paradero que Carlos Celihueta, afligido, presentó en la comisaría poco antes de las 3 de la madrugada del 16 de enero de 1987 al advertir que su hija no había regresado. Lo que refleja el primer escrito de todo el voluminoso expediente es el hallazgo del vehículo Dodge Polara en el Parque Lillo a la mañana siguiente. Hallazgo realizado por la familia Celihueta, no por la policía.</p>
+            <p>Así, con esa inversión cronológica, da su primer paso una de las investigaciones más tumultuosas que se recuerde para un episodio criminal de alto impacto como fue en los finales de la década del '80 el de Celihueta.</p>
+            <p>Por carecer Necochea de Departamento Judicial, la investigación, excepto en su faceta policial, se radicó en Mar del Plata y cambió varias veces de magistrados. Comenzó siendo competencia de Pedro Hooft, aunque ese mismo 16 de enero –fecha de presentación de la denuncia policial e inicio de las actuaciones- entraba en vacaciones. Excusado Hooft, intervino fugazmente Jorge García Collins, más tarde José Martinelli y cuando éste ordenó en agosto de 1988 (un año y medio después del hecho) cerrar las actuaciones por ausencia de delito, la Cámara de apelaciones no resolvió la cuestión de fondo, sino que dijo que quien debía trabajar sobre la causa era Hooft, porque la desaparición de Adriana Celihueta había sucedido el 15 de enero a la noche.</p>
+            <p>La errante documentación no encontró su lugar en los Tribunales de Mar del Plata tras esa resolución debido a que el juzgado de Hooft, ya no existía como tal por un desdoblamiento y ahora tenía a su cargo a Graciela Arrola de Galandrini. Sin embargo, Arrola de Galandrini había sido la fiscal al intervenir García Collins, de manera que se excusó porque no podía ser acusadora y juez en una misma causa. Recién en diciembre de 1988 se lo designó al magistrado Reinaldo Fortunato y al fiscal Eduardo Alemano como responsables de la investigación. Ya con el cambio de sistema judicial bonaerense, la causa recayó en la fiscalía de Susana Kluka hasta su archivo final firmado por el juez Jorge Peralta en 2007.</p>
+            <p>Habrá quien pueda atribuir el fracaso del expediente al encubrimiento político, a la corrupción, al desinterés marplatense, al connivencia policial, pero aún si nada de eso hubiera existido, habría bastado con el desconcertante cambio de manos de la investigación por los pasillos tribunalicios para asegurarlo.</p>
+            <p><strong>Los primeros pasos</strong></p>
+            <p>Carlos Celihueta era un reconocido tornero de aquella ciudad que tenía dos hijas, Silvia y Ángela Adriana. En la denuncia realizada en la comisaría de Necochea por la desaparición de Ángela Adriana se lee que “su hija en el día de la fecha siendo las 21 horas aproximadamente salió con destino al domicilio de su futura suegra en el automóvil marca Dodge Polara modelo 1970, patente B 048.942, color verde. Que luego siendo la 01.00 horas quien habla se constituyó en el domicilio de la suegra Familia Iparraguirre, manifestándosele que a ese lugar esta joven no había concurrido. Que luego el dicente comenzó la búsqueda por distintos lugares de la ciudad no tuvo resultado positivo alguno”.</p>
+            <p>En ese texto hay dos errores claves: el primero de ellos es que la denuncia se realizó el día 16, cerca de las 3 de la mañana, de modo que no salió “en el día de la fecha siendo las 21 horas”. El otro es que nunca pudo a la 1 de la madrugada pasar por lo de la familia Iparraguirre, porque advirtió la ausencia de su hija a las 2.30. De cualquier modo, estas cuestiones tienen más que ver con el nerviosismo del momento y con la impericia policial (o desinterés) al tomar la denuncia. Carlos recordaría tiempo después esa despreocupación policial montada en torno a una frase muy común por entonces: “Es grande su hija, ya va a volver”.</p>
+            <p>Cuando Celihueta al día siguiente amplió su declaración ya en la subcomisaría Díaz Velez (cambió la dependencia por la ubicación en la que apareció el auto) fue más preciso al decir que su “hija salió de su domicilio siendo las 21.45 y al ver que a las 2.30 no había regresado se dirigió personalmente a la casa de la futura yerna de su hija quien lo atendió y le manifestó que no se había hecho presente en el lugar”. Más adelante dice que “a las 7.45 horas se presentó en su domicilio el sobrino de un amigo quien le comunicó que el rodado Dodge Polara se hallaba abandonado sin ocupantes en la Avda 2 al fondo del Camping Lillo del Predio Municipal”.</p>
+            <p>El automóvil Dodge Polara estaba allí, en un estacionamiento natural, entre médanos, del Parque Lillo, frente a la playa. Con las dos ventanillas delanteras bajas, sin llaves de contacto y con el llavero de la casa sobre el asiento delantero. También estaban algunos de los documentos de Adriana Celihueta esparcidos camino al mar. Más allá, sobre la arena, su cartera de cuero negro sería encontrada por un matrimonio al día siguiente.</p>
+            <p>Siempre se sospechó que tanto el automóvil como la documentación de Adriana Celihueta hallados en el Parque Lillo habían sido plantados.</p>
+            <p>Aquella inicial foja 1, dirigida al oficial principal Ricardo Triches y con la firma el oficial de servicio Adrián Paolucci, menciona la desaparición de Celihueta, el hallazgo del vehículo y por primera vez incorpora el dato de un revólver calibre 22 que el padre de Celihueta notó faltar de su casa. “En el día de la fecha se tomó conocimiento por parte del progenitor de la misma que en las inmediaciones del camino costero y Playa de estacionamientos de autoportantes de este medio él había hallado el automóvil con cual se desplazaba su hija, hallando sobre el asiento del mismo sus llaves de su domicilio, encontrándose el vehículo con sus puertas cerradas y la ventanillas bajas asimismo y a unos 30 (treinta) metros de donde se hallare estacionado el coche su yerno Daniel Theiler halló en dirección al mar el portadocumentos de la mencionada Ángela el cual contenía en su interior carnet de conducir DNI y otros papeles. Posteriormente el padre habiendo efectuado en su domicilio un raconto de sus pertenencias estableció que le faltaba un revólver calibre 22 marca Rubi extra N°31431”.</p>
+            <p>No hay dudas de que el elemento de la falta del revólver surgió el mismo día 16 de enero. Esta es una referencia que será muy comentada en toda la investigación porque abonaba dos de las hipótesis: la del suicidio o la de la necesidad de defenderse.</p>
+            <p>Que haya sido Adriana Celihueta quien se llevara el arma de la casa jamás pudo ser más que una conjetura, fuerte, sólida, casi la única posibilidad, pero no una certeza comprobada de algún modo. Aunque estaba sobre el mueble del living-comedor de la casa, sus padres no vieron que el arma fuera tomada por Adriana esa noche. En el automóvil abandonado tampoco estaba con lo cual no hubo nunca un solo indicio de que ella se la hubiera llevado. Fue uno de los puntos grises de esta historia.</p>
+            <p>Otra de las circunstancias irregulares de la causa sucedió a las pocas horas de conocerse el hecho. Vale resaltar en este tramo que el Dodge Polara podría entenderse como la Escena del Crimen, porque fue la última referencia concreta que se tiene de Adriana Celihueta. Sin embargo, jamás se realizó un peritaje al vehículo que, mágicamente, se incorporó a la causa. Es que una vez hallado el automóvil, Carlos Celihueta recorrió la zona de médanos, fue a ver el lugar en el que se habían encontrado los documentos y luego manejó el Dodge hasta su casa. Aunque avisó a la policía, la policía no fue de inmediato.</p>
+            <p>Sin embargo, en fojas 4 de la causa se asegura que un auxiliar levantador de rastros junto a personal de la subcomisaría Díaz Vélez fue al lugar del hallazgo e inspeccionó el auto. Un auto fantasma. “No se observan huellas –refiere el escrito-, marcas o indicios de violencia en el interior de dicho rodado, como así tampoco huellas papilares visibles y que puedan ser levantadas por el mismo no obstante ello procede a diseminar polvo químico obteniendo resultados negativos”. El acta esconde su propia ilicitud en la llamativa necesidad de explicación del escriba que dice: “bajando a continuación al asiento natural de esta subcomisaría donde por razones de comodidad es labrada la presente”.</p>
+            <p>Aunque esas desprolijidades puedan parecer un tema menor, sucesos posteriores se agregaron al expediente para alimentar la idea conspirativa, la noción concreta de que la policía de Necochea tiró hacia “atrás” la investigación para encubrir al poder político involucrado directa o indirectamente en el crimen.</p>
 
-          <!-- PARTE 2 COMPLETA -->
-          <div class="chapter-divider">■ ■ ■</div>
-          <h2 class="chapter-title">PARTE 2: El hombre de las sospechas</h2>
-          <p>“Disculpeme, pero esto me trajo muchos problemas, incluso una enfermedad. Todo quedó en el pasado”, dice al atender el teléfono Reinaldo Costa desde su casa en Necochea.</p>
-          <p>Hoy Costa tiene 73 años y los últimos 35 los vivió señalado por todos. Porque desde un primer momento fue el sospechoso principal de la desaparición de Celihueta. “Le hablo desde Mar del Plata. ¿No le parece que tiene derecho a hablar después de tanto tiempo y por una vez dar su versión?”, es la pregunta para intentar al menos conseguir alguna idea, un concepto, acaso despertar el deseo de una réplica. Pero la respuesta de Costa es categórica: “No señor. Y le pido que no me llame nunca más”.</p>
-          <p>La principal hipótesis de la familia, reproducida por gran parte de la ciudadanía necochense, es que a Adriana la asesinaron en un encuentro al que había asistido armada, encuentro secreto, escondido debajo de la teatralizada necesidad por ir a ver a su suegra para saber cómo se escribía ese apellido.</p>
-          <p>Esa versión de los hechos incluye la puesta en marcha, después del crimen, de toda una maquinaria de encubrimiento político, ya que el principal sospechoso para la familia fue el entonces Delegado Municipal de Quequén, que no era otro que Costa. En la veterinaria de Costa, llamada La Chacra y sita en Quequén, Adriana Celihueta hacía un trabajo sin compromiso de asistencia y “Ad Honorem”, como parte de su primera experiencia tras haberse recibido. No obstante, para la fecha de su desaparición, Adriana Celihueta ya llevaba dos meses sin ir porque estaba “enfocada en los preparativos de su casamiento”.</p>
-          <p>Costa fue sospechado porque era su empleador y algunas personas aseguraban que Adriana había dicho que siempre le insistía para que tuvieran una relación sentimental. Luego se reforzaron las sospechas porque una prima de Adriana fue a verlo al fin de semana siguiente de la desaparición y Costa conjeturó que Adriana se había suicidado y que “ya se la habían comido los peces”. Luego se dijo que lo habían visto a Costa en una camioneta blanca la noche de la desaparición. Con el correr de la causa muchas versiones surgieron para robustecer la sospecha sobre Costa, aunque ninguno de esos datos fue corroborado con la fuerza probatoria que necesita el ámbito jurídico. También existió la idea de que Costa negaba la información sobre lo que había hecho esa noche al decir que hizo lo de todos los días: cerrar la veterinaria tipo 21.30 e irse para su casa.</p>
-          <p>La falta de una investigación que entregara pruebas concretas, avances significativos, llevó a modificar permanentemente el móvil del supuesto accionar de Costa. Para sostener el señalamiento de Costa, primero se dijo que fue una reacción a la negativa de Adriana para volver a trabajar en la veterinaria, ya que el día anterior Costa había enviado a una empleada a la casa de los Celihueta a pedirle eso. Adriana había desechado la oferta (esa empleada se iba a tomar vacaciones y necesitaba un reemplazo) por estar ocupada en los preparativos de la boda; luego que el móvil del crimen pasó a ser el rechazo a los insistentes pedidos para tener relaciones. Más tarde que era una relación de amantes ya consumada (Costa estaba casado y Adriana a punto de estarlo) y que Costa no aceptaba la ruptura. O que Celihueta y su novio Iparraguirre habían pergeñado el plan de dopar un caballo de carreras y hacer una fuerte apuesta, lo que perjudicó económicamente a gente poderosa que amenazó de muerte a Costa si no se “encargaba” de Celihueta. También porque años más tarde, al hacerse una excavación en la veterinaria se descubrió un anillo similar a los que usaba Adriana Celihueta. Todas versiones que se amplificaron en el boca a boca de dos ciudades pequeñas y con un nivel de rumoreo esperable para un crimen de tal magnitud.</p>
+            <!-- PARTE 2 COMPLETA -->
+            <div class="chapter-divider">■ ■ ■</div>
+            <h2 class="chapter-title">PARTE 2: El hombre de las sospechas</h2>
+            <p>“Disculpeme, pero esto me trajo muchos problemas, incluso una enfermedad. Todo quedó en el pasado”, dice al atender el teléfono Reinaldo Costa desde su casa en Necochea.</p>
+            <p>Hoy Costa tiene 73 años y los últimos 35 los vivió señalado por todos. Porque desde un primer momento fue el sospechoso principal de la desaparición de Celihueta. “Le hablo desde Mar del Plata. ¿No le parece que tiene derecho a hablar después de tanto tiempo y por una vez dar su versión?”, es la pregunta para intentar al menos conseguir alguna idea, un concepto, acaso despertar el deseo de una réplica. Pero la respuesta de Costa es categórica: “No señor. Y le pido que no me llame nunca más”.</p>
+            <p>La principal hipótesis de la familia, reproducida por gran parte de la ciudadanía necochense, es que a Adriana la asesinaron en un encuentro al que había asistido armada, encuentro secreto, escondido debajo de la teatralizada necesidad por ir a ver a su suegra para saber cómo se escribía ese apellido.</p>
+            <p>Esa versión de los hechos incluye la puesta en marcha, después del crimen, de toda una maquinaria de encubrimiento político, ya que el principal sospechoso para la familia fue el entonces Delegado Municipal de Quequén, que no era otro que Costa. En la veterinaria de Costa, llamada La Chacra y sita en Quequén, Adriana Celihueta hacía un trabajo sin compromiso de asistencia y “Ad Honorem”, como parte de su primera experiencia tras haberse recibido. No obstante, para la fecha de su desaparición, Adriana Celihueta ya llevaba dos meses sin ir porque estaba “enfocada en los preparativos de su casamiento”.</p>
+            <p>Costa fue sospechado porque era su empleador y algunas personas aseguraban que Adriana había dicho que siempre le insistía para que tuvieran una relación sentimental. Luego se reforzaron las sospechas porque una prima de Adriana fue a verlo al fin de semana siguiente de la desaparición y Costa conjeturó que Adriana se había suicidado y que “ya se la habían comido los peces”. Luego se dijo que lo habían visto a Costa en una camioneta blanca la noche de la desaparición. Con el correr de la causa muchas versiones surgieron para robustecer la sospecha sobre Costa, aunque ninguno de esos datos fue corroborado con la fuerza probatoria que necesita el ámbito jurídico. También existió la idea de que Costa negaba la información sobre lo que había hecho esa noche al decir que hizo lo de todos los días: cerrar la veterinaria tipo 21.30 e irse para su casa.</p>
+            <p>La falta de una investigación que entregara pruebas concretas, avances significativos, llevó a modificar permanentemente el móvil del supuesto accionar de Costa. Para sostener el señalamiento de Costa, primero se dijo que fue una reacción a la negativa de Adriana para volver a trabajar en la veterinaria, ya que el día anterior Costa había enviado a una empleada a la casa de los Celihueta a pedirle eso. Adriana había desechado la oferta (esa empleada se iba a tomar vacaciones y necesitaba un reemplazo) por estar ocupada en los preparativos de la boda; luego que el móvil del crimen pasó a ser el rechazo a los insistentes pedidos para tener relaciones. Más tarde que era una relación de amantes ya consumada (Costa estaba casado y Adriana a punto de estarlo) y que Costa no aceptaba la ruptura. O que Celihueta y su novio Iparraguirre habían pergeñado el plan de dopar un caballo de carreras y hacer una fuerte apuesta, lo que perjudicó económicamente a gente poderosa que amenazó de muerte a Costa si no se “encargaba” de Celihueta. También porque años más tarde, al hacerse una excavación en la veterinaria se descubrió un anillo similar a los que usaba Adriana Celihueta. Todas versiones que se amplificaron en el boca a boca de dos ciudades pequeñas y con un nivel de rumoreo esperable para un crimen de tal magnitud.</p>
 
-          <figure class="editorial-img">
-            <img src="https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=800&q=80" alt="Veterinaria rural">
-            <figcaption>Veterinaria La Chacra de Quequén.</figcaption>
-          </figure>
+            <figure class="editorial-img">
+              <img src="https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=800&q=80" alt="Veterinaria rural">
+              <figcaption>Veterinaria La Chacra de Quequén.</figcaption>
+            </figure>
 
-          <p>Vale decir que Costa nunca fue siquiera imputado en la causa. Solo la fiscal Graciela Arrola de Galandrini hizo lugar a un reclamo de la familia Celihueta en agosto de 1987 para que se lo citara a declarar en una indagatoria informativa, sin estatus de imputado por algunas de esas sospechas en su contra. Solicitó Galandrini eso ante el juez García Collins pero la comparecencia nunca se llevó a cabo.</p>
-          <p>En 2022, Silvia Celihueta respondió con un “no puedo afirmarlo” a la pregunta de si ella cree que Adriana y Costa tuvieron una relación de amantes.</p>
-          <p>Cada hipótesis incriminatoria contra Costa que la Justicia investigó no entregó pruebas ni avances. Para la familia Celihueta, esos fracasos fueron el resultado de un eficaz encubrimiento político.</p>
-          <p>Costa era un buen candidato para el peronismo de cara a la lista de concejales de las elecciones del año 1987. El intendente Domingo Taraborelli, aseguran, lo había elegido. Que un candidato de un intendente que iba por la relección estuviera involucrado en un crimen de cualquier naturaleza, pero más aún de esas características (una desaparición, con todo lo fresco que estaban esas prácticas a solo 3 años y un mes de la salida de la Dictadura), era demoledor. Ese terreno propiciaba, según la familia Celihueta, la cobertura hacia Costa. No faltó quien incluyera en el entramado de mafioso encubrimiento la muerte del propio Taraborelli en agosto de 1988. Taraborelli, que finalmente fue reelecto, murió en la ruta 88 en un siniestro vial en el que también perecieron 3 docentes que acababan de subir a su vehículo tras “hacer dedo”.</p>
-          <p>Y en esa idea de protección hacia el único sospechoso se decía que todos estaban complotados: policías de Necochea, policías de Quequén, jueces y fiscales de Mar del Plata, políticos.</p>
-          <p><strong>¿Crimen por encargo o crimen ocasional?</strong></p>
-          <p>Todo proceso investigativo deposita su eficacia en el descarte de las hipótesis que se le presentan hasta que una de ellas se constata, se corrobora. Por eso se transita muchas veces por lugares que acaban en la nada. Eso es el descarte y da paso a la siguiente línea investigativa.</p>
-          <p>La hipótesis del crimen por encargo o crimen planificado fue la que inicialmente se deslizó, luego se dejó de lado y al final retornó. Por distintos motivos: amores, desamores, dopaje de caballos, narcotráfico… La última idea que refleja la causa es un crimen (planificado) en venganza por cuestiones hípicas debido al posible vínculo de Celihueta con esas prácticas que, sin dudas, llevaba a cabo Costa.</p>
-          <p>El problema que tiene la hipótesis del asesinato planificado, incluso del asesinato ocasional o impulsivo, es que nadie sabía que esa noche Adriana Celihueta iba a salir de su casa. Según refiere la madre de Celihueta, su hija no tenía pensado salir y que solo lo hizo porque ella se lo pidió.</p>
-          <p>El periodista Oscar Gollnitz, ya retirado, hizo un compacto pero poderoso trabajo de investigación de poco menos de 70 páginas que pudo volcar en un libro llamado “Adriana, una causa que nunca muere”. Se trata de un enfoque muy próximo a la familia y que, en su posición crítica de toda la investigación, tanto policial como judicial, explica la imposibilidad de esclarecer lo sucedido.</p>
-          <p>En el capítulo VII del libro, se hace referencia a una declaración de Carlos Celihueta quien aseguró alguna vez que “el 15 de enero de 1987 ella mantuvo algún contacto con el veterinario y elaboró la estrategia de ir a lo de sus futuros suegros para encontrarse con Ricky”.</p>
-          <p>Sin embargo, de la causa no surge que Adriana Celihueta elaborara alguna estrategia, sino que esa noche había salido de su casa por sugerencia de su madre. En fojas 293, un párrafo del informe de lo investigado que realizó el comisario Juan Carlos Tivus, dice: “Es digno de señalar que la progenitora de la nombrada en forma convincente demostraba su pesar por la suerte corrida por su hija, manifestando sentirse responsable de lo ocurrido a raíz de que el día del hecho y siendo aproximadamente las 21.30 horas en momentos que la joven Celihueta estaba en su domicilio abocada a ensobrar las tarjetas de participación a su futura boda, le manifestó no recordar cómo se escribía correctamente el apellido de la madre de su novio, por lo que la iba a llamar por teléfono para preguntárselo. Que en ese ínterin intervino la señora de Celihueta que le explicó y convenció a su hija que quedaba mal efectuar a su futura suegra una consulta así por teléfono, aconsejándole que se llegue al domicilio de esta para obtener esa información, siendo consecuentemente, este el único motivo por el cual la desaparecida salió esa noche de su domicilio, conduciendo el rodado Dodge Polara de la familia, no habiendo demostrado la misma ninguna intención previa de abandonar el domicilio esa noche”.</p>
-          <p>Pero además la madre lo sostuvo en propia su declaración. Mimí, una persona clave en la investigación porque, dormido ya Carlos Celihueta ella fue la última en ver a su hija, declaró por primera vez en la causa más de un año después de la desaparición. Lo hizo recién el 5 de marzo de 1988, aduciendo que no estaba en condición de hacerlo por los momentos vividos pero que había hecho, de todos modos, muchas manifestaciones verbales a los investigadores.</p>
-          <p>Lo relevante es que en la reconstrucción del día del hecho refirió que estuvo casi desde la mañana a la noche con Adriana, primero en la playa, luego en la casa, más tarde en la casa de Silvia, hermana de Adriana, finalmente de nuevo en su propia casa.</p>
-          <p>Mimí Celihueta dijo que “a eso de las once cuando estaban en la playa su hija le comenta a la deponente que debía hablarle por teléfono a su futura suegra para asegurarse bien como se escribía su apellido para las participaciones, cosa que la deponente le manifiesta que teniendo el auto a su disposición quedaba mejor que fuera personalmente”. Más tarde, ya en la casa, la mujer recordó que “a eso de las 20.30 Adriana preparó la cena y ya se habían hecho las 21 pasadas y la deponente le hizo recordar que todavía le faltaba ir a lo de su futura suegra, la señora de Iparreguirre, ya que le costaba salir de casa y era un tanto remolona, porque era muy casera. Que a eso de las 21.30 su hija decide ir hasta la casa de sus futuros suegros y todavía le manifiesta que dejara los platos sucios que ellas los lavaría al otro día”.</p>
-          <p>Por todo esto, se asume como preciso que Adriana Celihueta no iba a salir. En término de lógica investigativa, no aparece sólida la idea de que un homicidio planificado se inicie por una eventualidad. Nadie podía prever que aquella noche Adriana Celihueta iba a dejar la casa, por sus hábitos de escasa nocturnidad. De manera que para sostener la hipótesis del homicidio premeditado hay que pensar en una vigilancia permanente de la casa, incluso más allá del horario en el que se la creía ya sin posibilidades de salir.</p>
-          <p>¿Adriana Celihueta pudo haber concertado telefónicamente un encuentro con alguien y aprovechar la sugerencia de su madre de salir de la casa a la noche? Es difícil, porque estuvo casi sin despegarse de su madre todo el día. Pero es posible.</p>
-          <p>¿Pudo haber sido Adriana Celihueta interceptada sin un plan previo? Sí, por supuesto. En estas circunstancias, ¿pudieron precipitarse los hechos y terminar en un crimen conveniente para algunos? Sí, claro. Para ello el agresor debió “cruzarse” inesperadamente con Adriana.</p>
-          <p>¿Adriana Celihueta se llevó el revólver de su padre? Es una posibilidad que fortalece la idea de que ella tenía en mente encontrarse con alguien o que temía hacerlo. No obstante, en la causa que Adriana se haya llevado el revólver es meramente conjetural.</p>
+            <p>Vale decir que Costa nunca fue siquiera imputado en la causa. Solo la fiscal Graciela Arrola de Galandrini hizo lugar a un reclamo de la familia Celihueta en agosto de 1987 para que se lo citara a declarar en una indagatoria informativa, sin estatus de imputado por algunas de esas sospechas en su contra. Solicitó Galandrini eso ante el juez García Collins pero la comparecencia nunca se llevó a cabo.</p>
+            <p>En 2022, Silvia Celihueta respondió con un “no puedo afirmarlo” a la pregunta de si ella cree que Adriana y Costa tuvieron una relación de amantes.</p>
+            <p>Cada hipótesis incriminatoria contra Costa que la Justicia investigó no entregó pruebas ni avances. Para la familia Celihueta, esos fracasos fueron el resultado de un eficaz encubrimiento político.</p>
+            <p>Costa era un buen candidato para el peronismo de cara a la lista de concejales de las elecciones del año 1987. El intendente Domingo Taraborelli, aseguran, lo había elegido. Que un candidato de un intendente que iba por la relección estuviera involucrado en un crimen de cualquier naturaleza, pero más aún de esas características (una desaparición, con todo lo fresco que estaban esas prácticas a solo 3 años y un mes de la salida de la Dictadura), era demoledor. Ese terreno propiciaba, según la familia Celihueta, la cobertura hacia Costa. No faltó quien incluyera en el entramado de mafioso encubrimiento la muerte del propio Taraborelli en agosto de 1988. Taraborelli, que finalmente fue reelecto, murió en la ruta 88 en un siniestro vial en el que también perecieron 3 docentes que acababan de subir a su vehículo tras “hacer dedo”.</p>
+            <p>Y en esa idea de protección hacia el único sospechoso se decía que todos estaban complotados: policías de Necochea, policías de Quequén, jueces y fiscales de Mar del Plata, políticos.</p>
+            <p><strong>¿Crimen por encargo o crimen ocasional?</strong></p>
+            <p>Todo proceso investigativo deposita su eficacia en el descarte de las hipótesis que se le presentan hasta que una de ellas se constata, se corrobora. Por eso se transita muchas veces por lugares que acaban en la nada. Eso es el descarte y da paso a la siguiente línea investigativa.</p>
+            <p>La hipótesis del crimen por encargo o crimen planificado fue la que inicialmente se deslizó, luego se dejó de lado y al final retornó. Por distintos motivos: amores, desamores, dopaje de caballos, narcotráfico… La última idea que refleja la causa es un crimen (planificado) en venganza por cuestiones hípicas debido al posible vínculo de Celihueta con esas prácticas que, sin dudas, llevaba a cabo Costa.</p>
+            <p>El problema que tiene la hipótesis del asesinato planificado, incluso del asesinato ocasional o impulsivo, es que nadie sabía que esa noche Adriana Celihueta iba a salir de su casa. Según refiere la madre de Celihueta, su hija no tenía pensado salir y que solo lo hizo porque ella se lo pidió.</p>
+            <p>El periodista Oscar Gollnitz, ya retirado, hizo un compacto pero poderoso trabajo de investigación de poco menos de 70 páginas que pudo volcar en un libro llamado “Adriana, una causa que nunca muere”. Se trata de un enfoque muy próximo a la familia y que, en su posición crítica de toda la investigación, tanto policial como judicial, explica la imposibilidad de esclarecer lo sucedido.</p>
+            <p>En el capítulo VII del libro, se hace referencia a una declaración de Carlos Celihueta quien aseguró alguna vez que “el 15 de enero de 1987 ella mantuvo algún contacto con el veterinario y elaboró la estrategia de ir a lo de sus futuros suegros para encontrarse con Ricky”.</p>
+            <p>Sin embargo, de la causa no surge que Adriana Celihueta elaborara alguna estrategia, sino que esa noche había salido de su casa por sugerencia de su madre. En fojas 293, un párrafo del informe de lo investigado que realizó el comisario Juan Carlos Tivus, dice: “Es digno de señalar que la progenitora de la nombrada en forma convincente demostraba su pesar por la suerte corrida por su hija, manifestando sentirse responsable de lo ocurrido a raíz de que el día del hecho y siendo aproximadamente las 21.30 horas en momentos que la joven Celihueta estaba en su domicilio abocada a ensobrar las tarjetas de participación a su futura boda, le manifestó no recordar cómo se escribía correctamente el apellido de la madre de su novio, por lo que la iba a llamar por teléfono para preguntárselo. Que en ese ínterin intervino la señora de Celihueta que le explicó y convenció a su hija que quedaba mal efectuar a su futura suegra una consulta así por teléfono, aconsejándole que se llegue al domicilio de esta para obtener esa información, siendo consecuentemente, este el único motivo por el cual la desaparecida salió esa noche de su domicilio, conduciendo el rodado Dodge Polara de la familia, no habiendo demostrado la misma ninguna intención previa de abandonar el domicilio esa noche”.</p>
+            <p>Pero además la madre lo sostuvo en propia su declaración. Mimí, una persona clave en la investigación porque, dormido ya Carlos Celihueta ella fue la última en ver a su hija, declaró por primera vez en la causa más de un año después de la desaparición. Lo hizo recién el 5 de marzo de 1988, aduciendo que no estaba en condición de hacerlo por los momentos vividos pero que había hecho, de todos modos, muchas manifestaciones verbales a los investigadores.</p>
+            <p>Lo relevante es que en la reconstrucción del día del hecho refirió que estuvo casi desde la mañana a la noche con Adriana, primero en la playa, luego en la casa, más tarde en la casa de Silvia, hermana de Adriana, finalmente de nuevo en su propia casa.</p>
+            <p>Mimí Celihueta dijo que “a eso de las once cuando estaban en la playa su hija le comenta a la deponente que debía hablarle por teléfono a su futura suegra para asegurarse bien como se escribía su apellido para las participaciones, cosa que la deponente le manifiesta que teniendo el auto a su disposición quedaba mejor que fuera personalmente”. Más tarde, ya en la casa, la mujer recordó que “a eso de las 20.30 Adriana preparó la cena y ya se habían hecho las 21 pasadas y la deponente le hizo recordar que todavía le faltaba ir a lo de su futura suegra, la señora de Iparreguirre, ya que le costaba salir de casa y era un tanto remolona, porque era muy casera. Que a eso de las 21.30 su hija decide ir hasta la casa de sus futuros suegros y todavía le manifiesta que dejara los platos sucios que ellas los lavaría al otro día”.</p>
+            <p>Por todo esto, se asume como preciso que Adriana Celihueta no iba a salir. En término de lógica investigativa, no aparece sólida la idea de que un homicidio planificado se inicie por una eventualidad. Nadie podía prever que aquella noche Adriana Celihueta iba a dejar la casa, por sus hábitos de escasa nocturnidad. De manera que para sostener la hipótesis del homicidio premeditado hay que pensar en una vigilancia permanente de la casa, incluso más allá del horario en el que se la creía ya sin posibilidades de salir.</p>
+            <p>¿Adriana Celihueta pudo haber concertado telefónicamente un encuentro con alguien y aprovechar la sugerencia de su madre de salir de la casa a la noche? Es difícil, porque estuvo casi sin despegarse de su madre todo el día. Pero es posible.</p>
+            <p>¿Pudo haber sido Adriana Celihueta interceptada sin un plan previo? Sí, por supuesto. En estas circunstancias, ¿pudieron precipitarse los hechos y terminar en un crimen conveniente para algunos? Sí, claro. Para ello el agresor debió “cruzarse” inesperadamente con Adriana.</p>
+            <p>¿Adriana Celihueta se llevó el revólver de su padre? Es una posibilidad que fortalece la idea de que ella tenía en mente encontrarse con alguien o que temía hacerlo. No obstante, en la causa que Adriana se haya llevado el revólver es meramente conjetural.</p>
 
-          <!-- PARTE 3 COMPLETA -->
-          <div class="chapter-divider">■ ■ ■</div>
-          <h2 class="chapter-title">PARTE 3: Un padre incansable, testigos chismosos y una investigación desconcertante</h2>
-          <p>Las circunstancias que rodean a la desaparición de una persona son generalmente desconocidas, al menos en sus horas o minutos previos. Entonces al ignorarse esos sucesos se abre la puerta a un universo de misterio y de hipótesis en el que todo es posible. Porque, cuando no hay cuerpo todas las hipótesis son posibles. Más aún en ciudades costeras. Como en otros casos, el de Celihueta al comienzo de su investigación pudo verse como un asesinato, una desaparición voluntaria e incluso el suicidio.</p>
-          <p>Si bien algunos testigos cercanos a Adriana habían referido que ella mostraba alguna preocupación e incluso estaba triste tras su retorno de un viaje a La Pampa, la inminencia de su casamiento y las acciones que hasta horas antes hacía con proyección de futuro, descartan plenamente una conducta suicida.</p>
-          <p>Salvo en algún momento muy iniciático de la causa, el suicidio estuvo siempre desechado. Por otra parte, las desapariciones voluntarias en personas tan enlazadas a sus familias no perduran y siempre se produce un intento de re-contacto.</p>
-          <p>La lógica del descarte indica que Adriana ni se suicidó ni se fue voluntariamente, sino que fue víctima de un hecho violento y que el inicio de todo fue en el interior del automóvil. Atentó contra la posibilidad de saber qué pasó dentro del vehículo la sorprendente mala labor policial del primer día. La escena final de la desaparición, el Dodge Polara, nunca pudo ser del todo analizada por impericia policial, pero según el relato de la familia, solo faltaban las llaves de ignición. No estaba el revólver Rubí calibre 22 que supuestamente Adriana Celihueta se llevó. Tenía las ventanillas delanteras bajas, las llaves de la casa en el asiento del conductor y el resto estaba todo en orden. Muy poca información para reconstruir lo que pasó antes dentro del habitáculo del Dodge Polara.</p>
-          <p>Un intento por saber el recorrido que hizo Adriana Celihueta desde que salió de su casa fue realizado por su propio padre meses después de la desaparición. Recordó que al guardar la noche anterior el auto había puesto el cuenta kilómetros en “cero”, porque le había cargado combustible. Al hallar el vehículo en el Parque Lillo, notó que el cuenta kilómetros marcaba 7 kilómetros. Entonces, con la compañía de un policía, hizo su propio peritaje en abril de 1987 acaso por los pocos avances de la investigación. De su casa se fue a lo de la familia Iparraguirre y el cuenta kilómetros marcó 1,6 km. De allí se dirigió al Parque Lillo y la suma total dio exactamente 7 km. Fue un dato importante el que se obtuvo: en la noche de la desaparición, el Dodge, probablemente, hizo ese recorrido. De lo de los Celihueta fue hasta lo de los Iparraguirre y de allí al Parque Lillo.</p>
-          <p>¿En qué lugar fue interceptada la veterinaria? Si se toma con relevante el análisis que hizo su padre, en la cuadra de la casa de Iparraguirre o muy cerca. De todos modos, es una especulación sin basamento científico y que surge del cálculo del kilometraje del automóvil, aunque esa cantidad pudo haberse acumulado, incluso con Celihueta interceptada en la puerta de su propia casa, ya que se desconoce el recorrido que hizo el Dodge Polara hasta quedar estacionado en el Parque Lillo.</p>
-          <p><strong>Los testigos y sus aportes</strong></p>
-          <p>En la causa hubo centenares de testigos, algunos con información de importancia y otros con conclusiones anfibológicas de oídas. Es decir, que muchos relatos que se agregaron al expediente fueron la interpretación de relatos previos. El conocido concepto de “yo sé porque se dice por ahí”.</p>
-          <p>Un adolescente de 16 años dijo que la noche de la desaparición vio llegar, cerca de las 22.30, al Parque Lillo el Dodge Polara y descender, desde el lado del acompañante, a una mujer. Que luego la vio caminar hacia el mar y dejó de prestarle atención. Este testigo era un joven oriundo de Temperley y fue la familia Celihueta la que lo localizó la misma mañana en la que encontró el Dodge Polara.</p>
-          <p>A este menor se lo fue a entrevistar incluso a su localidad meses después, también a su primo, que estaba con él aquella noche. Su aporte fue significativo porque puso en escena a una mujer solitaria. Lo extraño del relato del adolescente fue que vio descender a esa persona (la describió vagamente por la distancia a la que estaba pero sin duda de que era una mujer) por la puerta del acompañante y a nadie más. Años más tarde el abogado de los Celihueta desacreditaría sus dichos aun cuando era un testigo sin riesgo de haber sido “controlado” por esa supuesta mafia encubridora, ya que había sido aportado a la causa por la propia familia la misma mañana del hallazgo del automóvil.</p>
-          <p>Otro de los testigos claves fue Iparraguirre, el novio de Celihueta. La investigación sospechó de algunas actitudes de desapego y desinterés por lo sucedido. Que a solo 5 días de la desaparición se encargara de cancelar la reserva del salón donde se celebraría la boda fue llamativo y también que en ocasiones anteriores postergara los planes de casamiento. Se investigó los vínculos de amistades en Castex y cómo continuó su vida en las semanas siguientes, pero fue descartado como sospechoso.</p>
-          <p>Los testigos que “vieron” viva a Celihueta fueron varios, algunos con tanta seguridad que obligaron a la policía a desplegar recursos siguiendo esas líneas. Uno de ellos fue un hombre que la conocía en Castex y que dijo haberla visto cerca de la veterinaria en la que trabajaba Iparraguirre.</p>
-          <p>Otra persona se comunicó con una radio de Necochea para decir que Celihueta se había ido a España con el dueño de una estancia y que hasta le había mandado cartas a los padres. Otro contó que Celihueta se había ido a Bahía Blanca y el mismo Costa señaló que un conocido le había dicho que en un programa de la televisión mexicana había aparecido una chica con pérdida de memoria que no sabía nada de su vida previa y que era muy parecida a Celihueta.</p>
-          <p>Fueron todas versiones que se incorporaron a la causa y que consumieron los recursos investigativos que se ponían a disposición.</p>
-          <p>También hubo testigos con aportes desde otra “dimensión”. La parpsicología estuvo presente con firmeza. En los 80 era muy frecuente que los investigadores le dieran relevancia a lo que decían los parapsicólogos. La primera incidencia al respecto sucedió cuando una persona que se hacía llamar MEL presentó una carta al periódico Ecos Diarios, desde Buenos Aires, y decía que el cuerpo de Celihueta estaba enterrado en una estancia, y que el asesino era un hombre corpulento.</p>
-          <p>Luego una vidente, familiar de un policía, hizo con sus dichos que se realizaran un par de excavaciones. Ella era de Necochea y conocía naturalmente la historia 7 años después de sucedida la desaparición. En junio de 1994, durante la causa se enteró de esa versión. Que a Celihueta la había matado una mujer cuyo marido había tenido una relación con la veterinaria. Que el disparo mortal había sido en el abdomen y que la habían enterrado en cercanía del lago de los cisnes, en la rotonda de Pinolandia. Y con una carpeta entre su ropa.</p>
-          <p><strong>El taxista fantasma</strong></p>
-          <p>Esneldo García era un taxista de Necochea que en la madrugada del 1° de febrero de 1987, a menos de 20 días de la desaparición de Celihueta, fue asesinado de un disparo en la espalda. La escena del crimen podía ser la de un ajuste de cuentas o la de un asalto, por más que en el Chevrolet 400 de García quedó la recaudación de 57 australes.</p>
-          <p>La idea que quedó instalada fue que a García lo mataron por su declaración en la causa Celihueta. Que había dicho en esa comparecencia que vio pasar a Costa en una camioneta blanca la noche de la desaparición por el Casino rumbo al Parque Miguel Lillo. Trascendió incluso que García lo había declarado en la causa un par de días antes. Pero García jamás declaró. Al momento de su asesinato, el expediente tenía menos de 60 fojas y solo habían declarado Carlos Celihueta, Silvia Celihueta, Fernando Iparraguirre, Adolfo Arano (sereno del camping), Oscar Larraya (turista que dijo haber visto bajar una mujer del Dodge), un joven de apellido Castan que dos días después de la desaparición dijo haber visto a alguien parecido a Adriana en el camping Lillo, otro joven de apellido Barrientos que dijo haber escuchado de alguien que había visto viva a Adriana, Reinaldo Costa y Dora Civalero (amiga de Adriana). El resto de la causa eran actas de procedimiento y la denuncia de paradero.</p>
-          <p>De hecho, cuando años más tarde el abogado de la familia Celihueta solicitó que a Costa se lo procesara por falso testimonio al entender que había mentido en su declaración de agosto de 1998 respecto al uso de una camioneta blanca, enumeró todos los testigos que hicieron alguna mención a dicho rodado, y no existe ningún Esneldo García.</p>
-          <p>Sin embargo, ese mundillo de rumores y chimentos en que se transformó Necochea por aquellos años incluyó a García como testigo (de algo que tal vez haya visto) pero nunca fue así. Muchos policías que intervinieron en la investigación lo nombraron como que “se decía que”… Uno de ellos refirió que una de las tantas personas que entrevistó le contó que el taxista García vivía a la vuelta de la casa de Celihueta y que la noche de la desaparición la siguió (vaya a saberse por qué) hasta la veterinaria de Costa. Que como vio eso, lo mataron. Esa versión está a fojas 667.</p>
-          <p>En abril de 1995 en su informe final el comisario José María Gouin agrega otra idea novedosa: que a García lo mataron porque estaba en conocimiento de los dopajes de caballos en los que supuestamente participaba Celihueta. “Por información recibida en el ámbito necochense, el mismo (García) habría poseído antes de su muerte una gran cantidad de dinero y habría generado alguna conversación en rueda de personas o hipótesis sobre lo sucedido a Ángela Adriana Celihueta”.</p>
+            <!-- PARTE 3 COMPLETA -->
+            <div class="chapter-divider">■ ■ ■</div>
+            <h2 class="chapter-title">PARTE 3: Un padre incansable, testigos chismosos y una investigación desconcertante</h2>
+            <p>Las circunstancias que rodean a la desaparición de una persona son generalmente desconocidas, al menos en sus horas o minutos previos. Entonces al ignorarse esos sucesos se abre la puerta a un universo de misterio y de hipótesis en el que todo es posible. Porque, cuando no hay cuerpo todas las hipótesis son posibles. Más aún en ciudades costeras. Como en otros casos, el de Celihueta al comienzo de su investigación pudo verse como un asesinato, una desaparición voluntaria e incluso el suicidio.</p>
+            <p>Si bien algunos testigos cercanos a Adriana habían referido que ella mostraba alguna preocupación e incluso estaba triste tras su retorno de un viaje a La Pampa, la inminencia de su casamiento y las acciones que hasta horas antes hacía con proyección de futuro, descartan plenamente una conducta suicida.</p>
+            <p>Salvo en algún momento muy iniciático de la causa, el suicidio estuvo siempre desechado. Por otra parte, las desapariciones voluntarias en personas tan enlazadas a sus familias no perduran y siempre se produce un intento de re-contacto.</p>
+            <p>La lógica del descarte indica que Adriana ni se suicidó ni se fue voluntariamente, sino que fue víctima de un hecho violento y que el inicio de todo fue en el interior del automóvil. Atentó contra la posibilidad de saber qué pasó dentro del vehículo la sorprendente mala labor policial del primer día. La escena final de la desaparición, el Dodge Polara, nunca pudo ser del todo analizada por impericia policial, pero según el relato de la familia, solo faltaban las llaves de ignición. No estaba el revólver Rubí calibre 22 que supuestamente Adriana Celihueta se llevó. Tenía las ventanillas delanteras bajas, las llaves de la casa en el asiento del conductor y el resto estaba todo en orden. Muy poca información para reconstruir lo que pasó antes dentro del habitáculo del Dodge Polara.</p>
+            <p>Un intento por saber el recorrido que hizo Adriana Celihueta desde que salió de su casa fue realizado por su propio padre meses después de la desaparición. Recordó que al guardar la noche anterior el auto había puesto el cuenta kilómetros en “cero”, porque le había cargado combustible. Al hallar el vehículo en el Parque Lillo, notó que el cuenta kilómetros marcaba 7 kilómetros. Entonces, con la compañía de un policía, hizo su propio peritaje en abril de 1987 acaso por los pocos avances de la investigación. De su casa se fue a lo de la familia Iparraguirre y el cuenta kilómetros marcó 1,6 km. De allí se dirigió al Parque Lillo y la suma total dio exactamente 7 km. Fue un dato importante el que se obtuvo: en la noche de la desaparición, el Dodge, probablemente, hizo ese recorrido. De lo de los Celihueta fue hasta lo de los Iparraguirre y de allí al Parque Lillo.</p>
+            <p>¿En qué lugar fue interceptada la veterinaria? Si se toma con relevante el análisis que hizo su padre, en la cuadra de la casa de Iparraguirre o muy cerca. De todos modos, es una especulación sin basamento científico y que surge del cálculo del kilometraje del automóvil, aunque esa cantidad pudo haberse acumulado, incluso con Celihueta interceptada en la puerta de su propia casa, ya que se desconoce el recorrido que hizo el Dodge Polara hasta quedar estacionado en el Parque Lillo.</p>
+            <p><strong>Los testigos y sus aportes</strong></p>
+            <p>En la causa hubo centenares de testigos, algunos con información de importancia y otros con conclusiones anfibológicas de oídas. Es decir, que muchos relatos que se agregaron al expediente fueron la interpretación de relatos previos. El conocido concepto de “yo sé porque se dice por ahí”.</p>
+            <p>Un adolescente de 16 años dijo que la noche de la desaparición vio llegar, cerca de las 22.30, al Parque Lillo el Dodge Polara y descender, desde el lado del acompañante, a una mujer. Que luego la vio caminar hacia el mar y dejó de prestarle atención. Este testigo era un joven oriundo de Temperley y fue la familia Celihueta la que lo localizó la misma mañana en la que encontró el Dodge Polara.</p>
+            <p>A este menor se lo fue a entrevistar incluso a su localidad meses después, también a su primo, que estaba con él aquella noche. Su aporte fue significativo porque puso en escena a una mujer solitaria. Lo extraño del relato del adolescente fue que vio descender a esa persona (la describió vagamente por la distancia a la que estaba pero sin duda de que era una mujer) por la puerta del acompañante y a nadie más. Años más tarde el abogado de los Celihueta desacreditaría sus dichos aun cuando era un testigo sin riesgo de haber sido “controlado” por esa supuesta mafia encubridora, ya que había sido aportado a la causa por la propia familia la misma mañana del hallazgo del automóvil.</p>
+            <p>Otro de los testigos claves fue Iparraguirre, el novio de Celihueta. La investigación sospechó de algunas actitudes de desapego y desinterés por lo sucedido. Que a solo 5 días de la desaparición se encargara de cancelar la reserva del salón donde se celebraría la boda fue llamativo y también que en ocasiones anteriores postergara los planes de casamiento. Se investigó los vínculos de amistades en Castex y cómo continuó su vida en las semanas siguientes, pero fue descartado como sospechoso.</p>
+            <p>Los testigos que “vieron” viva a Celihueta fueron varios, algunos con tanta seguridad que obligaron a la policía a desplegar recursos siguiendo esas líneas. Uno de ellos fue un hombre que la conocía en Castex y que dijo haberla visto cerca de la veterinaria en la que trabajaba Iparraguirre.</p>
+            <p>Otra persona se comunicó con una radio de Necochea para decir que Celihueta se había ido a España con el dueño de una estancia y que hasta le había mandado cartas a los padres. Otro contó que Celihueta se había ido a Bahía Blanca y el mismo Costa señaló que un conocido le había dicho que en un programa de la televisión mexicana había aparecido una chica con pérdida de memoria que no sabía nada de su vida previa y que era muy parecida a Celihueta.</p>
+            <p>Fueron todas versiones que se incorporaron a la causa y que consumieron los recursos investigativos que se ponían a disposición.</p>
+            <p>También hubo testigos con aportes desde otra “dimensión”. La parpsicología estuvo presente con firmeza. En los 80 era muy frecuente que los investigadores le dieran relevancia a lo que decían los parapsicólogos. La primera incidencia al respecto sucedió cuando una persona que se hacía llamar MEL presentó una carta al periódico Ecos Diarios, desde Buenos Aires, y decía que el cuerpo de Celihueta estaba enterrado en una estancia, y que el asesino era un hombre corpulento.</p>
+            <p>Luego una vidente, familiar de un policía, hizo con sus dichos que se realizaran un par de excavaciones. Ella era de Necochea y conocía naturalmente la historia 7 años después de sucedida la desaparición. En junio de 1994, durante la causa se enteró de esa versión. Que a Celihueta la había matado una mujer cuyo marido había tenido una relación con la veterinaria. Que el disparo mortal había sido en el abdomen y que la habían enterrado en cercanía del lago de los cisnes, en la rotonda de Pinolandia. Y con una carpeta entre su ropa.</p>
+            <p><strong>El taxista fantasma</strong></p>
+            <p>Esneldo García era un taxista de Necochea que en la madrugada del 1° de febrero de 1987, a menos de 20 días de la desaparición de Celihueta, fue asesinado de un disparo en la espalda. La escena del crimen podía ser la de un ajuste de cuentas o la de un asalto, por más que en el Chevrolet 400 de García quedó la recaudación de 57 australes.</p>
+            <p>La idea que quedó instalada fue que a García lo mataron por su declaración en la causa Celihueta. Que había dicho en esa comparecencia que vio pasar a Costa en una camioneta blanca la noche de la desaparición por el Casino rumbo al Parque Miguel Lillo. Trascendió incluso que García lo había declarado en la causa un par de días antes. Pero García jamás declaró. Al momento de su asesinato, el expediente tenía menos de 60 fojas y solo habían declarado Carlos Celihueta, Silvia Celihueta, Fernando Iparraguirre, Adolfo Arano (sereno del camping), Oscar Larraya (turista que dijo haber visto bajar una mujer del Dodge), un joven de apellido Castan que dos días después de la desaparición dijo haber visto a alguien parecido a Adriana en el camping Lillo, otro joven de apellido Barrientos que dijo haber escuchado de alguien que había visto viva a Adriana, Reinaldo Costa y Dora Civalero (amiga de Adriana). El resto de la causa eran actas de procedimiento y la denuncia de paradero.</p>
+            <p>De hecho, cuando años más tarde el abogado de la familia Celihueta solicitó que a Costa se lo procesara por falso testimonio al entender que había mentido en su declaración de agosto de 1998 respecto al uso de una camioneta blanca, enumeró todos los testigos que hicieron alguna mención a dicho rodado, y no existe ningún Esneldo García.</p>
+            <p>Sin embargo, ese mundillo de rumores y chimentos en que se transformó Necochea por aquellos años incluyó a García como testigo (de algo que tal vez haya visto) pero nunca fue así. Muchos policías que intervinieron en la investigación lo nombraron como que “se decía que”… Uno de ellos refirió que una de las tantas personas que entrevistó le contó que el taxista García vivía a la vuelta de la casa de Celihueta y que la noche de la desaparición la siguió (vaya a saberse por qué) hasta la veterinaria de Costa. Que como vio eso, lo mataron. Esa versión está a fojas 667.</p>
+            <p>En abril de 1995 en su informe final el comisario José María Gouin agrega otra idea novedosa: que a García lo mataron porque estaba en conocimiento de los dopajes de caballos en los que supuestamente participaba Celihueta. “Por información recibida en el ámbito necochense, el mismo (García) habría poseído antes de su muerte una gran cantidad de dinero y habría generado alguna conversación en rueda de personas o hipótesis sobre lo sucedido a Ángela Adriana Celihueta”.</p>
 
-          <!-- PARTE 4 COMPLETA -->
-          <div class="chapter-divider">■ ■ ■</div>
-          <h2 class="chapter-title">PARTE 4: El pozo y el anillo, una pista más hacia un final sin respuestas</h2>
-          <p>El 17 de julio de 1996 se allanó La Chacra, veterinaria perteneciente a Costa y donde trabajara ocasionalmente Celihueta. El objetivo de esa diligencia era inspeccionar los pozos en los fondos del inmueble y señalarlos para una futura excavación.</p>
-          <p>La Justicia respondía así a los pedidos de la familia Celihueta por intermedio de su abogado Julio Razona, quien había presentado un escrito en el que pedía que se buscara el cadáver allí. Que había testimonios en la causa que indicaban que un pozo ciego había sido tapado poco después de la desaparición. A falta de mayores certezas, los motivos eran suficientes para sospechar que había sido enterrada en ese lugar naturalmente por Costa o por su entorno.</p>
-          <p>El 5 de septiembre con el mismo juez Reinaldo Fortunato en el lugar, un grupo de forenses encabezados por el prestigioso Jorge Tonelli y personal de Bomberos perforó el patio de La Chacra en tres sitios. En el primer pozo, que un resonador había recomendado como objetivo a buscar, apenas se bajó 60 centímetros hasta que los paleros se toparon con caños de desagüe. Eso explicaba el aviso del resonador.</p>
-          <p>En el segundo pozo se hallaron a una profundidad de 65 centímetros algunos restos óseos y en el tercer pozo lo encontrado fue más sustancial aún: nuevos restos óseos y desechos veterinarios, como agujas hipodérmicas, 18 frascos de vidrio, entre otros elementos.</p>
-          <p>Pero lo más importante del procedimiento sucedió cuando el propio Reinaldo Costa, mientras se revisaba con su anuencia un entrepiso de la veterinaria, dijo que había otro pozo ciego clausurado muy cerca de la línea municipal. Allí se hizo una excavación de hasta 1,55 metros de profundidad y entre más desechos veterinarios y algunos restos óseos, se encontró una verdadera joya para la investigación. En verdad era una baratija, un anillo de artesanía callejera, pero que aumentaría decididamente el foco sobre Costa.</p>
-          <p>El anillo era de color dorado y pesaba un gramo y tres décimas. El 24 de septiembre de 1996 el reconocido joyero marplatense Delfor Folgado determinó que el material del anillo era bronce.</p>
-          <p>El 3 de abril de 1998, a más de un año y medio del hallazgo del anillo y una década después de la desaparición, los padres y la hermana de Adriana Celihueta participaron de una diligencia central. La policía, encabezada por el comisario Enrique Brizzi, llegó a la casa de la familia con un sobre que contenía tres anillos. Uno era el recuperado de la excavación en la veterinaria de Costa. Los otros dos eran anillos de cotejo, es decir, de características parecidas para realizar un reconocimiento sin que el objeto de interés se destacara.</p>
-          <p>Colocados sobre una hoja blanca, se le asignó el número 1. A los restantes, el 2 y el 3. El padre dijo que el “1” era similar al anillo de Adriana pero que no podía asegurar que fuera de ella. Además que no sabía si aquella noche lo llevaba puesto. La hermana Silvia dijo que el único que podía ser, por su estilo, era el número 1, pero que no lo podía asegurar al 100%. El testimonio más fuerte fue el de la madre: “el anillo 1 es similar al que utilizaba Adriana, en verano y en invierno”. En ese momento la mujer fue a buscar una pulsera que parecía coincidir en tipo de manufactura con el anillo. No se dijo en ese acto que hacían juego, pero sí que tenían un trabajo artesanal similar.</p>
-          <p>Más allá de la imposibilidad de saber con certeza si ese anillo encontrado en un pozo de la veterinaria de Costa era o no de Adriana Celihueta, esa evidencia fue controversial ya que después de algún tiempo se perdió entre los efectos secuestrados en el expediente.</p>
-          <p>Ante ese hallazgo se imponen dos preguntas: en el caso de que perteneciera a Celihueta, ¿pudo haber usado ese anillo la noche de su desaparición? La madre dejó asentado en un acta en los días posteriores a aquel 15 de enero de 1987 que su hija no llevaba “anillo de compromiso” y “sin pulseras”. Lamentablemente no dijo nada sobre algún otro anillo. Esto no invalida que lo llevara colocado, pero hubiera sido un dato muy gravitante la confirmación.</p>
-          <p>En el año 2001 la Justicia, a través de la fiscal Susana Kluka, agregó la pista del anillo como una certeza: dijo directamente que pertenecía a Celihueta. “Lo sugestivo del secuestro de un anillo en la excavación que la instrucción realiza en uno de los pozos detectados en el patio de su veterinaria sita en calle Lobería N°530 de Quequén. Que dicho anillo fue reconocido por los progenitores y hermana de Adriana como perteneciente a la misma, y que hace juego con la pulsera que los padres aún tienen en su poder tal lo que consta a fs 1286/89” dice la fiscal Kluka en su pedido al juez Jorge Peralta para el cambio de carátula.</p>
-          <p>Luego indica en el siguiente párrafo, palabras más palabras menos, que Costa había mentido al decir que a ese pozo lo habían rellenado en 1984/85 y que eso no podía ser posible porque el anillo era de Celihueta, a quien conoció al año siguiente, en 1986.</p>
-          <p>La fiscal Kluka es probable que haya utilizado los fundamentos del abogado Julio Razona, representante de la familia, para el pedido ante el juez, y de ese modo replicó algunos errores. Por ejemplo, el número de foja, que está invertido. No fue en 1826/29, sino en 1286/89. Que el anillo y la pulsera fueran complementarios de un mismo juego, tampoco constaba en la causa. Ni que el padre, la madre y la hermana afirmaran que reconocían el anillo como propio, sino como similar.</p>
-          <p>La siguiente pregunta que el investigador no podía eludir tras el hallazgo es: si se trataba del anillo utilizado por Celihueta la noche de la desaparición ¿no debería haberse encontrado en ese pozo algo más junto?, ¿alguna prenda de vestir, las llaves del auto, restos óseos?</p>
-          <p><strong>La hipótesis final</strong></p>
-          <p>Mucho antes de la excavación en la veterinaria de Costa, allá por 1992, la hipótesis de un crimen por rechazo a Costa (sentimental o laboral) convivió con otra que perduró en el tiempo hasta el día de hoy. Una hipótesis que revelaba un submundo delictivo en Necochea y en el que tenía amplia participación una parte del poder político, representado ocasionalmente por el peronismo regional.</p>
-          <p>En verdad, la cuestión era mucho más de pueblo, de costumbres rurales, que de grandes centros de poder. Se trataba de las carreras ilegales de caballos, conocidas como “cuadreras”, en las que, según los testigos, corría dinero fuerte de las apuestas. Y donde todo valía o para ganar o para amañar los lances. Manipular a un caballo no era solo facultad del jinete, sino más bien lo era de los cuidadores, los que no tenían ningún reparo en inyectarles fármacos para cambiarle el rendimiento de acuerdo a los intereses de los inversionistas. No importaba ganar carreras: lo importante era ganar las apuestas.</p>
-          <p>En 1989 había sido asignado como policía a cargo de la investigación a un oficial principal de la Brigada de Investigaciones de Quilmes. Ese policía era nada menos que Juan José Ribelli, aquel que estuvo preso más de 8 años por el atentado a la AMIA aunque luego fue absuelto. Ribelli no aportó demasiado a la causa Celihueta y en 1991 lo reemplazó el comisario José María Gougin. En Necochea lo recuerdan como un personaje entorpecedor de la investigación hasta 1995, cuando entendieron que debía ser alejado de la responsabilidad.</p>
-          <p>En ese lapso 1991-1995 Gougin se apropió de una oficina del Cuartel de Bomberos necochense y allí instaló el Equipo Ángela, un grupo de policías encargado de esclarecer la desaparición de Celihueta.</p>
-          <p>Fue entonces cuando surgió por primera vez la hipótesis de las carreras cuadreras, impulsada fundamentalmente por la declaración de un testigo de identidad reservada. Este testigo permitió incorporar al expediente otro de los rumores que circulaba en Necochea acerca de la desaparición de Celihueta. Su relato ante el fiscal Eduardo Alemano el 3 de septiembre de 1993 contiene una mezcla de algo que todos sabían (carreras ilegales) y mucho de sucesos no conocidos en primera persona sino por dichos de terceros.</p>
-          <p>El testigo dijo que Costa y Celihueta atendían caballos que intervenían en carreras “cuadreras”. Una semana antes de la desaparición de Celihueta, relató, se llevó a cabo en la zona de Quequén una carrera que fue muy recordada porque un conocido capitalista y quinielero de Bahía Blanca había traído un caballo ganador de toda la provincia. No había dudas de que ganaría y sin embargo perdió. En esa cuadrera un hombre fuerte de La Dulce perdió 50 mil dólares.</p>
-          <p>La desaparición de Celihueta ocurrió unos días después y el caballo de carrera resultó no ser de Bahía Blanca sino de la “mafia rosarina”. De acuerdo a esa versión Costa y Celihueta habían sido contratados para preparar al caballo con los estimulantes adecuados para aumentar su rendimiento aún más.</p>
-          <p>Con la mecánica de los mitos urbanos se retroalimentó un rumor que todos los que lo repitieron adjudicaron a otro que “había estado en esa carrera”. La incomprobable y extravagante versión se completaba con Celihueta inyectando, intencionalmente, cloro para provocar que el caballo perdiera y ganara otro animal que había recibido apuestas mínimas.</p>
-          <p>“Selihueta era conocida como burrera y aficionada a las apuestas, había apostado fuertemente al no favorito y ganado en consecuencia mucho dinero. No era la primera vez que ganaba fuerte en las carreras pero no se sabía qué era lo que hacía con el dinero salvo dárselo a su 'novio' Iparraguirre para que lo sacara de Necochea para no llamar la atención en el pueblo”.</p>
-          <p>“Los de Rosario estaban re calientes con el veterinario Costa, en la convicción de que éste los había traicionado, y mandaron 'gente a verlo'. Costa 'se abrió de piernas' y les contó a los de Rosario que la responsable era Selihueta y estos le dijeron que la citara a un determinado lugar donde la mataron, siendo su cuerpo enterrado en la zona de los médanos, concretamente en el médano que estaba junto al lugar donde fue hallado el automóvil de Selihueta. Al tiempo y habiendo trascendido que la policía removería con máquinas viales la zona de los médanos, Costa, temeroso de que el cuerpo apareciera, decidió desenterrarlo y trasladarlo hasta la zona de Bahía de los Vientos, donde volvió a sepultárselo pero sin poder precisarse el lugar”.</p>
-          <p>En 1994 un médico militante peronista y conocedor del mundillo político atestiguó con precisiones sobre esa versión y el expediente tomó ese rumbo, incluso con una gran cantidad de recursos para desentrañar esa posibilidad. Hubo policías destinados a Coronel Pringles, Miramar, Santa Fe, intercambio de información con Bahía Blanca, Coronel Dorrego y Mar del Plata. Se buscó con obsesión a un fotógrafo que habría tomado una foto en esa carrera y se lo localizó. Se hablaba de un caballo llamado “Quempes” al que se lo había fotografiado. La intención investigativa era ver esa foto y tratar de identificar a alguien para indagar. Pero no se encontró nada relevante allí.</p>
-          <p>Tampoco se dio con “Centella”, que resultó ser el nombre del caballo que algunos mencionaron como el protagonista central de la historia. El dopado.</p>
-          <p>En una de sus declaraciones Costa confirmó que tenía caballos de carrera y recordaba con cariño a “Sapucay”, el que en cierta ocasión había corrido en San Isidro y Palermo. Admitió que durante varios años supo de la versión de esa famosa carrera de caballos, con Celihueta administrando un compuesto a un caballo ganador, transformándolo en perdedor. Sin embargo, descartó que alguna vez ella hubiera participado en ese tipo de actividad y desestimó la versión al decir, rotundamente, que Celihueta no contaba con los conocimientos para preparar un caballo o un galgo de carrera.</p>
-          <p>El propio Carlos Celihueta descreyó también de esa posibilidad en una entrevista brindada a LA CAPITAL en el año 1998: “Es imposible. Ella apenas si salía de casa para ir a la veterinaria las escasas horas que iba por la tarde. ¿En qué momento iba a preparar un caballo? Ni siquiera tenía el título legalizado, lo que significa que no podía recetar nada, porque si no iba en cana”.</p>
-          <p>La línea investigativa de un crimen derivado del mal dopaje de “Centella” nunca fue dejada de lado, si bien en algún tramo también se incorporó la posibilidad de que Celihueta, en sus funciones de veterinaria asistente a un campo de la zona, vio algo relacionado al narcotráfico. Más de lo mismo: nada concreto.</p>
-          <p><strong>El triste desenlace</strong></p>
-          <p>Las excavaciones y búsquedas del cuerpo de Adriana Celihueta fueron tantas que dejan de distinguirse en los 11 cuerpos y anexos del expediente. Se la buscó debajo del Viejo Muelle de pescadores por la sospecha de un suicidio. Se removieron médanos del parque Lillo. Se excavó en la veterinaria de Costa, en un aljibe de un campo del padre de Costa, a los lados de una pileta en otra estancia, en un desaparecido molino de viento junto al río Quequén, en una casa donde se halló una heladera sepultada con restos de un caballo, en la rotonda del Parque Miguel Lillo, en el parque Miguel Lillo, debajo de uno de los puentes del río Quequén. En la mayoría de los lugares el hallazgo eran huesos de animales excepto en una ocasión que se descubrió una sandalia que fue exhibida a la familia pero que no coincidió con las que usaba Adriana Celihueta.</p>
-          <p>Uno de los operativos puede resumir en que terminó transformada la investigación del caso Celihueta. En el verano de 1999 un testigo de identidad reservada dijo que cuatro años antes una conocida que vivía en un campo a la vera del río Quequén le había comentado que sabía dónde estaba el cuerpo de Celihueta.</p>
-          <p>Esa conversación se dio con la mujer “pasada de copas”, lo que la desinhibió para hablar. A partir de ese testimonio, la Justicia se esforzó por dar con el lugar, el pozo de un ya desaparecido molino de viento. El mismo José Luis Ribelli se hizo presente en el lugar el 25 de enero para asegurar la zona y demarcar el sitio exacto. Un grupo de trabajadores de Bomberos empezó una excavación en donde se creía que había funcionado el viejo molino, pero de pronto se apareció una persona y dijo algo revelador: “Si andan buscando el pozo del molino, no está donde están cavando”.</p>
-          <p>Finalmente el 1° de febrero excavaron en el pozo el viejo molino, encapsularon la fosa con un tubo metálico y bajaron hasta casi 13 metros. Nada se descubrió allí. Un nuevo fracaso impulsado por los dichos de una testigo que recordaba una charla con una mujer borracha cuatro años antes.</p>
-          <p>Con la llegada de la reforma judicial, quien quedó a cargo de la causa fue la fiscal Susana Kluka y a fines de 2001 la nueva responsable de la investigación del caso, la fiscal Susana Kluka propuso dejar atrás la carátula “desaparición dudosa de persona” y cambiarla por “privación ilegítima de la libertad agravada y/o con homicidio resultante”. Un análisis de todo el expediente, que por entonces tenía más de 10 cuerpos y 1800 fojas, le formó convicción a Kluka de que Celihueta no podría haberse suicidado ni tampoco haber desaparecido voluntariamente. Que habían intervenido terceras personas, aunque esta última aseveración estaba basada más en el descarte de las otras dos hipótesis que en pruebas sólidas.</p>
-          <p>Kluka pidió la elaboración de un identikit “actualizado” digitalmente para saber cómo se vería Celihueta más de 15 años después.</p>
-          <p>Eso sí, entendió que era razonable la línea de investigación que hablaba de un escenario de carrera de caballos ilegales, en donde el veterinario Reinaldo Costa estaba involucrado no solo por suministrar compuestos a los caballos sino porque era propietario de algunos equinos. Y que Celihueta era parte de las maniobras.</p>
-          <p>El juez Peralta admitió el cambio de carátula solo a los efectos de disponer nuevas medidas de prueba.</p>
-          <p>El 18 de septiembre de 2007, después de una etapa en la que fue más lo revisado que lo que pudo generarse como nueva prueba, el juez Jorge Peralta escribió: “Con certeza, poco se puede afirmar respecto a la suerte de Angela Adrian Celihueta y nada se ha podido agregar a los indicios recogidos desde el primer momento y de los que puede inferirse que ha sido víctima de un grave atentado personal. Entre las medidas de los últimos años, los intentos por encontrar su cuerpo no han arrojado resultados positivos. Tampoco se ha logrado progreso respecto a la identificación del autor o autores del hecho, más allá de las líneas de investigación que se postularon desde los momentos iniciales. Luego de eso, firmó el sobreseimiento de la causa y se la dejó en reserva hasta tanto aparecieran nuevos elementos que permitan su reapertura.</p>
-          <p>Nunca apareció el arrepentido que sabe, aún hoy a 35 años de aquella noche de verano, qué le hicieron a Adriana Celihueta.</p>
-          <p>Carlos Celihueta no soportó más la vida en 2015 y se la quitó de un disparo. El resto de la familia sigue a la espera de, al menos, conocer el sitio en donde están los restos de Adriana.</p>
-          <p><strong>FIN</strong></p>
+            <!-- PARTE 4 COMPLETA -->
+            <div class="chapter-divider">■ ■ ■</div>
+            <h2 class="chapter-title">PARTE 4: El pozo y el anillo, una pista más hacia un final sin respuestas</h2>
+            <p>El 17 de julio de 1996 se allanó La Chacra, veterinaria perteneciente a Costa y donde trabajara ocasionalmente Celihueta. El objetivo de esa diligencia era inspeccionar los pozos en los fondos del inmueble y señalarlos para una futura excavación.</p>
+            <p>La Justicia respondía así a los pedidos de la familia Celihueta por intermedio de su abogado Julio Razona, quien había presentado un escrito en el que pedía que se buscara el cadáver allí. Que había testimonios en la causa que indicaban que un pozo ciego había sido tapado poco después de la desaparición. A falta de mayores certezas, los motivos eran suficientes para sospechar que había sido enterrada en ese lugar naturalmente por Costa o por su entorno.</p>
+            <p>El 5 de septiembre con el mismo juez Reinaldo Fortunato en el lugar, un grupo de forenses encabezados por el prestigioso Jorge Tonelli y personal de Bomberos perforó el patio de La Chacra en tres sitios. En el primer pozo, que un resonador había recomendado como objetivo a buscar, apenas se bajó 60 centímetros hasta que los paleros se toparon con caños de desagüe. Eso explicaba el aviso del resonador.</p>
+            <p>En el segundo pozo se hallaron a una profundidad de 65 centímetros algunos restos óseos y en el tercer pozo lo encontrado fue más sustancial aún: nuevos restos óseos y desechos veterinarios, como agujas hipodérmicas, 18 frascos de vidrio, entre otros elementos.</p>
+            <p>Pero lo más importante del procedimiento sucedió cuando el propio Reinaldo Costa, mientras se revisaba con su anuencia un entrepiso de la veterinaria, dijo que había otro pozo ciego clausurado muy cerca de la línea municipal. Allí se hizo una excavación de hasta 1,55 metros de profundidad y entre más desechos veterinarios y algunos restos óseos, se encontró una verdadera joya para la investigación. En verdad era una baratija, un anillo de artesanía callejera, pero que aumentaría decididamente el foco sobre Costa.</p>
+            <p>El anillo era de color dorado y pesaba un gramo y tres décimas. El 24 de septiembre de 1996 el reconocido joyero marplatense Delfor Folgado determinó que el material del anillo era bronce.</p>
+            <p>El 3 de abril de 1998, a más de un año y medio del hallazgo del anillo y una década después de la desaparición, los padres y la hermana de Adriana Celihueta participaron de una diligencia central. La policía, encabezada por el comisario Enrique Brizzi, llegó a la casa de la familia con un sobre que contenía tres anillos. Uno era el recuperado de la excavación en la veterinaria de Costa. Los otros dos eran anillos de cotejo, es decir, de características parecidas para realizar un reconocimiento sin que el objeto de interés se destacara.</p>
+            <p>Colocados sobre una hoja blanca, se le asignó el número 1. A los restantes, el 2 y el 3. El padre dijo que el “1” era similar al anillo de Adriana pero que no podía asegurar que fuera de ella. Además que no sabía si aquella noche lo llevaba puesto. La hermana Silvia dijo que el único que podía ser, por su estilo, era el número 1, pero que no lo podía asegurar al 100%. El testimonio más fuerte fue el de la madre: “el anillo 1 es similar al que utilizaba Adriana, en verano y en invierno”. En ese momento la mujer fue a buscar una pulsera que parecía coincidir en tipo de manufactura con el anillo. No se dijo en ese acto que hacían juego, pero sí que tenían un trabajo artesanal similar.</p>
+            <p>Más allá de la imposibilidad de saber con certeza si ese anillo encontrado en un pozo de la veterinaria de Costa era o no de Adriana Celihueta, esa evidencia fue controversial ya que después de algún tiempo se perdió entre los efectos secuestrados en el expediente.</p>
+            <p>Ante ese hallazgo se imponen dos preguntas: en el caso de que perteneciera a Celihueta, ¿pudo haber usado ese anillo la noche de su desaparición? La madre dejó asentado en un acta en los días posteriores a aquel 15 de enero de 1987 que su hija no llevaba “anillo de compromiso” y “sin pulseras”. Lamentablemente no dijo nada sobre algún otro anillo. Esto no invalida que lo llevara colocado, pero hubiera sido un dato muy gravitante la confirmación.</p>
+            <p>En el año 2001 la Justicia, a través de la fiscal Susana Kluka, agregó la pista del anillo como una certeza: dijo directamente que pertenecía a Celihueta. “Lo sugestivo del secuestro de un anillo en la excavación que la instrucción realiza en uno de los pozos detectados en el patio de su veterinaria sita en calle Lobería N°530 de Quequén. Que dicho anillo fue reconocido por los progenitores y hermana de Adriana como perteneciente a la misma, y que hace juego con la pulsera que los padres aún tienen en su poder tal lo que consta a fs 1286/89” dice la fiscal Kluka en su pedido al juez Jorge Peralta para el cambio de carátula.</p>
+            <p>Luego indica en el siguiente párrafo, palabras más palabras menos, que Costa había mentido al decir que a ese pozo lo habían rellenado en 1984/85 y que eso no podía ser posible porque el anillo era de Celihueta, a quien conoció al año siguiente, en 1986.</p>
+            <p>La fiscal Kluka es probable que haya utilizado los fundamentos del abogado Julio Razona, representante de la familia, para el pedido ante el juez, y de ese modo replicó algunos errores. Por ejemplo, el número de foja, que está invertido. No fue en 1826/29, sino en 1286/89. Que el anillo y la pulsera fueran complementarios de un mismo juego, tampoco constaba en la causa. Ni que el padre, la madre y la hermana afirmaran que reconocían el anillo como propio, sino como similar.</p>
+            <p>La siguiente pregunta que el investigador no podía eludir tras el hallazgo es: si se trataba del anillo utilizado por Celihueta la noche de la desaparición ¿no debería haberse encontrado en ese pozo algo más junto?, ¿alguna prenda de vestir, las llaves del auto, restos óseos?</p>
+            <p><strong>La hipótesis final</strong></p>
+            <p>Mucho antes de la excavación en la veterinaria de Costa, allá por 1992, la hipótesis de un crimen por rechazo a Costa (sentimental o laboral) convivió con otra que perduró en el tiempo hasta el día de hoy. Una hipótesis que revelaba un submundo delictivo en Necochea y en el que tenía amplia participación una parte del poder político, representado ocasionalmente por el peronismo regional.</p>
+            <p>En verdad, la cuestión era mucho más de pueblo, de costumbres rurales, que de grandes centros de poder. Se trataba de las carreras ilegales de caballos, conocidas como “cuadreras”, en las que, según los testigos, corría dinero fuerte de las apuestas. Y donde todo valía o para ganar o para amañar los lances. Manipular a un caballo no era solo facultad del jinete, sino más bien lo era de los cuidadores, los que no tenían ningún reparo en inyectarles fármacos para cambiarle el rendimiento de acuerdo a los intereses de los inversionistas. No importaba ganar carreras: lo importante era ganar las apuestas.</p>
+            <p>En 1989 había sido asignado como policía a cargo de la investigación a un oficial principal de la Brigada de Investigaciones de Quilmes. Ese policía era nada menos que Juan José Ribelli, aquel que estuvo preso más de 8 años por el atentado a la AMIA aunque luego fue absuelto. Ribelli no aportó demasiado a la causa Celihueta y en 1991 lo reemplazó el comisario José María Gougin. En Necochea lo recuerdan como un personaje entorpecedor de la investigación hasta 1995, cuando entendieron que debía ser alejado de la responsabilidad.</p>
+            <p>En ese lapso 1991-1995 Gougin se apropió de una oficina del Cuartel de Bomberos necochense y allí instaló el Equipo Ángela, un grupo de policías encargado de esclarecer la desaparición de Celihueta.</p>
+            <p>Fue entonces cuando surgió por primera vez la hipótesis de las carreras cuadreras, impulsada fundamentalmente por la declaración de un testigo de identidad reservada. Este testigo permitió incorporar al expediente otro de los rumores que circulaba en Necochea acerca de la desaparición de Celihueta. Su relato ante el fiscal Eduardo Alemano el 3 de septiembre de 1993 contiene una mezcla de algo que todos sabían (carreras ilegales) y mucho de sucesos no conocidos en primera persona sino por dichos de terceros.</p>
+            <p>El testigo dijo que Costa y Celihueta atendían caballos que intervenían en carreras “cuadreras”. Una semana antes de la desaparición de Celihueta, relató, se llevó a cabo en la zona de Quequén una carrera que fue muy recordada porque un conocido capitalista y quinielero de Bahía Blanca había traído un caballo ganador de toda la provincia. No había dudas de que ganaría y sin embargo perdió. En esa cuadrera un hombre fuerte de La Dulce perdió 50 mil dólares.</p>
+            <p>La desaparición de Celihueta ocurrió unos días después y el caballo de carrera resultó no ser de Bahía Blanca sino de la “mafia rosarina”. De acuerdo a esa versión Costa y Celihueta habían sido contratados para preparar al caballo con los estimulantes adecuados para aumentar su rendimiento aún más.</p>
+            <p>Con la mecánica de los mitos urbanos se retroalimentó un rumor que todos los que lo repitieron adjudicaron a otro que “había estado en esa carrera”. La incomprobable y extravagante versión se completaba con Celihueta inyectando, intencionalmente, cloro para provocar que el caballo perdiera y ganara otro animal que había recibido apuestas mínimas.</p>
+            <p>“Selihueta era conocida como burrera y aficionada a las apuestas, había apostado fuertemente al no favorito y ganado en consecuencia mucho dinero. No era la primera vez que ganaba fuerte en las carreras pero no se sabía qué era lo que hacía con el dinero salvo dárselo a su 'novio' Iparraguirre para que lo sacara de Necochea para no llamar la atención en el pueblo”.</p>
+            <p>“Los de Rosario estaban re calientes con el veterinario Costa, en la convicción de que éste los había traicionado, y mandaron 'gente a verlo'. Costa 'se abrió de piernas' y les contó a los de Rosario que la responsable era Selihueta y estos le dijeron que la citara a un determinado lugar donde la mataron, siendo su cuerpo enterrado en la zona de los médanos, concretamente en el médano que estaba junto al lugar donde fue hallado el automóvil de Selihueta. Al tiempo y habiendo trascendido que la policía removería con máquinas viales la zona de los médanos, Costa, temeroso de que el cuerpo apareciera, decidió desenterrarlo y trasladarlo hasta la zona de Bahía de los Vientos, donde volvió a sepultárselo pero sin poder precisarse el lugar”.</p>
+            <p>En 1994 un médico militante peronista y conocedor del mundillo político atestiguó con precisiones sobre esa versión y el expediente tomó ese rumbo, incluso con una gran cantidad de recursos para desentrañar esa posibilidad. Hubo policías destinados a Coronel Pringles, Miramar, Santa Fe, intercambio de información con Bahía Blanca, Coronel Dorrego y Mar del Plata. Se buscó con obsesión a un fotógrafo que habría tomado una foto en esa carrera y se lo localizó. Se hablaba de un caballo llamado “Quempes” al que se lo había fotografiado. La intención investigativa era ver esa foto y tratar de identificar a alguien para indagar. Pero no se encontró nada relevante allí.</p>
+            <p>Tampoco se dio con “Centella”, que resultó ser el nombre del caballo que algunos mencionaron como el protagonista central de la historia. El dopado.</p>
+            <p>En una de sus declaraciones Costa confirmó que tenía caballos de carrera y recordaba con cariño a “Sapucay”, el que en cierta ocasión había corrido en San Isidro y Palermo. Admitió que durante varios años supo de la versión de esa famosa carrera de caballos, con Celihueta administrando un compuesto a un caballo ganador, transformándolo en perdedor. Sin embargo, descartó que alguna vez ella hubiera participado en ese tipo de actividad y desestimó la versión al decir, rotundamente, que Celihueta no contaba con los conocimientos para preparar un caballo o un galgo de carrera.</p>
+            <p>El propio Carlos Celihueta descreyó también de esa posibilidad en una entrevista brindada a LA CAPITAL en el año 1998: “Es imposible. Ella apenas si salía de casa para ir a la veterinaria las escasas horas que iba por la tarde. ¿En qué momento iba a preparar un caballo? Ni siquiera tenía el título legalizado, lo que significa que no podía recetar nada, porque si no iba en cana”.</p>
+            <p>La línea investigativa de un crimen derivado del mal dopaje de “Centella” nunca fue dejada de lado, si bien en algún tramo también se incorporó la posibilidad de que Celihueta, en sus funciones de veterinaria asistente a un campo de la zona, vio algo relacionado al narcotráfico. Más de lo mismo: nada concreto.</p>
+            <p><strong>El triste desenlace</strong></p>
+            <p>Las excavaciones y búsquedas del cuerpo de Adriana Celihueta fueron tantas que dejan de distinguirse en los 11 cuerpos y anexos del expediente. Se la buscó debajo del Viejo Muelle de pescadores por la sospecha de un suicidio. Se removieron médanos del parque Lillo. Se excavó en la veterinaria de Costa, en un aljibe de un campo del padre de Costa, a los lados de una pileta en otra estancia, en un desaparecido molino de viento junto al río Quequén, en una casa donde se halló una heladera sepultada con restos de un caballo, en la rotonda del Parque Miguel Lillo, en el parque Miguel Lillo, debajo de uno de los puentes del río Quequén. En la mayoría de los lugares el hallazgo eran huesos de animales excepto en una ocasión que se descubrió una sandalia que fue exhibida a la familia pero que no coincidió con las que usaba Adriana Celihueta.</p>
+            <p>Uno de los operativos puede resumir en que terminó transformada la investigación del caso Celihueta. En el verano de 1999 un testigo de identidad reservada dijo que cuatro años antes una conocida que vivía en un campo a la vera del río Quequén le había comentado que sabía dónde estaba el cuerpo de Celihueta.</p>
+            <p>Esa conversación se dio con la mujer “pasada de copas”, lo que la desinhibió para hablar. A partir de ese testimonio, la Justicia se esforzó por dar con el lugar, el pozo de un ya desaparecido molino de viento. El mismo José Luis Ribelli se hizo presente en el lugar el 25 de enero para asegurar la zona y demarcar el sitio exacto. Un grupo de trabajadores de Bomberos empezó una excavación en donde se creía que había funcionado el viejo molino, pero de pronto se apareció una persona y dijo algo revelador: “Si en verdad andan buscando el pozo del molino, no está donde están cavando”.</p>
+            <p>Finalmente el 1° de febrero excavaron en el pozo el viejo molino, encapsularon la fosa con un tubo metálico y bajaron hasta casi 13 metros. Nada se descubrió allí. Un nuevo fracaso impulsado por los dichos de una testigo que recordaba una charla con una mujer borracha cuatro años antes.</p>
+            <p>Con la llegada de la reforma judicial, quien quedó a cargo de la causa fue la fiscal Susana Kluka y a fines de 2001 la nueva responsable de la investigación del caso, la fiscal Susana Kluka propuso dejar atrás la carátula “desaparición dudosa de persona” y cambiarla por “privación ilegítima de la libertad agravada y/o con homicidio resultante”. Un análisis de todo el expediente, que por entonces tenía más de 10 cuerpos y 1800 fojas, le formó convicción a Kluka de que Celihueta no podría haberse suicidado ni tampoco haber desaparecido voluntariamente. Que habían intervenido terceras personas, aunque esta última aseveración estaba basada más en el descarte de las otras dos hipótesis que en pruebas sólidas.</p>
+            <p>Kluka pidió la elaboración de un identikit “actualizado” digitalmente para saber cómo se vería Celihueta más de 15 años después.</p>
+            <p>Eso sí, entendió que era razonable la línea de investigación que hablaba de un escenario de carrera de caballos ilegales, en donde el veterinario Reinaldo Costa estaba involucrado no solo por suministrar compuestos a los caballos sino porque era propietario de algunos equinos. Y que Celihueta era parte de las maniobras.</p>
+            <p>El juez Peralta admitió el cambio de carátula solo a los efectos de disponer nuevas medidas de prueba.</p>
+            <p>El 18 de septiembre de 2007, después de una etapa en la que fue más lo revisado que lo que pudo generarse como nueva prueba, el juez Jorge Peralta escribió: “Con certeza, poco se puede afirmar respecto a la suerte de Angela Adrian Celihueta y nada se ha podido agregar a los indicios recogidos desde el primer momento y de los que puede inferirse que ha sido víctima de un grave atentado personal. Entre las medidas de los últimos años, los intentos por encontrar su cuerpo no han arrojado resultados positivos. Tampoco se ha logrado progreso respecto a la identificación del autor o autores del hecho, más allá de las líneas de investigación que se postularon desde los momentos iniciales. Luego de eso, firmó el sobreseimiento de la causa y se la dejó en reserva hasta tanto aparecieran nuevos elementos que permitan su reapertura.</p>
+            <p>Nunca apareció el arrepentido que sabe, aún hoy a 35 años de aquella noche de verano, qué le hicieron a Adriana Celihueta.</p>
+            <p>Carlos Celihueta no soportó más la vida en 2015 y se la quitó de un disparo. El resto de la familia sigue a la espera de, al menos, conocer el sitio en donde están los restos de Adriana.</p>
+            <p><strong>FIN</strong></p>
 
-          <div class="resguardo-card">
-            <h3>[ CÍRCULO DE RESGUARDO ]</h3>
-            <p>Ha completado la lectura de la Entrega Inaugural N° 01. Su tiempo de lectura ha sido registrado.</p>
-            <button class="resguardo-btn" onclick="showCatalog()">REGISTRAR SALVOCONDUCTO Y VOLVER</button>
+            <div class="resguardo-card">
+              <h3>[ CÍRCULO DE RESGUARDO ]</h3>
+              <p>Ha completado la lectura de la Entrega Inaugural N° 01. Su tiempo de lectura ha sido registrado.</p>
+              <button class="resguardo-btn" onclick="showCatalog()">REGISTRAR SALVOCONDUCTO Y VOLVER</button>
+            </div>
+          </div>
+
+          <div id="content-placeholder" class="reader-article" style="display:none;">
+            <h1 class="entry-title">Entrega en preparación</h1>
+            <div class="entry-subtitle">El contenido de esta entrega se activará próximamente.</div>
+            <p>Esta sección está reservada para el despliegue del próximo material del proyecto FONDO.</p>
+            <button class="resguardo-btn" onclick="showCatalog()">VOLVER AL CATÁLOGO</button>
           </div>
         </div>
-
-        <div id="content-placeholder" class="reader-article" style="display:none;">
-          <h1 class="entry-title">Entrega en preparación</h1>
-          <div class="entry-subtitle">El contenido de esta entrega se activará próximamente.</div>
-          <p>Esta sección está reservada para el despliegue del próximo material del proyecto FONDO.</p>
-          <button class="resguardo-btn" onclick="showCatalog()">VOLVER AL CATÁLOGO</button>
-        </div>
-
       </div>
 
     </div>
