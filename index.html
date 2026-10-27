@@ -269,13 +269,10 @@
           </div>
 
           <div class="entry-card" onclick="loadArticle('entrega4.html')">
-            <img src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=600&q=80" alt="Entrega 04" class="entry-card-thumb">
-            <div class="entry-card-content">
-              <span class="entry-card-badge">ENTREGA N° 04 — EN ESPERA</span>
-              <h3 class="entry-card-title">Cuarta Entrega del Archivo Piloto</h3>
-              <p class="entry-card-snippet">Espacio reservado para la cuarta crónica del catálogo FONDO.</p>
-              <div class="entry-card-meta">POR FERNANDO DEL RIO →</div>
-            </div>
+            <img src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=600&q=80" alt="Entrega 04" class="entry-card-title">
+            <h3 class="entry-card-title">Cuarta Entrega del Archivo Piloto</h3>
+            <p class="entry-card-snippet">Espacio reservado para la cuarta crónica del catálogo FONDO.</p>
+            <div class="entry-card-meta">POR FERNANDO DEL RIO →</div>
           </div>
 
         </div>
@@ -332,20 +329,6 @@
         
         // Limpiamos cabeceras duplicadas si existieran
         html = html.replace(/<header class="app-header">[\s\S]*?<\/header>/gi, '');
-
-        // Nuevo diseño para el llamado a sumarse: flotante a la derecha pero con estilo de enlace/botón sutil editorial, sin competir con el resguardo
-        const callToActionHTML = `
-          <div style="float: right; width: 300px; clear: right; background-color: transparent; border-left: 2px solid #8c6d3b; padding: 12px 0 12px 20px; margin: 15px 0 25px 25px; text-align: left;">
-            <p style="font-size: 0.85rem; color: #555; margin: 0 0 10px 0; font-style: italic; line-height: 1.4;">Si todavía no formas parte, hazlo ahora.</p>
-            <button onclick="alert('Redirigiendo a suscripción...')" style="background: none; border: none; color: #8c6d3b; font-family: Georgia, serif; font-size: 0.75rem; letter-spacing: 2px; cursor: pointer; text-transform: uppercase; padding: 0; font-weight: bold;">[ + SÚMATE AHORA ]</button>
-          </div>
-        `;
-
-        if (html.includes('resguardo-card')) {
-          html = html.replace('<div class="resguardo-card">', callToActionHTML + '<div class="resguardo-card">');
-        } else {
-          html += callToActionHTML;
-        }
 
         document.getElementById('article-content').innerHTML = html;
         document.getElementById('catalog-view').style.display = 'none';
