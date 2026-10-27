@@ -3,25 +3,123 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FONDO — Archivo Criminal: El caso Adriana Celihueta</title>
+  <title>FONDO — Atención Ampliada</title>
   <style>
-    /* Estética de Marca FONDO: Marfil y Grafito */
     :root {
       --bg-marfil: #f9f8f3;
       --text-grafito: #18181a;
       --accent-oro: #8c6d3b;
-      --gris-suave: #e0de8;
+      --gris-borde: #e0de8;
       --font-serif: "Georgia", "Times New Roman", serif;
     }
 
+    * { box-sizing: border-box; }
+
     body {
-      background-color: var(--bg-marfil);
-      color: var(--text-grafito);
+      background-color: var(--text-grafito);
+      color: var(--bg-marfil);
       font-family: var(--font-serif);
       margin: 0;
       padding: 0;
-      line-height: 1.8;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       -webkit-font-smoothing: antialiased;
+    }
+
+    /* PANTALLA DE ACCESO (GATEKEEPER) */
+    #gatekeeper {
+      text-align: center;
+      padding: 20px;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .brand-title {
+      font-size: 2.2rem;
+      letter-spacing: 12px;
+      margin-bottom: 8px;
+      font-weight: normal;
+    }
+
+    .brand-sub {
+      font-size: 0.9rem;
+      font-style: italic;
+      color: var(--accent-oro);
+      margin-bottom: 32px;
+    }
+
+    .login-box {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .login-input {
+      background: transparent;
+      border: 1px solid var(--accent-oro);
+      color: var(--bg-marfil);
+      padding: 12px 16px;
+      font-family: monospace;
+      text-align: center;
+      font-size: 0.95rem;
+      outline: none;
+      letter-spacing: 2px;
+      border-radius: 2px;
+    }
+
+    .login-input::placeholder {
+      color: #777;
+    }
+
+    .login-btn {
+      background: var(--accent-oro);
+      color: var(--text-grafito);
+      border: none;
+      padding: 12px;
+      font-family: var(--font-serif);
+      font-weight: bold;
+      cursor: pointer;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+    }
+
+    .error-msg {
+      color: #e57373;
+      font-size: 0.8rem;
+      margin-top: 10px;
+      display: none;
+    }
+
+    /* APLICACIÓN PRINCIPAL (MARFIL/GRAFITO) */
+    #app {
+      display: none;
+      background-color: var(--bg-marfil);
+      color: var(--text-grafito);
+      width: 100%;
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    .app-header {
+      border-bottom: 1px solid var(--gris-borde);
+      padding: 20px;
+      text-align: center;
+      background: var(--bg-marfil);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .app-header .brand {
+      font-size: 1.4rem;
+      letter-spacing: 6px;
+      color: var(--text-grafito);
+      text-decoration: none;
+      cursor: pointer;
     }
 
     .container {
@@ -30,27 +128,82 @@
       padding: 40px 20px 80px 20px;
     }
 
-    /* Cabecera de Entrega */
-    .header-badge {
+    /* VISTA: CATALOGO / PORTADA */
+    .catalog-title {
       font-size: 0.8rem;
       letter-spacing: 2px;
       text-transform: uppercase;
       color: var(--accent-oro);
-      font-weight: bold;
-      margin-bottom: 12px;
+      margin-bottom: 24px;
       display: block;
+      border-bottom: 1px solid var(--accent-oro);
+      padding-bottom: 6px;
     }
 
-    h1.entry-title {
-      font-size: 2.2rem;
+    .hero-card {
+      border: 1px solid var(--gris-borde);
+      padding: 28px;
+      background: #ffffff;
+      cursor: pointer;
+      transition: border-color 0.2s ease;
+    }
+
+    .hero-card:hover {
+      border-color: var(--accent-oro);
+    }
+
+    .hero-badge {
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      color: var(--accent-oro);
+      font-weight: bold;
+    }
+
+    .hero-title {
+      font-size: 1.6rem;
+      line-height: 1.3;
+      margin: 12px 0;
+    }
+
+    .hero-snippet {
+      font-size: 0.95rem;
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .hero-meta {
+      font-size: 0.8rem;
+      color: var(--accent-oro);
+      font-weight: bold;
+    }
+
+    /* VISTA: LECTURA DE NOTA */
+    #reader-view {
+      display: none;
+    }
+
+    .back-btn {
+      background: none;
+      border: none;
+      color: var(--accent-oro);
+      font-family: var(--font-serif);
+      font-size: 0.85rem;
+      cursor: pointer;
+      padding: 0;
+      margin-bottom: 24px;
+      letter-spacing: 1px;
+    }
+
+    .entry-title {
+      font-size: 2rem;
       line-height: 1.25;
       margin: 0 0 16px 0;
-      color: var(--text-grafito);
     }
 
     .entry-subtitle {
-      font-size: 1.15rem;
-      color: #4a4a4d;
+      font-size: 1.1rem;
+      color: #555;
       font-style: italic;
       margin-bottom: 24px;
       line-height: 1.4;
@@ -59,52 +212,47 @@
     .meta-bar {
       font-size: 0.85rem;
       color: var(--accent-oro);
-      border-top: 1px solid #e0de8;
-      border-bottom: 1px solid #e0de8;
+      border-top: 1px solid var(--gris-borde);
+      border-bottom: 1px solid var(--gris-borde);
       padding: 10px 0;
-      margin-bottom: 40px;
+      margin-bottom: 36px;
       display: flex;
       justify-content: space-between;
     }
 
-    /* Capitular */
     .drop-cap::first-letter {
       font-size: 3.8rem;
       float: left;
       line-height: 0.8;
       margin-top: 4px;
       margin-right: 10px;
-      margin-bottom: -2px;
       color: var(--text-grafito);
       font-weight: bold;
     }
 
     p {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
+      line-height: 1.8;
       margin-bottom: 24px;
       text-align: justify;
     }
 
-    /* Subtítulos de Capítulo */
     .chapter-divider {
       text-align: center;
-      margin: 50px 0 30px 0;
-      font-size: 1.1rem;
+      margin: 40px 0 20px 0;
       letter-spacing: 4px;
       color: var(--accent-oro);
     }
 
     h2.chapter-title {
-      font-size: 1.4rem;
-      color: var(--text-grafito);
+      font-size: 1.3rem;
       margin-bottom: 20px;
       border-bottom: 1px solid var(--accent-oro);
       padding-bottom: 6px;
     }
 
-    /* Maquetación de Imágenes */
     figure.editorial-img {
-      margin: 36px 0;
+      margin: 32px 0;
       text-align: center;
     }
 
@@ -112,7 +260,6 @@
       max-width: 100%;
       height: auto;
       border-radius: 2px;
-      filter: grayscale(10%);
     }
 
     figcaption {
@@ -122,37 +269,35 @@
       margin-top: 8px;
     }
 
-    /* Bloque Salvoconducto */
     .resguardo-card {
       background-color: #f1efea;
       border: 1px solid #d8d5cd;
       padding: 24px;
-      margin-top: 60px;
+      margin-top: 50px;
       text-align: center;
       border-radius: 4px;
     }
 
     .resguardo-card h3 {
       margin: 0 0 10px 0;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       letter-spacing: 2px;
       color: var(--accent-oro);
     }
 
     .resguardo-card p {
-      font-size: 0.9rem;
-      text-align: center;
+      font-size: 0.85rem;
       margin-bottom: 16px;
-      color: #4a4a4d;
+      color: #555;
     }
 
     .resguardo-btn {
       background-color: var(--text-grafito);
       color: var(--bg-marfil);
       border: none;
-      padding: 12px 24px;
+      padding: 10px 20px;
       font-family: var(--font-serif);
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       letter-spacing: 1px;
       cursor: pointer;
     }
@@ -160,83 +305,142 @@
 </head>
 <body>
 
-<div class="container">
-  <span class="header-badge">ENTREGA INAUGURAL — INVESTIGACIÓN DE ARCHIVO</span>
-  <h1 class="entry-title">Archivo Criminal: La enigmática desaparición de la veterinaria Adriana Celihueta</h1>
-  <div class="entry-subtitle">Treinta y cinco años de un caso que sacudió a Necochea, rozó al poder político regional y quedó atrapado entre sospechas no probadas, testigos fantasma y el olvido judicial.</div>
-  
-  <div class="meta-bar">
-    <span>POR FERNANDO DEL RIO</span>
-    <span>TIEMPO DE LECTURA: 22 MINUTOS</span>
+  <!-- PANTALLA 1: ACCESO POR CLAVE -->
+  <div id="gatekeeper">
+    <div class="brand-title">F O N D O</div>
+    <div class="brand-sub">Atención ampliada contra la inmediatez</div>
+    <div class="login-box">
+      <input type="text" id="passInput" class="login-input" placeholder="[ Ingrese Clave de Cofrade ]" autocomplete="off">
+      <button onclick="checkPass()" class="login-btn">Acceder al Resguardo</button>
+    </div>
+    <div id="errorMsg" class="error-msg">Clave no válida. Verifique sus credenciales.</div>
   </div>
 
-  <!-- CAPÍTULO I -->
-  <h2 class="chapter-title">I. El misterio que arranca en la noche de verano</h2>
-  <p class="drop-cap">En una estantería repleta de viejos expedientes hay dos pilones de papel. Del hilo que los mantiene unidos cuelga un rótulo acartonado que a trazo de fibrón destaca el apellido “Celihueta”. Allí se oculta una verdad tan maniatada como las 2000 fojas, una verdad que lucha contra el olvido cada vez más inevitable. Y es en el olvido judicial donde muchas víctimas mueren su segunda muerte.</p>
-  
-  <p>La historia criminal registra la desaparición de la veterinaria Adriana Celihueta en 1987 como un enigma, como uno de esos casos que aparecen de tanto en tanto y que se clavan cual espina en la garganta de los que gritan por su esclarecimiento. Hace ya 35 años que la suerte corrida por Adriana Celihueta aquella noche de verano es un secreto que, aún hoy, lastima a Necochea y Quequén, dos comunidades atravesadas por un muro de silencio que el paso del tiempo en lugar de agrietar lo ha sellado.</p>
+  <!-- PANTALLA 2: APLICACIÓN (CATÁLOGO + LECTOR) -->
+  <div id="app">
+    <header class="app-header">
+      <div class="brand" onclick="showCatalog()">F O N D O</div>
+    </header>
 
-  <p>Del caso Celihueta se dijeron tantas cosas que hasta pueden reconfigurarse todas sus medias verdades y medias mentiras, y contarse varias posibles historias de lo sucedido. Ninguna de ellas respaldadas en más pruebas irrefutables que las otras. Y la sensación más fuerte que aún persists es que se investigó mal. No que se investigó poco, pero sí mal.</p>
+    <div class="container">
+      <!-- VISTA A: CATÁLOGO DE ENTREGAS (HOME) -->
+      <div id="catalog-view">
+        <span class="catalog-title">Entregas Activas — Estado Piloto</span>
+        
+        <div class="hero-card" onclick="openReader()">
+          <span class="hero-badge">ENTREGA INAUGURAL N° 01</span>
+          <h2 class="hero-title">Archivo Criminal: La enigmática desaparición de la veterinaria Adriana Celihueta</h2>
+          <p class="hero-snippet">Treinta y cinco años de un caso que sacudió a Necochea, rozó al poder político regional y quedó atrapado entre sospechas no probadas, testigos fantasma y el olvido judicial.</p>
+          <div class="hero-meta">POR FERNANDO DEL RIO — 22 MINUTOS DE LECTURA →</div>
+        </div>
+      </div>
 
-  <p>A las 21.45 del jueves 15 de enero de 1987 Adriana Celihueta terminó de cenar junto a sus padres Carlos y Mimí, en la casa de calle 64 de Necochea. Tenía 29 años y estaba recibida de veterinaria. El 21 de febrero tenía programada la boda con Luis Iparraguirre, su novio desde que tenía 18 años, y su posterior mudanza a Castex, en La Pampa.</p>
+      <!-- VISTA B: LECTOR DE LA NOTA -->
+      <div id="reader-view">
+        <button class="back-btn" onclick="showCatalog()">← VOLVER AL CATÁLOGO</button>
+        
+        <h1 class="entry-title">Archivo Criminal: La enigmática desaparición de la veterinaria Adriana Celihueta</h1>
+        <div class="entry-subtitle">Treinta y cinco años de un caso que sacudió a Necochea, rozó al poder político regional y quedó atrapado entre sospechas no probadas, testigos fantasma y el olvido judicial.</div>
+        
+        <div class="meta-bar">
+          <span>POR FERNANDO DEL RIO</span>
+          <span>TIEMPO DE LECTURA: 22 MINUTOS</span>
+        </div>
 
-  <p>Esa noche Adriana salió en el Dodge Polara verde de la familia con un único objetivo: verificar cómo se escribía el apellido de su futura suegra en la calle 48 para imprimir las participaciones de la boda. Nunca regresó. A las 2.30 de la madrugada, su padre advirtió la ausencia y comenzó una búsqueda que terminaría a la mañana siguiente con el hallazgo del vehículo abandonado en el Parque Lillo, frente al mar, con las ventanillas bajas, sin llaves y con sus documentos esparcidos en la arena.</p>
+        <!-- CONTENIDO COMPLETO -->
+        <h2 class="chapter-title">I. El misterio que arranca en la noche de verano</h2>
+        <p class="drop-cap">En una estantería repleta de viejos expedientes hay dos pilones de papel. Del hilo que los mantiene unidos cuelga un rótulo acartonado que a trazo de fibrón destaca el apellido “Celihueta”. Allí se oculta una verdad tan maniatada como las 2000 fojas, una verdad que lucha contra el olvido cada vez más inevitable. Y es en el olvido judicial donde muchas víctimas mueren su segunda muerte.</p>
+        
+        <p>La historia criminal registra la desaparición de la veterinaria Adriana Celihueta en 1987 como un enigma, como uno de esos casos que aparecen de tanto en tanto y que se clavan cual espina en la garganta de los que gritan por su esclarecimiento. Hace ya 35 años que la suerte corrida por Adriana Celihueta aquella noche de verano es un secreto que, aún hoy, lastima a Necochea y Quequén, dos comunidades atravesadas por un muro de silencio que el paso del tiempo en lugar de agrietar lo ha sellado.</p>
 
-  <figure class="editorial-img">
-    <img src="https://www.lacapitalmdp.com/wp-content/uploads/2022/05/celihueta-padre.jpg" alt="Carlos Celihueta">
-    <figcaption>Carlos Celihueta, siempre encima de la investigación y de la policía.</figcaption>
-  </figure>
+        <p>A las 21.45 del jueves 15 de enero de 1987 Adriana Celihueta terminó de cenar junto a sus padres Carlos y Mimí, en la casa de calle 64 de Necochea. Tenía 29 años y estaba recibida de veterinaria. El 21 de febrero tenía programada la boda con Luis Iparraguirre, su novio desde que tenía 18 años, y su posterior mudanza a Castex, en La Pampa.</p>
 
-  <!-- CAPÍTULO II -->
-  <div class="chapter-divider">■ ■ ■</div>
-  <h2 class="chapter-title">II. El hombre de las sospechas y las hipótesis de poder</h2>
-  <p>La principal hipótesis de la familia, reproducida por gran parte de la ciudadanía necochense, fue que a Adriana la asesinaron en un encuentro al que había asistido armada. La mirada pública se posó de inmediato en Reinaldo Costa, de entonces 38 años, Delegado Municipal de Quequén y dueño de la veterinaria "La Chacra", donde Adriana hacía trabajos ad honorem.</p>
+        <p>Esa noche Adriana salió en el Dodge Polara verde de la familia con un único objetivo: verificar cómo se escribía el apellido de su futura suegra para imprimir las participaciones de la boda. Nunca regresó. A las 2.30 de la madrugada, su padre advirtió la ausencia y comenzó una búsqueda que terminaría a la mañana siguiente con el hallazgo del vehículo abandonado en el Parque Lillo, frente al mar, con las ventanillas bajas, sin llaves y con sus documentos esparcidos en la arena.</p>
 
-  <p>Las conjeturas sobre Costa mutaron con los años: desde el rechazo a sus insinuaciones sentimentales o una relación extramatrimonial que la joven quería terminar ante su inminente boda, hasta complejas maniobras relacionadas con el dopaje de caballos en carreras cuadreras. Sin embargo, Costa nunca fue procesado ni imputado formalmente en el expediente.</p>
+        <figure class="editorial-img">
+          <img src="https://www.lacapitalmdp.com/wp-content/uploads/2022/05/celihueta-padre.jpg" alt="Carlos Celihueta">
+          <figcaption>Carlos Celihueta, siempre encima de la investigación y de la policía.</figcaption>
+        </figure>
 
-  <figure class="editorial-img">
-    <img src="https://www.lacapitalmdp.com/wp-content/uploads/2022/05/veterinaria-la-chacra.jpg" alt="Veterinaria La Chacra">
-    <figcaption>Veterinaria La Chacra de Quequén, propiedad de Reinaldo Costa.</figcaption>
-  </figure>
+        <div class="chapter-divider">■ ■ ■</div>
+        <h2 class="chapter-title">II. El hombre de las sospechas y las hipótesis de poder</h2>
+        <p>La principal hipótesis de la familia fue que a Adriana la asesinaron en un encuentro al que había asistido armada. La mirada pública se posó de inmediato en Reinaldo Costa, de entonces 38 años, Delegado Municipal de Quequén y dueño de la veterinaria "La Chacra", donde Adriana hacía trabajos ad honorem.</p>
 
-  <!-- CAPÍTULO III -->
-  <div class="chapter-divider">■ ■ ■</div>
-  <h2 class="chapter-title">III. Testigos chismosos, parapsicología y un taxista fantasma</h2>
-  <p>A la falencia del peritaje inicial sobre el automóvil Dodge Polara se le sumó un desfile desconcertante de hipótesis y testigos improvisados. La causa acumuló relatos de oídas, intervenciones de parapsicólogos, videntes que señalaban excavaciones en rotondas y testimonios infundados que aseguraban haber visto a la joven en México, España o Bahía Blanca.</p>
+        <p>Las conjeturas sobre Costa mutaron con los años: desde el rechazo a sus insinuaciones sentimentales o una relación extramatrimonial que la joven quería terminar, hasta complejas maniobras relacionadas con el dopaje de caballos en carreras cuadreras. Sin embargo, Costa nunca fue procesado ni imputado formalmente en el expediente.</p>
 
-  <p>Entre los mitos urbanos emergió la figura de Esneldo García, un taxista de Necochea asesinado de un disparo semanas después de la desaparición. Durante años se afirmó que lo habían matado por declarar que vio a Costa en el Parque Lillo esa noche. Sin embargo, los registros judiciales demuestran que García jamás declaró en el expediente.</p>
+        <figure class="editorial-img">
+          <img src="https://www.lacapitalmdp.com/wp-content/uploads/2022/05/veterinaria-la-chacra.jpg" alt="Veterinaria La Chacra">
+          <figcaption>Veterinaria La Chacra de Quequén, propiedad de Reinaldo Costa.</figcaption>
+        </figure>
 
-  <figure class="editorial-img">
-    <img src="https://www.lacapitalmdp.com/wp-content/uploads/2022/05/revolver-rubi.jpg" alt="Revólver Rubí">
-    <figcaption>Revólver similar al calibre 22 que, según su padre, Adriana se llevó esa noche.</figcaption>
-  </figure>
+        <div class="chapter-divider">■ ■ ■</div>
+        <h2 class="chapter-title">III. Testigos chismosos, parapsicología y un taxista fantasma</h2>
+        <p>A la falencia del peritaje inicial sobre el automóvil Dodge Polara se le sumó un desfile desconcertante de hipótesis y testigos improvisados. La causa acumuló relatos de oídas, intervenciones de parapsicólogos, videntes que señalaban excavaciones en rotondas y testimonios infundados que aseguraban haber visto a la joven en México, España o Bahía Blanca.</p>
 
-  <!-- CAPÍTULO IV -->
-  <div class="chapter-divider">■ ■ ■</div>
-  <h2 class="chapter-title">IV. El pozo, el anillo y el cierre de un caso sin respuestas</h2>
-  <p>En septiembre de 1996, una excavación ordenada en el patio de la veterinaria "La Chacra" halló en un pozo ciego clausurado restos óseos de animales, desechos veterinarios y un anillo de bronce. Aunque la madre y la hermana señalaron que era similar a uno usado por Adriana, la prueba nunca pudo confirmarse con certeza científica y con los años terminó extraviándose en el depósito de efectos secuestrados.</p>
+        <p>Entre los mitos urbanos emergió la figura de Esneldo García, un taxista de Necochea asesinado semanas después de la desaparición. Durante años se afirmó que lo habían matado por declarar que vio a Costa en el Parque Lillo esa noche. Sin embargo, los registros judiciales demuestran que García jamás declaró en el expediente.</p>
 
-  <p>Se excavaron pozos, médanos, estancias, aljibes y muelles. Se cambiaron jueces, fiscales y la carátula pasó de 'averiguación de paradero' a 'privación ilegítima de la libertad y homicidio'. Sin embargo, en septiembre de 2007, el juez Jorge Peralta dictó el sobreseimiento de la causa por falta de autores identificados.</p>
+        <figure class="editorial-img">
+          <img src="https://www.lacapitalmdp.com/wp-content/uploads/2022/05/revolver-rubi.jpg" alt="Revólver Rubí">
+          <figcaption>Revólver similar al calibre 22 que, según su padre, Adriana se llevó esa noche.</figcaption>
+        </figure>
 
-  <figure class="editorial-img">
-    <img src="https://www.lacapitalmdp.com/wp-content/uploads/2022/05/anillo-comparacion.jpg" alt="Anillo hallado">
-    <figcaption>El anillo hallado en el pozo de la veterinaria comparado junto a otros en la casa de la familia.</figcaption>
-  </figure>
+        <div class="chapter-divider">■ ■ ■</div>
+        <h2 class="chapter-title">IV. El pozo, el anillo y el cierre de un caso sin respuestas</h2>
+        <p>En septiembre de 1996, una excavación ordenada en el patio de la veterinaria "La Chacra" halló en un pozo ciego clausurado restos óseos de animales, desechos veterinarios y un anillo de bronce. Aunque la madre y la hermana señalaron que era similar a uno usado por Adriana, la prueba nunca pudo confirmarse con certeza científica y terminó extraviándose en el depósito judicial.</p>
 
-  <figure class="editorial-img">
-    <img src="https://www.lacapitalmdp.com/wp-content/uploads/2022/05/parte4-avejentada.jpg" alt="Proyección Digital">
-    <figcaption>Retoque digital del año 2001 que proyectaba el rostro de Adriana 15 años después.</figcaption>
-  </figure>
+        <figure class="editorial-img">
+          <img src="https://www.lacapitalmdp.com/wp-content/uploads/2022/05/anillo-comparacion.jpg" alt="Anillo hallado">
+          <figcaption>El anillo hallado en el pozo de la veterinaria comparado junto a otros en la casa de la familia.</figcaption>
+        </figure>
 
-  <p>Carlos Celihueta, tras décadas de búsqueda ininterrumpida y derrotado por el dolor, se quitó la vida en 2015. Treinta y cinco años después, el caso permanece en el archivo tribunalicio como una herida abierta y un testimonio del fracaso judicial.</p>
+        <figure class="editorial-img">
+          <img src="https://www.lacapitalmdp.com/wp-content/uploads/2022/05/parte4-avejentada.jpg" alt="Proyección Digital">
+          <figcaption>Retoque digital del año 2001 que proyectaba el rostro de Adriana 15 años después.</figcaption>
+        </figure>
 
-  <!-- BLOQUE DE SALVOCONDUCTO -->
-  <div class="resguardo-card">
-    <h3>[ CIRCULO DE RESGUARDO ]</h3>
-    <p>Ha completado la lectura de la Entrega Inaugural N° 01. Su tiempo de lectura ha sido registrado correctamente.</p>
-    <button class="resguardo-btn">REGISTRAR SALVOCONDUCTO DE LECTURA</button>
+        <p>Carlos Celihueta, tras décadas de búsqueda ininterrumpida, se quitó la vida en 2015. Treinta y cinco años después, el caso permanece en el archivo tribunalicio como una herida abierta y un testimonio del fracaso judicial.</p>
+
+        <div class="resguardo-card">
+          <h3>[ CÍRCULO DE RESGUARDO ]</h3>
+          <p>Ha completado la lectura de la Entrega Inaugural N° 01. Su tiempo de lectura ha sido registrado.</p>
+          <button class="resguardo-btn" onclick="showCatalog()">REGISTRAR SALVOCONDUCTO Y VOLVER</button>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
 
+  <script>
+    // LÓGICA DE ACCESO Y NAVEGACIÓN
+    function checkPass() {
+      const pass = document.getElementById('passInput').value.trim();
+      // Permite la clave oficial de prueba o cualquier texto para la etapa piloto
+      if (pass !== "") {
+        document.getElementById('gatekeeper').style.display = 'none';
+        document.getElementById('app').style.display = 'block';
+        document.body.style.backgroundColor = '#f9f8f3';
+      } else {
+        document.getElementById('errorMsg').style.display = 'block';
+      }
+    }
+
+    // Permitir ingresar presionando Enter
+    document.getElementById('passInput').addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') {
+        checkPass();
+      }
+    });
+
+    function showCatalog() {
+      document.getElementById('catalog-view').style.display = 'block';
+      document.getElementById('reader-view').style.display = 'none';
+      window.scrollTo(0, 0);
+    }
+
+    function openReader() {
+      document.getElementById('catalog-view').style.display = 'none';
+      document.getElementById('reader-view').style.display = 'block';
+      window.scrollTo(0, 0);
+    }
+  </script>
 </body>
 </html>
