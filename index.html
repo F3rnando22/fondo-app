@@ -42,7 +42,7 @@
     
     .app-header {
       border-bottom: 1px solid var(--gris-borde);
-      padding: 20px;
+      padding: 16px 20px;
       background: var(--bg-marfil);
       position: sticky;
       top: 0;
@@ -66,8 +66,9 @@
       display: flex;
       gap: 20px;
       font-size: 0.8rem;
-      letter-spacing: 1.5px;
+      letter-spacing: 1px;
       text-transform: uppercase;
+      align-items: center;
     }
 
     .header-nav button {
@@ -85,7 +86,38 @@
       color: var(--text-grafito);
     }
 
-    .container { max-width: 900px; margin: 0 auto; padding: 40px 20px 80px 20px; }
+    /* BARRA DE PROGRESO DE SUSCRIPTORES */
+    .subscriber-tracker {
+      background: #f1efea;
+      border: 1px solid var(--gris-borde);
+      padding: 8px 16px;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      color: #4a4a4d;
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .progress-bar-container {
+      width: 120px;
+      background: #e0de88;
+      height: 6px;
+      border-radius: 3px;
+      overflow: hidden;
+      display: inline-block;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+
+    .progress-fill {
+      width: 42%; /* Ajustar según cantidad actual (ej: 42 de 100) */
+      height: 100%;
+      background: var(--accent-oro);
+    }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 30px 20px 80px 20px; }
     .catalog-section-title { font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-oro); margin-bottom: 20px; display: block; border-bottom: 1px solid var(--accent-oro); padding-bottom: 6px; margin-top: 20px; }
 
     /* HERO DESTACADO (ENTREGA 1) */
@@ -107,7 +139,7 @@
     .entry-card-snippet { font-size: 0.85rem; color: #666; line-height: 1.5; margin-bottom: 16px; flex-grow: 1; }
     .entry-card-meta { font-size: 0.75rem; color: var(--accent-oro); font-weight: bold; }
 
-    /* SECCIÓN COMUNIDAD / COFRADES Y CONTACTO EN EL CATÁLOGO */
+    /* SECCIÓN COMUNIDAD Y CONTACTO EN EL CATÁLOGO */
     .community-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -175,7 +207,7 @@
     <div class="brand-title">F O N D O</div>
     <div class="brand-sub">Atención ampliada contra la inmediatez</div>
     <div class="login-box">
-      <input type="text" id="passInput" class="login-input" placeholder="[ Ingrese Clave de Cofrade ]" autocomplete="off">
+      <input type="text" id="passInput" class="login-input" placeholder="[ Ingrese Clave de Acceso ]" autocomplete="off">
       <button onclick="checkPass()" class="login-btn">INGRESAR AL RESGUARDO</button>
     </div>
   </div>
@@ -183,15 +215,23 @@
   <!-- APP PRINCIPAL -->
   <div id="app">
     <header class="app-header">
-      <div class="brand" onclick="showCatalog()">F O N DO</div>
+      <div class="brand" onclick="showCatalog()">F O N D O</div>
       <nav class="header-nav">
-        <button onclick="alert('Sección de Suscriptores / Cofrades')">Cofrades</button>
-        <button onclick="alert('Redirigiendo a pasarela de pago o suscripción...')">Suscripción</button>
+        <button onclick="alert('Redirigiendo a pasarela de aportes y membresía...')">Aportes / Membresía</button>
         <button onclick="alert('Buzón de sugerencias y contacto abierto para invitados.')">Contacto</button>
       </nav>
     </header>
 
     <div class="container">
+
+      <!-- BARRA DE PROGRESO DE SUSCRIPTORES -->
+      <div class="subscriber-tracker">
+        <span>Suscriptores actuales: <strong>42</strong> / Meta inicial: 100</span>
+        <div>
+          <span>Progreso</span>
+          <div class="progress-bar-container"><div class="progress-fill"></div></div>
+        </div>
+      </div>
       
       <!-- CATÁLOGO -->
       <div id="catalog-view">
@@ -241,12 +281,12 @@
 
         </div>
 
-        <!-- BLOQUE INFERIOR DE SUSCRIPCIÓN Y CONTACTO -->
+        <!-- BLOQUE INFERIOR DE APORTES Y CONTACTO -->
         <div class="community-grid">
           <div class="community-box">
-            <h3>[ Círculo de Cofrades ]</h3>
-            <p>Únase al fondo editorial de investigación y soporte el periodismo de largo aliento. Acceso exclusivo a entregas completas y archivos reservados.</p>
-            <button class="action-btn" onclick="window.location.href='mailto:contacto@fondo-periodismo.com?subject=Suscripcion'">Adquirir Suscripción</button>
+            <h3>[ Membresía y Sostén ]</h3>
+            <p>Apoye el periodismo de investigación de largo aliento. Su aporte garantiza la independencia editorial y el desarrollo de nuevas entregas.</p>
+            <button class="action-btn" onclick="alert('Redirigiendo a pasarela de aportes...')">Realizar Aporte</button>
           </div>
           <div class="community-box">
             <h3>[ Buzón de Invitados ]</h3>
@@ -290,7 +330,18 @@
         const response = await fetch(file);
         if (!response.ok) throw new Error('No se pudo cargar el archivo');
         const html = await response.text();
-        document.getElementById('article-content').innerHTML = html;
+        
+        // Inyectamos el contenido y le sumamos al final el bloque institucional para los no suscriptores
+        const callToActionHTML = `
+          ${html}
+          <div style="background-color: #f1efea; border: 1px solid #e0de88; padding: 30px; margin-top: 60px; text-align: center; border-radius: 2px;">
+            <h3 style="margin: 0 0 10px 0; font-size: 0.9rem; letter-spacing: 2px; color: #8c6d3b; text-transform: uppercase;">[ FONDO — Atención Ampliada ]</h3>
+            <p style="font-size: 0.95rem; color: #4a4a4d; margin-bottom: 20px; line-height: 1.6;">Si todavía no formas parte, hazlo ahora y asegura el acceso continuo a nuestras investigaciones exclusivas.</p>
+            <button onclick="alert('Redirigiendo a suscripción...')" style="background-color: #18181a; color: #f9f8f3; border: none; padding: 12px 24px; font-family: Georgia, serif; font-size: 0.8rem; letter-spacing: 1.5px; cursor: pointer; text-transform: uppercase;">SÚMATE AHORA</button>
+          </div>
+        `;
+
+        document.getElementById('article-content').innerHTML = callToActionHTML;
         document.getElementById('catalog-view').style.display = 'none';
         document.getElementById('reader-view').style.display = 'block';
         window.scrollTo(0, 0);
