@@ -1,585 +1,242 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FONDO — Atención Ampliada</title>
-    <meta name="theme-color" content="#18181a">
-    <style>
-        :root {
-            --bg-dark: #18181a;
-            --text-dark: #e6e4df;
-            --bg-light: #f9f8f3;
-            --text-light: #1c1c1a;
-            --muted-light: #6b6a65;
-            --border-light: #e2e0d7;
-            --font-serif: "Georgia", "Garamond", "Times New Roman", serif;
-            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FONDO — Archivo Criminal: El caso Adriana Celihueta</title>
+  <style>
+    /* Estética de Marca FONDO: Marfil y Grafito */
+    :root {
+      --bg-marfil: #f9f8f3;
+      --text-grafito: #18181a;
+      --accent-oro: #8c6d3b;
+      --gris-suave: #e0de8;
+      --font-serif: "Georgia", "Times New Roman", serif;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    body {
+      background-color: var(--bg-marfil);
+      color: var(--text-grafito);
+      font-family: var(--font-serif);
+      margin: 0;
+      padding: 0;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
 
-        body {
-            font-family: var(--font-serif);
-            background-color: var(--bg-dark);
-            color: var(--text-dark);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 40px 20px 80px 20px;
+    }
 
-        /* 1. PANTALLA DE ACCESO (CENTRADO PERFECTO) */
-        #login-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: var(--bg-dark);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            padding: 20px;
-        }
+    /* Cabecera de Entrega */
+    .header-badge {
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent-oro);
+      font-weight: bold;
+      margin-bottom: 12px;
+      display: block;
+    }
 
-        .login-box {
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-            margin: 0 auto;
-        }
+    h1.entry-title {
+      font-size: 2.2rem;
+      line-height: 1.25;
+      margin: 0 0 16px 0;
+      color: var(--text-grafito);
+    }
 
-        .login-title {
-            font-size: 2.2rem;
-            letter-spacing: 0.35em;
-            margin-bottom: 8px;
-            font-weight: 400;
-        }
+    .entry-subtitle {
+      font-size: 1.15rem;
+      color: #4a4a4d;
+      font-style: italic;
+      margin-bottom: 24px;
+      line-height: 1.4;
+    }
 
-        .login-subtitle {
-            font-family: var(--font-sans);
-            font-size: 0.8rem;
-            letter-spacing: 0.15em;
-            color: #888;
-            text-transform: uppercase;
-            margin-bottom: 35px;
-        }
+    .meta-bar {
+      font-size: 0.85rem;
+      color: var(--accent-oro);
+      border-top: 1px solid #e0de8;
+      border-bottom: 1px solid #e0de8;
+      padding: 10px 0;
+      margin-bottom: 40px;
+      display: flex;
+      justify-content: space-between;
+    }
 
-        .login-input {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 14px 18px;
-            color: #fff;
-            font-family: var(--font-sans);
-            font-size: 0.95rem;
-            text-align: center;
-            letter-spacing: 0.1em;
-            border-radius: 2px;
-            outline: none;
-            margin-bottom: 15px;
-        }
+    /* Capitular */
+    .drop-cap::first-letter {
+      font-size: 3.8rem;
+      float: left;
+      line-height: 0.8;
+      margin-top: 4px;
+      margin-right: 10px;
+      margin-bottom: -2px;
+      color: var(--text-grafito);
+      font-weight: bold;
+    }
 
-        .login-btn {
-            width: 100%;
-            background: var(--text-dark);
-            color: var(--bg-dark);
-            border: none;
-            padding: 14px;
-            font-family: var(--font-sans);
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            cursor: pointer;
-            border-radius: 2px;
-        }
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 24px;
+      text-align: justify;
+    }
 
-        .login-error {
-            color: #e57373;
-            font-family: var(--font-sans);
-            font-size: 0.8rem;
-            margin-top: 15px;
-            display: none;
-        }
+    /* Subtítulos de Capítulo */
+    .chapter-divider {
+      text-align: center;
+      margin: 50px 0 30px 0;
+      font-size: 1.1rem;
+      letter-spacing: 4px;
+      color: var(--accent-oro);
+    }
 
-        /* 2. PANTALLA PRINCIPAL (MARFIL) */
-        #app-screen {
-            display: none;
-            background-color: var(--bg-light);
-            color: var(--text-light);
-            min-height: 100vh;
-            padding-bottom: 60px;
-        }
+    h2.chapter-title {
+      font-size: 1.4rem;
+      color: var(--text-grafito);
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--accent-oro);
+      padding-bottom: 6px;
+    }
 
-        header {
-            max-width: 1040px;
-            margin: 0 auto;
-            padding: 40px 20px 20px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            border-bottom: 1px solid var(--border-light);
-        }
+    /* Maquetación de Imágenes */
+    figure.editorial-img {
+      margin: 36px 0;
+      text-align: center;
+    }
 
-        .brand-title {
-            font-size: 1.8rem;
-            letter-spacing: 0.25em;
-            font-weight: 400;
-            cursor: pointer;
-        }
+    figure.editorial-img img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 2px;
+      filter: grayscale(10%);
+    }
 
-        .brand-sub {
-            font-family: var(--font-sans);
-            font-size: 0.75rem;
-            letter-spacing: 0.1em;
-            color: var(--muted-light);
-            text-transform: uppercase;
-        }
+    figcaption {
+      font-size: 0.85rem;
+      color: #666;
+      font-style: italic;
+      margin-top: 8px;
+    }
 
-        .logout-btn {
-            background: none;
-            border: none;
-            font-family: var(--font-sans);
-            font-size: 0.75rem;
-            color: var(--muted-light);
-            cursor: pointer;
-        }
+    /* Bloque Salvoconducto */
+    .resguardo-card {
+      background-color: #f1efea;
+      border: 1px solid #d8d5cd;
+      padding: 24px;
+      margin-top: 60px;
+      text-align: center;
+      border-radius: 4px;
+    }
 
-        main {
-            max-width: 1040px;
-            margin: 40px auto 0 auto;
-            padding: 0 20px;
-        }
+    .resguardo-card h3 {
+      margin: 0 0 10px 0;
+      font-size: 0.95rem;
+      letter-spacing: 2px;
+      color: var(--accent-oro);
+    }
 
-        .archive-header {
-            margin-bottom: 30px;
-        }
+    .resguardo-card p {
+      font-size: 0.9rem;
+      text-align: center;
+      margin-bottom: 16px;
+      color: #4a4a4d;
+    }
 
-        .archive-title {
-            font-family: var(--font-sans);
-            font-size: 0.75rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--muted-light);
-            border-bottom: 2px solid var(--text-light);
-            padding-bottom: 6px;
-            display: inline-block;
-        }
-
-        /* HERO - ENTREGA 4 */
-        .hero-card {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 30px;
-            background: #fff;
-            border: 1px solid var(--border-light);
-            padding: 30px;
-            margin-bottom: 40px;
-            cursor: pointer;
-        }
-
-        .hero-img {
-            width: 100%;
-            height: 100%;
-            min-height: 280px;
-            object-fit: cover;
-            filter: grayscale(80%);
-        }
-
-        .hero-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .tag-meta {
-            font-family: var(--font-sans);
-            font-size: 0.75rem;
-            letter-spacing: 0.1em;
-            color: var(--muted-light);
-            text-transform: uppercase;
-            margin-bottom: 12px;
-        }
-
-        .hero-title {
-            font-size: 2rem;
-            line-height: 1.2;
-            margin-bottom: 15px;
-            font-weight: 400;
-        }
-
-        .hero-summary {
-            font-size: 0.95rem;
-            color: #444;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-
-        /* GRILLA HORIZONTAL 3 COLUMNAS */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-
-        .grid-card {
-            background: #fff;
-            border: 1px solid var(--border-light);
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .grid-img {
-            width: 100%;
-            height: 160px;
-            object-fit: cover;
-            filter: grayscale(80%);
-            margin-bottom: 15px;
-        }
-
-        .grid-title {
-            font-size: 1.25rem;
-            line-height: 1.3;
-            margin-bottom: 10px;
-            font-weight: 400;
-        }
-
-        .grid-summary {
-            font-size: 0.85rem;
-            color: var(--muted-light);
-            line-height: 1.5;
-            margin-bottom: 15px;
-            flex-grow: 1;
-        }
-
-        /* LECTURA ARTÍCULO */
-        .article-view {
-            max-width: 680px;
-            margin: 0 auto;
-            display: none;
-        }
-
-        .back-link {
-            font-family: var(--font-sans);
-            font-size: 0.8rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--muted-light);
-            cursor: pointer;
-            margin-bottom: 30px;
-            display: inline-block;
-        }
-
-        .art-header {
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .art-meta {
-            font-family: var(--font-sans);
-            font-size: 0.8rem;
-            color: var(--muted-light);
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            margin-bottom: 15px;
-        }
-
-        .art-title {
-            font-size: 2.5rem;
-            line-height: 1.2;
-            margin-bottom: 15px;
-            font-weight: 400;
-        }
-
-        .art-sub {
-            font-size: 1.1rem;
-            font-style: italic;
-            color: var(--muted-light);
-            margin-bottom: 30px;
-        }
-
-        .art-cover {
-            width: 100%;
-            max-height: 380px;
-            object-fit: cover;
-            margin-bottom: 35px;
-            filter: grayscale(30%);
-        }
-
-        .audio-player {
-            background: #f0eee6;
-            border: 1px solid var(--border-light);
-            padding: 15px 20px;
-            margin-bottom: 35px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-family: var(--font-sans);
-            font-size: 0.85rem;
-        }
-
-        .art-body p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 25px;
-            color: #2b2b29;
-        }
-
-        .salvoconducto-box {
-            margin-top: 50px;
-            padding: 25px;
-            background: #fff;
-            border-left: 3px solid var(--text-light);
-            border: 1px solid var(--border-light);
-        }
-
-        .salvo-title {
-            font-family: var(--font-sans);
-            font-size: 0.75rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .salvo-text {
-            font-size: 0.95rem;
-            color: #444;
-            line-height: 1.6;
-        }
-
-        .salvo-code {
-            display: inline-block;
-            background: #f0eee6;
-            padding: 3px 8px;
-            font-family: monospace;
-            font-weight: bold;
-            margin-top: 8px;
-        }
-
-        @media (max-width: 800px) {
-            .hero-card {
-                grid-template-columns: 1fr;
-            }
-            .grid-container {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    .resguardo-btn {
+      background-color: var(--text-grafito);
+      color: var(--bg-marfil);
+      border: none;
+      padding: 12px 24px;
+      font-family: var(--font-serif);
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- 1. PANTALLA DE ACCESO -->
-    <div id="login-screen">
-        <div class="login-box">
-            <h1 class="login-title">F O N D O</h1>
-            <p class="login-subtitle">Atención ampliada contra la inmediatez</p>
-            <input type="password" id="access-code" class="login-input" placeholder="[ Ingrese Clave de Cofrade ]">
-            <button type="button" id="enter-btn" class="login-btn">Ingresar al Resguardo</button>
-            <p id="login-error" class="login-error">Credencial no válida.</p>
-        </div>
-    </div>
+<div class="container">
+  <span class="header-badge">ENTREGA INAUGURAL — INVESTIGACIÓN DE ARCHIVO</span>
+  <h1 class="entry-title">Archivo Criminal: La enigmática desaparición de la veterinaria Adriana Celihueta</h1>
+  <div class="entry-subtitle">Treinta y cinco años de un caso que sacudió a Necochea, rozó al poder político regional y quedó atrapado entre sospechas no probadas, testigos fantasma y el olvido judicial.</div>
+  
+  <div class="meta-bar">
+    <span>POR FERNANDO DEL RIO</span>
+    <span>TIEMPO DE LECTURA: 22 MINUTOS</span>
+  </div>
 
-    <!-- 2. PANTALLA PRINCIPAL DE CONTENIDOS -->
-    <div id="app-screen">
-        <header>
-            <div>
-                <h1 class="brand-title" onclick="showArchive()">F O N D O</h1>
-                <p class="brand-sub">Círculo de Lectura y Resguardo</p>
-            </div>
-            <button class="logout-btn" onclick="logout()">Cerrar Sesión</button>
-        </header>
+  <!-- CAPÍTULO I -->
+  <h2 class="chapter-title">I. El misterio que arranca en la noche de verano</h2>
+  <p class="drop-cap">En una estantería repleta de viejos expedientes hay dos pilones de papel. Del hilo que los mantiene unidos cuelga un rótulo acartonado que a trazo de fibrón destaca el apellido “Celihueta”. Allí se oculta una verdad tan maniatada como las 2000 fojas, una verdad que lucha contra el olvido cada vez más inevitable. Y es en el olvido judicial donde muchas víctimas mueren su segunda muerte.</p>
+  
+  <p>La historia criminal registra la desaparición de la veterinaria Adriana Celihueta en 1987 como un enigma, como uno de esos casos que aparecen de tanto en tanto y que se clavan cual espina en la garganta de los que gritan por su esclarecimiento. Hace ya 35 años que la suerte corrida por Adriana Celihueta aquella noche de verano es un secreto que, aún hoy, lastima a Necochea y Quequén, dos comunidades atravesadas por un muro de silencio que el paso del tiempo en lugar de agrietar lo ha sellado.</p>
 
-        <main>
-            <!-- VISTA DE ARCHIVO -->
-            <div id="archive-view">
-                <div class="archive-header">
-                    <span class="archive-title">Archivo de Entregas</span>
-                </div>
+  <p>Del caso Celihueta se dijeron tantas cosas que hasta pueden reconfigurarse todas sus medias verdades y medias mentiras, y contarse varias posibles historias de lo sucedido. Ninguna de ellas respaldadas en más pruebas irrefutables que las otras. Y la sensación más fuerte que aún persists es que se investigó mal. No que se investigó poco, pero sí mal.</p>
 
-                <!-- FILA SUPERIOR: HERO (ENTREGA 4) -->
-                <div class="hero-card" onclick="openArticle(4)">
-                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="Entrega 4" class="hero-img">
-                    <div class="hero-content">
-                        <p class="tag-meta">Entrega N° 04 • 26 Octubre 2026</p>
-                        <h2 class="hero-title">La Paradoja del Río</h2>
-                        <p class="hero-summary">Un ensayo sobre las secuencias de cambio, la permanencia de la memoria y la ilusión del movimiento continuo en la era de la prisa.</p>
-                        <p class="tag-meta" style="margin-bottom:0;">Lectura: 14 min • Audio disponible</p>
-                    </div>
-                </div>
+  <p>A las 21.45 del jueves 15 de enero de 1987 Adriana Celihueta terminó de cenar junto a sus padres Carlos y Mimí, en la casa de calle 64 de Necochea. Tenía 29 años y estaba recibida de veterinaria. El 21 de febrero tenía programada la boda con Luis Iparraguirre, su novio desde que tenía 18 años, y su posterior mudanza a Castex, en La Pampa.</p>
 
-                <!-- FILA INFERIOR: GRILLA DE 3 COLUMNAS -->
-                <div class="grid-container">
-                    
-                    <!-- ENTREGA 3 -->
-                    <div class="grid-card" onclick="openArticle(3)">
-                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=500&q=80" alt="Entrega 3" class="grid-img">
-                        <p class="tag-meta">Entrega N° 03 • 18 Octubre 2026</p>
-                        <h3 class="grid-title">Cartografía del Silencio</h3>
-                        <p class="grid-summary">Investigación sobre los espacios físicos y mentales despojados de señal en el sur de la provincia.</p>
-                        <p class="tag-meta" style="margin-bottom:0;">Lectura: 11 min</p>
-                    </div>
+  <p>Esa noche Adriana salió en el Dodge Polara verde de la familia con un único objetivo: verificar cómo se escribía el apellido de su futura suegra en la calle 48 para imprimir las participaciones de la boda. Nunca regresó. A las 2.30 de la madrugada, su padre advirtió la ausencia y comenzó una búsqueda que terminaría a la mañana siguiente con el hallazgo del vehículo abandonado en el Parque Lillo, frente al mar, con las ventanillas bajas, sin llaves y con sus documentos esparcidos en la arena.</p>
 
-                    <!-- ENTREGA 2 -->
-                    <div class="grid-card" onclick="openArticle(2)">
-                        <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=500&q=80" alt="Entrega 2" class="grid-img">
-                        <p class="tag-meta">Entrega N° 02 • 10 Octubre 2026</p>
-                        <h3 class="grid-title">Elogio del Papel Graso</h3>
-                        <p class="grid-summary">Crónica sobre la correspondencia lenta, el registro en bitácora y la textura táctil como soporte de la verdad.</p>
-                        <p class="tag-meta" style="margin-bottom:0;">Lectura: 15 min</p>
-                    </div>
+  <figure class="editorial-img">
+    <img src="https://www.lacapitalmdp.com/wp-content/uploads/2022/05/celihueta-padre.jpg" alt="Carlos Celihueta">
+    <figcaption>Carlos Celihueta, siempre encima de la investigación y de la policía.</figcaption>
+  </figure>
 
-                    <!-- ENTREGA 1 -->
-                    <div class="grid-card" onclick="openArticle(1)">
-                        <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=500&q=80" alt="Entrega 1" class="grid-img">
-                        <p class="tag-meta">Entrega N° 01 • 01 Octubre 2026</p>
-                        <h3 class="grid-title">El Desgaste de la Atención</h3>
-                        <p class="grid-summary">Un ensayo breve sobre la resistencia cognitiva frente al consumo de estímulos fragmentados.</p>
-                        <p class="tag-meta" style="margin-bottom:0;">Lectura: 12 min</p>
-                    </div>
+  <!-- CAPÍTULO II -->
+  <div class="chapter-divider">■ ■ ■</div>
+  <h2 class="chapter-title">II. El hombre de las sospechas y las hipótesis de poder</h2>
+  <p>La principal hipótesis de la familia, reproducida por gran parte de la ciudadanía necochense, fue que a Adriana la asesinaron en un encuentro al que había asistido armada. La mirada pública se posó de inmediato en Reinaldo Costa, de entonces 38 años, Delegado Municipal de Quequén y dueño de la veterinaria "La Chacra", donde Adriana hacía trabajos ad honorem.</p>
 
-                </div>
-            </div>
+  <p>Las conjeturas sobre Costa mutaron con los años: desde el rechazo a sus insinuaciones sentimentales o una relación extramatrimonial que la joven quería terminar ante su inminente boda, hasta complejas maniobras relacionadas con el dopaje de caballos en carreras cuadreras. Sin embargo, Costa nunca fue procesado ni imputado formalmente en el expediente.</p>
 
-            <!-- VISTA DE LECTURA DE ARTÍCULO -->
-            <div id="article-view" class="article-view">
-                <span class="back-link" onclick="showArchive()">← Volver al Archivo</span>
-                
-                <div class="art-header">
-                    <p id="art-meta" class="art-meta"></p>
-                    <h1 id="art-title" class="art-title"></h1>
-                    <p id="art-sub" class="art-sub"></p>
-                </div>
+  <figure class="editorial-img">
+    <img src="https://www.lacapitalmdp.com/wp-content/uploads/2022/05/veterinaria-la-chacra.jpg" alt="Veterinaria La Chacra">
+    <figcaption>Veterinaria La Chacra de Quequén, propiedad de Reinaldo Costa.</figcaption>
+  </figure>
 
-                <img id="art-cover" class="art-cover" src="" alt="Portada">
+  <!-- CAPÍTULO III -->
+  <div class="chapter-divider">■ ■ ■</div>
+  <h2 class="chapter-title">III. Testigos chismosos, parapsicología y un taxista fantasma</h2>
+  <p>A la falencia del peritaje inicial sobre el automóvil Dodge Polara se le sumó un desfile desconcertante de hipótesis y testigos improvisados. La causa acumuló relatos de oídas, intervenciones de parapsicólogos, videntes que señalaban excavaciones en rotondas y testimonios infundados que aseguraban haber visto a la joven en México, España o Bahía Blanca.</p>
 
-                <div class="audio-player">
-                    <span>🎧</span>
-                    <div>
-                        <strong>Escuchar lectura pausada</strong> (Voz original • MP3)
-                        <br><small style="color:#777;">Ideal para escuchar sin pantalla encendida.</small>
-                    </div>
-                </div>
+  <p>Entre los mitos urbanos emergió la figura de Esneldo García, un taxista de Necochea asesinado de un disparo semanas después de la desaparición. Durante años se afirmó que lo habían matado por declarar que vio a Costa en el Parque Lillo esa noche. Sin embargo, los registros judiciales demuestran que García jamás declaró en el expediente.</p>
 
-                <div id="art-body" class="art-body"></div>
+  <figure class="editorial-img">
+    <img src="https://www.lacapitalmdp.com/wp-content/uploads/2022/05/revolver-rubi.jpg" alt="Revólver Rubí">
+    <figcaption>Revólver similar al calibre 22 que, según su padre, Adriana se llevó esa noche.</figcaption>
+  </figure>
 
-                <!-- SALVOCONDUCTO -->
-                <div class="salvoconducto-box">
-                    <div class="salvo-title">■ HABILITACIÓN DE APADRINAMIENTO (SALVOCONDUCTO)</div>
-                    <div class="salvo-text">
-                        Si ha completado esta lectura en su totalidad y desea validar su participación como Lector Custodio para apadrinar a un Invitado, responda a su carta de invitación con el término:
-                        <br>
-                        <span class="salvo-code">[ RESGUARDO ]</span>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
+  <!-- CAPÍTULO IV -->
+  <div class="chapter-divider">■ ■ ■</div>
+  <h2 class="chapter-title">IV. El pozo, el anillo y el cierre de un caso sin respuestas</h2>
+  <p>En septiembre de 1996, una excavación ordenada en el patio de la veterinaria "La Chacra" halló en un pozo ciego clausurado restos óseos de animales, desechos veterinarios y un anillo de bronce. Aunque la madre y la hermana señalaron que era similar a uno usado por Adriana, la prueba nunca pudo confirmarse con certeza científica y con los años terminó extraviándose en el depósito de efectos secuestrados.</p>
 
-    <script>
-        const VALID_KEY = "FND-DEMO-2026";
+  <p>Se excavaron pozos, médanos, estancias, aljibes y muelles. Se cambiaron jueces, fiscales y la carátula pasó de 'averiguación de paradero' a 'privación ilegítima de la libertad y homicidio'. Sin embargo, en septiembre de 2007, el juez Jorge Peralta dictó el sobreseimiento de la causa por falta de autores identificados.</p>
 
-        const ARTICLES = {
-            1: {
-                title: "El Desgaste de la Atención",
-                sub: "La resistencia cognitiva frente al consumo de estímulos fragmentados.",
-                meta: "Entrega N° 01 • 01 Octubre 2026 • 12 min de lectura",
-                img: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=800&q=80",
-                body: `<p>La velocidad con la que consumimos información ha transformado silenciosamente nuestra estructura de pensamiento. Lo que antes exigía un ritmo pausado de lectura y asimilación ha sido reemplazado por ráfagas constantes de estímulos diseñados para capturar la atención de manera superficial y efímera.</p><p>FONDO nace como un dispositivo de entrenamiento mental y resguardo para la lectura profunda. Este espacio no compite por la primicia ni responde a las urgencias de la coyuntura. Cada entrega es un ejercicio de contemplación, investigación y silencio en medio del ruido digital.</p>`
-            },
-            2: {
-                title: "Elogio del Papel Graso",
-                sub: "Crónica sobre la correspondencia lenta, el registro en bitácora y la textura táctil como soporte de la verdad.",
-                meta: "Entrega N° 02 • 10 Octubre 2026 • 15 min de lectura",
-                img: "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80",
-                body: `<p>En las viejas libretas de campo, la tinta se asienta sobre la fibra del papel dejando una huella imborrable. No hay botón de borrado ni edición instantánea; cada palabra escrita exige una decisión previa, una pausa reflexiva antes de fijar la idea.</p><p>El periodismo de investigación de largo aliento comparte esa misma naturaleza táctil. Exige tiempo de maduración, verificación presencial y una distancia crítica respecto de las versiones oficiales.</p>`
-            },
-            3: {
-                title: "Cartografía del Silencio",
-                sub: "Investigación sobre los espacios físicos y mentales despojados de señal en el sur de la provincia.",
-                meta: "Entrega N° 03 • 18 Octubre 2026 • 11 min de lectura",
-                img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80",
-                body: `<p>Existen aún zonas donde la cobertura celular se disuelve por completo, cediendo el espacio a un silencio geográfico casi extinto. En esos parajes, el tiempo recupera su dimensión natural y las conversaciones vuelven a tener principio, desarrollo y fin.</p>`
-            },
-            4: {
-                title: "La Paradoja del Río",
-                sub: "Un ensayo sobre las secuencias de cambio, la permanencia de la memoria y la ilusión del movimiento continuo en la era de la prisa.",
-                meta: "Entrega N° 04 • 26 Octubre 2026 • 14 min de lectura",
-                img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
-                body: `<p>Ningún hombre se baña dos veces en el mismo río, pero la corriente conserva su cauce. La célebre intuición filosófica adquiere hoy un significado renovado: en medio del cambio frenético de las plataformas digitales, lo fundamental permanece inalterable.</p><p>Sostener la mirada atenta sobre los procesos lentos es la única forma de descifrar las transformaciones de fondo.</p>`
-            }
-        };
+  <figure class="editorial-img">
+    <img src="https://www.lacapitalmdp.com/wp-content/uploads/2022/05/anillo-comparacion.jpg" alt="Anillo hallado">
+    <figcaption>El anillo hallado en el pozo de la veterinaria comparado junto a otros en la casa de la familia.</figcaption>
+  </figure>
 
-        function checkAuth() {
-            if (localStorage.getItem("fondo_auth") === "true") {
-                showApp();
-            }
-        }
+  <figure class="editorial-img">
+    <img src="https://www.lacapitalmdp.com/wp-content/uploads/2022/05/parte4-avejentada.jpg" alt="Proyección Digital">
+    <figcaption>Retoque digital del año 2001 que proyectaba el rostro de Adriana 15 años después.</figcaption>
+  </figure>
 
-        function validateKey() {
-            const inputVal = document.getElementById("access-code").value.trim().toUpperCase();
-            if (inputVal === VALID_KEY) {
-                localStorage.setItem("fondo_auth", "true");
-                showApp();
-            } else {
-                document.getElementById("login-error").style.display = "block";
-            }
-        }
+  <p>Carlos Celihueta, tras décadas de búsqueda ininterrumpida y derrotado por el dolor, se quitó la vida en 2015. Treinta y cinco años después, el caso permanece en el archivo tribunalicio como una herida abierta y un testimonio del fracaso judicial.</p>
 
-        function showApp() {
-            document.getElementById("login-screen").style.display = "none";
-            document.getElementById("app-screen").style.display = "block";
-            showArchive();
-        }
+  <!-- BLOQUE DE SALVOCONDUCTO -->
+  <div class="resguardo-card">
+    <h3>[ CIRCULO DE RESGUARDO ]</h3>
+    <p>Ha completado la lectura de la Entrega Inaugural N° 01. Su tiempo de lectura ha sido registrado correctamente.</p>
+    <button class="resguardo-btn">REGISTRAR SALVOCONDUCTO DE LECTURA</button>
+  </div>
+</div>
 
-        function logout() {
-            localStorage.removeItem("fondo_auth");
-            document.getElementById("app-screen").style.display = "none";
-            document.getElementById("login-screen").style.display = "flex";
-            document.getElementById("access-code").value = "";
-            document.getElementById("login-error").style.display = "none";
-        }
-
-        function showArchive() {
-            document.getElementById("article-view").style.display = "none";
-            document.getElementById("archive-view").style.display = "block";
-            window.scrollTo(0, 0);
-        }
-
-        function openArticle(id) {
-            const art = ARTICLES[id];
-            if (!art) return;
-
-            document.getElementById("art-meta").innerText = art.meta;
-            document.getElementById("art-title").innerText = art.title;
-            document.getElementById("art-sub").innerText = art.sub;
-            document.getElementById("art-cover").src = art.img;
-            document.getElementById("art-body").innerHTML = art.body;
-
-            document.getElementById("archive-view").style.display = "none";
-            document.getElementById("article-view").style.display = "block";
-            window.scrollTo(0, 0);
-        }
-
-        // Asignación directa de eventos al cargar la ventana
-        window.onload = function() {
-            checkAuth();
-            
-            document.getElementById("enter-btn").onclick = validateKey;
-            document.getElementById("access-code").onkeyup = function(e) {
-                if (e.key === "Enter") {
-                    validateKey();
-                }
-            };
-        };
-    </script>
 </body>
 </html>
