@@ -196,7 +196,7 @@
 
     /* VISTA DE LECTOR */
     #reader-view { display: none; }
-    .reader-container { max-width: 720px; margin: 0 auto; padding-top: 20px; }
+    .reader-container { max-width: 720px; margin: 0 auto; }
   </style>
 </head>
 <body>
@@ -213,7 +213,7 @@
 
   <!-- APP PRINCIPAL -->
   <div id="app">
-    <header class="app-header" id="main-header">
+    <header class="app-header">
       <div class="brand" onclick="showCatalog()">F O N D O</div>
       <nav class="header-nav">
         <button onclick="alert('Redirigiendo a pasarela de aportes y membresía...')">Aportes / Membresía</button>
@@ -240,7 +240,7 @@
           <div class="hero-content">
             <span class="hero-badge">ENTREGA INAUGURAL N° 01 — CRÓNICA COMPLETA</span>
             <h2 class="hero-title">Archivo criminal: la enigmática desaparición de la veterinaria Adriana Celihueta</h2>
-            <p class="hero-snippet">Investigación íntegra en four capítulos sobre la misteriosa ausencia en Necochea que rozó al poder político y permanece sin respuestas tras 35 años.</p>
+            <p class="hero-snippet">Investigación íntegra en cuatro capítulos sobre la misteriosa ausencia en Necochea que rozó al poder político y permanece sin respuestas tras 35 años.</p>
             <div class="hero-meta">POR FERNANDO DEL RIO — LEER COMPLETO →</div>
           </div>
         </div>
@@ -299,7 +299,6 @@
       <!-- LECTOR -->
       <div id="reader-view">
         <div class="reader-container">
-          <button class="back-btn" onclick="showCatalog()">← VOLVER AL CATÁLOGO</button>
           <div id="article-content"></div>
         </div>
       </div>
@@ -321,7 +320,6 @@
     function showCatalog() {
       document.getElementById('catalog-view').style.display = 'block';
       document.getElementById('reader-view').style.display = 'none';
-      document.getElementById('main-header').style.display = 'flex';
       document.getElementById('tracker-bar').style.display = 'flex';
       window.scrollTo(0, 0);
     }
@@ -332,15 +330,14 @@
         if (!response.ok) throw new Error('No se pudo cargar el archivo');
         let html = await response.text();
         
-        // Limpiamos etiquetas duplicadas de cabecera si vinieran en el archivo de la nota
+        // Limpiamos cabeceras duplicadas si existieran
         html = html.replace(/<header class="app-header">[\s\S]*?<\/header>/gi, '');
-        html = html.replace(/<button class="back-btn"[\s\S]*?<\/button>/gi, '');
 
+        // Nuevo diseño para el llamado a sumarse: flotante a la derecha pero con estilo de enlace/botón sutil editorial, sin competir con el resguardo
         const callToActionHTML = `
-          <div style="float: right; width: 340px; clear: right; background-color: #f1efea; border: 1px solid #e0de88; padding: 24px; margin: 20px 0 30px 30px; text-align: center; border-radius: 2px;">
-            <h3 style="margin: 0 0 10px 0; font-size: 0.85rem; letter-spacing: 2px; color: #8c6d3b; text-transform: uppercase;">[ FONDO — Atención Ampliada ]</h3>
-            <p style="font-size: 0.9rem; color: #4a4a4d; margin-bottom: 16px; line-height: 1.5;">Si todavía no formas parte, hazlo ahora.</p>
-            <button onclick="alert('Redirigiendo a suscripción...')" style="background-color: #18181a; color: #f9f8f3; border: none; padding: 10px 20px; font-family: Georgia, serif; font-size: 0.75rem; letter-spacing: 1.5px; cursor: pointer; text-transform: uppercase;">SÚMATE AHORA</button>
+          <div style="float: right; width: 300px; clear: right; background-color: transparent; border-left: 2px solid #8c6d3b; padding: 12px 0 12px 20px; margin: 15px 0 25px 25px; text-align: left;">
+            <p style="font-size: 0.85rem; color: #555; margin: 0 0 10px 0; font-style: italic; line-height: 1.4;">Si todavía no formas parte, hazlo ahora.</p>
+            <button onclick="alert('Redirigiendo a suscripción...')" style="background: none; border: none; color: #8c6d3b; font-family: Georgia, serif; font-size: 0.75rem; letter-spacing: 2px; cursor: pointer; text-transform: uppercase; padding: 0; font-weight: bold;">[ + SÚMATE AHORA ]</button>
           </div>
         `;
 
@@ -352,14 +349,12 @@
 
         document.getElementById('article-content').innerHTML = html;
         document.getElementById('catalog-view').style.display = 'none';
-        document.getElementById('main-header').style.display = 'none';
         document.getElementById('tracker-bar').style.display = 'none';
         document.getElementById('reader-view').style.display = 'block';
         window.scrollTo(0, 0);
       } catch (err) {
         document.getElementById('article-content').innerHTML = '<h2>Entrega en preparación</h2><p>El contenido de esta entrega se activará próximamente.</p>';
         document.getElementById('catalog-view').style.display = 'none';
-        document.getElementById('main-header').style.display = 'none';
         document.getElementById('tracker-bar').style.display = 'none';
         document.getElementById('reader-view').style.display = 'block';
       }
