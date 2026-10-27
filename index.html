@@ -331,20 +331,18 @@
         if (!response.ok) throw new Error('No se pudo cargar el archivo');
         let html = await response.text();
         
-        // El bloque de llamada a la suscripción con el tono exacto de FONDO
+        // Bloque con desplazamiento a la derecha (float: right) justo como en tu composición
         const callToActionHTML = `
-          <div style="background-color: #f1efea; border: 1px solid #e0de88; padding: 30px; margin: 40px 0; text-align: center; border-radius: 2px;">
-            <h3 style="margin: 0 0 10px 0; font-size: 0.9rem; letter-spacing: 2px; color: #8c6d3b; text-transform: uppercase;">[ FONDO — Atención Ampliada ]</h3>
-            <p style="font-size: 0.95rem; color: #4a4a4d; margin-bottom: 20px; line-height: 1.6;">Si todavía no formas parte, hazlo ahora.</p>
-            <button onclick="alert('Redirigiendo a suscripción...')" style="background-color: #18181a; color: #f9f8f3; border: none; padding: 12px 24px; font-family: Georgia, serif; font-size: 0.8rem; letter-spacing: 1.5px; cursor: pointer; text-transform: uppercase;">SÚMATE AHORA</button>
+          <div style="float: right; width: 340px; clear: right; background-color: #f1efea; border: 1px solid #e0de88; padding: 24px; margin: 20px 0 30px 30px; text-align: center; border-radius: 2px;">
+            <h3 style="margin: 0 0 10px 0; font-size: 0.85rem; letter-spacing: 2px; color: #8c6d3b; text-transform: uppercase;">[ FONDO — Atención Ampliada ]</h3>
+            <p style="font-size: 0.9rem; color: #4a4a4d; margin-bottom: 16px; line-height: 1.5;">Si todavía no formas parte, hazlo ahora.</p>
+            <button onclick="alert('Redirigiendo a suscripción...')" style="background-color: #18181a; color: #f9f8f3; border: none; padding: 10px 20px; font-family: Georgia, serif; font-size: 0.75rem; letter-spacing: 1.5px; cursor: pointer; text-transform: uppercase;">SÚMATE AHORA</button>
           </div>
         `;
 
-        // Buscamos dónde está el bloque de resguardo para insertar el bloque justo antes
         if (html.includes('resguardo-card')) {
           html = html.replace('<div class="resguardo-card">', callToActionHTML + '<div class="resguardo-card">');
         } else {
-          // Si por alguna razón no lo encuentra, lo añadimos al final
           html += callToActionHTML;
         }
 
