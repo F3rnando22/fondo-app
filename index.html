@@ -196,8 +196,7 @@
 
     /* VISTA DE LECTOR */
     #reader-view { display: none; }
-    .reader-container { max-width: 720px; margin: 0 auto; }
-    .back-btn { background: none; border: none; color: var(--accent-oro); font-family: var(--font-serif); font-size: 0.85rem; cursor: pointer; padding: 0; margin-bottom: 28px; letter-spacing: 1px; }
+    .reader-container { max-width: 720px; margin: 0 auto; padding-top: 20px; }
   </style>
 </head>
 <body>
@@ -214,7 +213,7 @@
 
   <!-- APP PRINCIPAL -->
   <div id="app">
-    <header class="app-header">
+    <header class="app-header" id="main-header">
       <div class="brand" onclick="showCatalog()">F O N D O</div>
       <nav class="header-nav">
         <button onclick="alert('Redirigiendo a pasarela de aportes y membresía...')">Aportes / Membresía</button>
@@ -225,7 +224,7 @@
     <div class="container">
 
       <!-- BARRA DE PROGRESO DE SUSCRIPTORES -->
-      <div class="subscriber-tracker">
+      <div class="subscriber-tracker" id="tracker-bar">
         <span>Suscriptores actuales: <strong>42</strong> / Meta inicial: 100</span>
         <div>
           <span>Progreso</span>
@@ -241,7 +240,7 @@
           <div class="hero-content">
             <span class="hero-badge">ENTREGA INAUGURAL N° 01 — CRÓNICA COMPLETA</span>
             <h2 class="hero-title">Archivo criminal: la enigmática desaparición de la veterinaria Adriana Celihueta</h2>
-            <p class="hero-snippet">Investigación íntegra en cuatro capítulos sobre la misteriosa ausencia en Necochea que rozó al poder político y permanece sin respuestas tras 35 años.</p>
+            <p class="hero-snippet">Investigación íntegra en four capítulos sobre la misteriosa ausencia en Necochea que rozó al poder político y permanece sin respuestas tras 35 años.</p>
             <div class="hero-meta">POR FERNANDO DEL RIO — LEER COMPLETO →</div>
           </div>
         </div>
@@ -322,6 +321,8 @@
     function showCatalog() {
       document.getElementById('catalog-view').style.display = 'block';
       document.getElementById('reader-view').style.display = 'none';
+      document.getElementById('main-header').style.display = 'flex';
+      document.getElementById('tracker-bar').style.display = 'flex';
       window.scrollTo(0, 0);
     }
 
@@ -331,7 +332,10 @@
         if (!response.ok) throw new Error('No se pudo cargar el archivo');
         let html = await response.text();
         
-        // Bloque con desplazamiento a la derecha (float: right) justo como en tu composición
+        // Limpiamos etiquetas duplicadas de cabecera si vinieran en el archivo de la nota
+        html = html.replace(/<header class="app-header">[\s\S]*?<\/header>/gi, '');
+        html = html.replace(/<button class="back-btn"[\s\S]*?<\/button>/gi, '');
+
         const callToActionHTML = `
           <div style="float: right; width: 340px; clear: right; background-color: #f1efea; border: 1px solid #e0de88; padding: 24px; margin: 20px 0 30px 30px; text-align: center; border-radius: 2px;">
             <h3 style="margin: 0 0 10px 0; font-size: 0.85rem; letter-spacing: 2px; color: #8c6d3b; text-transform: uppercase;">[ FONDO — Atención Ampliada ]</h3>
@@ -348,11 +352,15 @@
 
         document.getElementById('article-content').innerHTML = html;
         document.getElementById('catalog-view').style.display = 'none';
+        document.getElementById('main-header').style.display = 'none';
+        document.getElementById('tracker-bar').style.display = 'none';
         document.getElementById('reader-view').style.display = 'block';
         window.scrollTo(0, 0);
       } catch (err) {
         document.getElementById('article-content').innerHTML = '<h2>Entrega en preparación</h2><p>El contenido de esta entrega se activará próximamente.</p>';
         document.getElementById('catalog-view').style.display = 'none';
+        document.getElementById('main-header').style.display = 'none';
+        document.getElementById('tracker-bar').style.display = 'none';
         document.getElementById('reader-view').style.display = 'block';
       }
     }
