@@ -33,13 +33,23 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* GATEKEEPER */
-    #gatekeeper { text-align: center; padding: 20px; width: 100%; max-width: 400px; display: none; }
+    /* GATEKEEPER Y ACCESO ESPONTÁNEO */
+    #gatekeeper { text-align: center; padding: 20px; width: 100%; max-width: 420px; display: none; }
     .brand-title { font-size: 2.2rem; letter-spacing: 12px; margin-bottom: 8px; font-weight: normal; }
     .brand-sub { font-size: 0.9rem; font-style: italic; color: var(--accent-oro); margin-bottom: 32px; }
     .login-box { display: flex; flex-direction: column; gap: 14px; }
     .login-input { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--accent-oro); color: var(--bg-marfil); padding: 14px 16px; font-family: monospace; text-align: center; font-size: 0.95rem; outline: none; letter-spacing: 2px; }
     .login-btn { background: var(--accent-oro); color: var(--text-grafito); border: none; padding: 14px; font-family: var(--font-serif); font-weight: bold; cursor: pointer; letter-spacing: 2px; text-transform: uppercase; font-size: 0.85rem; }
+
+    /* PLIEGO DE ADHESIÓN ESPONTÁNEA */
+    #spontaneous-step { display: none; text-align: left; padding: 40px 30px; width: 100%; max-width: 580px; background: var(--bg-marfil); color: var(--text-grafito); border: 1px solid var(--accent-oro); margin: auto; }
+    .spontaneous-brand { font-size: 1.4rem; letter-spacing: 6px; text-align: center; margin-bottom: 6px; }
+    .spontaneous-title { font-size: 0.85rem; letter-spacing: 3px; color: var(--accent-oro); text-transform: uppercase; margin-bottom: 24px; text-align: center; }
+    .spontaneous-text { font-size: 0.95rem; line-height: 1.7; color: #333; margin-bottom: 20px; }
+    .spontaneous-instructions { background: #f1efea; border: 1px solid var(--gris-borde); padding: 20px; font-size: 0.85rem; line-height: 1.6; color: #4a4a4d; margin-bottom: 24px; }
+    .spontaneous-actions { display: flex; flex-direction: column; gap: 12px; }
+    .spontaneous-btn { background: var(--text-grafito); color: var(--bg-marfil); border: none; padding: 14px; font-family: var(--font-serif); font-size: 0.8rem; letter-spacing: 2px; cursor: pointer; text-transform: uppercase; text-align: center; width: 100%; }
+    .spontaneous-btn:hover { background: var(--accent-oro); }
 
     /* RITUAL DE ANCLAJE */
     #anchor-step { display: none; text-align: left; padding: 40px 30px; width: 100%; max-width: 580px; background: var(--bg-marfil); color: var(--text-grafito); border: 1px solid var(--accent-oro); }
@@ -174,14 +184,12 @@
     .form-input, .form-textarea { background: var(--bg-marfil); border: 1px solid var(--gris-borde); padding: 12px; font-family: var(--font-serif); font-size: 0.9rem; color: var(--text-grafito); outline: none; }
     .form-textarea { resize: vertical; height: 140px; }
 
-    /* ========================================================
-       VISTA DE LECTOR: CAJA TIPOGRÁFICA ESTILO MEDIO (INFOBAE)
-       ======================================================== */
+    /* VISTA DE LECTOR: CAJA TIPOGRÁFICA ESTILO MEDIO (INFOBAE) */
     #reader-view { display: none; width: 100%; }
 
     .reader-container { 
       width: 100%;
-      max-width: 680px; /* Ancho idóneo simétrico y elegante en móvil y PC */
+      max-width: 680px; 
       margin: 0 auto; 
       padding: 30px 20px 80px 20px; 
       text-align: left; 
@@ -210,7 +218,6 @@
       color: var(--text-grafito);
     }
 
-    /* Letra capital controlada */
     #article-content .dropcap, #article-content p:first-of-type::first-letter {
       font-size: 3.5rem;
       float: left;
@@ -227,15 +234,41 @@
 </head>
 <body>
 
+  <!-- GATEKEEPER CON ACCESO INSTITUCIONAL Y ESPONTÁNEO -->
   <div id="gatekeeper">
     <div class="brand-title">F O N D O</div>
     <div class="brand-sub">Atención ampliada contra la inmediatez</div>
     <div class="login-box">
       <input type="text" id="passInput" class="login-input" placeholder="[ Ingrese Clave de Acceso ]" autocomplete="off">
       <button onclick="verifyKey()" class="login-btn">INGRESAR AL RESGUARDO</button>
+      
+      <div style="margin-top: 20px; border-top: 1px solid var(--gris-borde); padding-top: 20px;">
+        <p style="font-size: 0.8rem; color: #a09d90; margin-bottom: 12px; font-style: italic;">¿No posee una clave de invitación institucional?</p>
+        <button onclick="showSpontaneousInfo()" style="background: none; border: 1px solid var(--accent-oro); color: var(--accent-oro); padding: 12px; font-family: var(--font-serif); font-size: 0.75rem; letter-spacing: 2px; cursor: pointer; text-transform: uppercase; width: 100%;">Quiero acceder a FONDO</button>
+      </div>
     </div>
   </div>
 
+  <!-- PLIEGO DE ADHESIÓN ESPONTÁNEA -->
+  <div id="spontaneous-step">
+    <div class="spontaneous-brand">F O N D O</div>
+    <div class="spontaneous-title">[ Solicitud de Membresía Institucional ]</div>
+    <p class="spontaneous-text">
+      FONDO es un espacio protegido de periodismo de investigación y largo aliento, sostenido exclusivamente por sus lectores, al margen de la vorágine algorítmica y publicitaria.
+    </p>
+    <div class="spontaneous-instructions">
+      <strong>Condiciones de la membresía:</strong><br>
+      • Acceso irrestricto a todo el archivo de crónicas e investigaciones en curso.<br>
+      • Envíos periódicos protegidos y participación en el circuito de recomendación por mérito de lectura.<br>
+      • <strong>Suscripción mensual de sostenimiento independiente.</strong>
+    </div>
+    <div class="spontaneous-actions">
+      <button onclick="window.location.href='https://link-de-pago-o-pasarela.com'" class="spontaneous-btn">PROCEDER AL PAGO DE LA MEMBRESÍA</button>
+      <button onclick="hideSpontaneousInfo()" style="background: none; border: none; color: var(--accent-oro); font-family: var(--font-serif); font-size: 0.75rem; letter-spacing: 1px; cursor: pointer; text-transform: uppercase; text-align: center; padding: 8px; margin-top: 8px;">← Volver al acceso con clave</button>
+    </div>
+  </div>
+
+  <!-- RITUAL DE ANCLAJE -->
   <div id="anchor-step">
     <div class="anchor-brand">F O N D O</div>
     <div class="anchor-title">[ Ritual de Anclaje Institucional ]</div>
@@ -402,6 +435,16 @@
     document.getElementById('passInput').addEventListener('keypress', function (e) {
       if (e.key === 'Enter') { verifyKey(); }
     });
+
+    function showSpontaneousInfo() {
+      document.getElementById('gatekeeper').style.display = 'none';
+      document.getElementById('spontaneous-step').style.display = 'block';
+    }
+
+    function hideSpontaneousInfo() {
+      document.getElementById('spontaneous-step').style.display = 'none';
+      document.getElementById('gatekeeper').style.display = 'block';
+    }
 
     function completeAnchor() {
       document.getElementById('anchor-step').style.display = 'none';
