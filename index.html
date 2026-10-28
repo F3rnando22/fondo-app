@@ -97,7 +97,7 @@
       color: var(--text-grafito);
     }
 
-    /* MENCIÓN EDITORIAL INSTITUCIONAL (REEMPLAZO DE BARRA DE MÉTRICAS) */
+    /* MENCIÓN EDITORIAL INSTITUCIONAL CORREGIDA */
     .editorial-manifesto-bar {
       background: #f1efea;
       border: 1px solid var(--gris-borde);
@@ -122,7 +122,9 @@
     .hero-badge { font-size: 0.75rem; letter-spacing: 2px; color: var(--accent-oro); font-weight: bold; }
     .hero-title { font-size: 1.8rem; line-height: 1.25; margin: 12px 0; color: var(--text-grafito); }
     .hero-snippet { font-size: 0.95rem; color: #4a4a4d; line-height: 1.7; margin-bottom: 20px; }
-    .hero-meta { font-size: 0.75rem; color: var(--accent-oro); font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase; }
+    .hero-meta-row { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #f0ede6; padding-top: 16px; margin-top: 16px; }
+    .hero-author { font-size: 0.75rem; color: var(--accent-oro); font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase; }
+    .hero-time { font-size: 0.75rem; color: #777; font-style: italic; }
 
     /* ÍNDICE VERTICAL SOBRIO (FICHAS EDITORIALES) */
     .editorial-index-list { display: flex; flex-direction: column; gap: 16px; margin-bottom: 50px; }
@@ -206,7 +208,7 @@
     .form-textarea { resize: vertical; height: 140px; }
     .form-input:focus, .form-textarea:focus { border-color: var(--accent-oro); }
 
-    /* 4. VISTA DE LECTOR (INMERSIVA Y PROFUNDA) */
+    /* 4. VISTA DE LECTOR (INMERSIVA) */
     #reader-view { display: none; }
     .reader-container { max-width: 680px; margin: 0 auto; padding-bottom: 60px; }
     .reader-back-btn { background: none; border: none; color: var(--accent-oro); font-family: var(--font-serif); font-size: 0.8rem; letter-spacing: 2px; cursor: pointer; text-transform: uppercase; margin-bottom: 30px; padding: 0; display: inline-block; }
@@ -255,9 +257,9 @@
 
     <div class="container">
 
-      <!-- MENCIÓN EDITORIAL INSTITUCIONAL -->
+      <!-- MENCIÓN EDITORIAL INSTITUCIONAL CORREGIDA -->
       <div class="editorial-manifesto-bar" id="manifesto-bar">
-        Espacio sostenido por el núcleo fundacional de Iniciadores — Lectura de largo aliento y archivo protegido.
+        Espacio sostenido por lectores — Lectura de largo aliento y archivo protegido.
       </div>
       
       <!-- NIVEL 3: CATÁLOGO (ÍNDICE EDITORIAL TIPO LIBRO) -->
@@ -269,7 +271,10 @@
             <span class="hero-badge">CRÓNICA COMPLETA — 4 CAPÍTULOS</span>
             <h2 class="hero-title">Archivo criminal: la enigmática desaparición de la veterinaria Adriana Celihueta</h2>
             <p class="hero-snippet">Investigación íntegra sobre la misteriosa ausencia en Necochea que rozó al poder político y permanece sin respuestas tras 35 años.</p>
-            <div class="hero-meta">POR FERNANDO DEL RIO &nbsp;·&nbsp; LEER CRÓNICA →</div>
+            <div class="hero-meta-row">
+              <span class="hero-author">POR FERNANDO DEL RIO</span>
+              <span class="hero-time">Lectura: 45 min</span>
+            </div>
           </div>
         </div>
 
@@ -319,7 +324,7 @@
           <div class="community-box">
             <h3>[ Membresía y Sostén ]</h3>
             <p>La independencia editorial se edifica colectivamente. Los aportes garantizan la continuidad de las investigaciones sin publicidad comercial.</p>
-            <button class="action-btn" onclick="alert('Pasarela de aportes voluntarios habilitada para el núcleo fundacional.')">Realizar Aporte</button>
+            <button class="action-btn" onclick="alert('Pasarela de aportes voluntarios habilitada para lectores.')">Realizar Aporte</button>
           </div>
           <div class="community-box">
             <h3>[ Buzón de Invitados ]</h3>
@@ -369,7 +374,6 @@
       if (code !== "") {
         document.getElementById('gatekeeper').style.display = 'none';
         
-        // Verificación inteligente de modo standalone (si ya es PWA instalada, salta el paso de anclaje)
         if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
           document.getElementById('app').style.display = 'block';
           document.body.style.backgroundColor = '#f9f8f3';
