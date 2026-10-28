@@ -228,27 +228,48 @@
     .form-textarea { resize: vertical; height: 140px; }
     .form-input:focus, .form-textarea:focus { border-color: var(--accent-oro); }
 
-    /* 4. VISTA DE LECTOR (ANCHO MÁXIMO DE PUNTA A PUNTA EN MÓVIL) */
+    /* 4. VISTA DE LECTOR: ANCHO TOTAL FORZADO Y ANULACIÓN DE RESTRICCIONES EXTERNAS */
     #reader-view { display: none; width: 100%; }
     .reader-container { 
-      width: 100%;
-      max-width: 920px; 
+      width: 100% !important;
+      max-width: 100% !important; 
       margin: 0 auto; 
-      padding: 20px 10px 80px 10px; /* Márgenes laterales mínimos de 10px para liberar toda la pantalla */
+      padding: 20px 8px 80px 8px !important; /* Márgenes laterales mínimos absolutos en celular */
       text-align: left; 
       line-height: 1.75; 
-      font-size: 0.95rem; /* Ligeramente más compacto para garantizar los 50+ caracteres por renglón */
+      font-size: 1.05rem; 
     }
     
+    /* Forzamos que cualquier elemento dentro del artículo respete el ancho total y alinee a la izquierda */
+    #article-content {
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      text-align: left !important;
+    }
+
     #article-content p {
       margin-bottom: 1.5em;
-      text-align: left;
+      text-align: left !important;
     }
+    
     #article-content h2, #article-content h3 {
-      text-align: left;
+      text-align: left !important;
       line-height: 1.3;
       margin-top: 2em;
       margin-bottom: 1em;
+      color: var(--text-grafito);
+    }
+
+    /* Control estricto de la letra capital para que no deforme el renglón en móviles */
+    #article-content .dropcap, #article-content p:first-of-type::first-letter {
+      font-size: 3.2rem !important;
+      float: left;
+      line-height: 0.8;
+      padding-top: 4px;
+      padding-right: 8px;
+      padding-bottom: 0;
       color: var(--text-grafito);
     }
 
