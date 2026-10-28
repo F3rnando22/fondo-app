@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FONDO — Atención Ampliada</title>
   
-  <!-- FAVICON E ICONO INSTITUCIONAL EMBEBIDO (ADIPOSIDAD CERO, IDENTIDAD FONDO) -->
+  <!-- FAVICON E ICONO INSTITUCIONAL EMBEBIDO -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%2318181a'/%3E%3Ctext x='50' y='72' font-family='Georgia, serif' font-size='65' fill='%238c6d3b' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%2318181a'/%3E%3Ctext x='50' y='72' font-family='Georgia, serif' font-size='65' fill='%238c6d3b' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
 
@@ -233,7 +233,7 @@
   </div>
 
   <!-- NIVEL 2: PLIEGO DE TRANSICIÓN (RITUAL DE ANCLAJE) -->
-  <div id="anchor-step">
+  <div id="anchor-step" style="display: none;">
     <div class="anchor-brand">F O N D O</div>
     <div class="anchor-title">[ Ritual de Anclaje Institucional ]</div>
     <p class="anchor-text">
@@ -251,7 +251,7 @@
   </div>
 
   <!-- CONTENEDOR DE LA APP (NIVELES 3 Y 4 + SUBPÁGINAS) -->
-  <div id="app">
+  <div id="app" style="display: none;">
     <header class="app-header">
       <div class="brand" onclick="showCatalog()">F O N D O</div>
       <nav class="header-nav">
@@ -374,9 +374,26 @@
   </div>
 
   <script>
+    // VERIFICACIÓN INICIAL DE SESIÓN PERSISTENTE AL CARGAR LA PÁGINA
+    window.addEventListener('DOMContentLoaded', () => {
+      const isAuth = localStorage.getItem('fondo_authenticated');
+      if (isAuth === 'true') {
+        // Si ya está autenticado, oculta el gatekeeper y abre directamente la app
+        document.getElementById('gatekeeper').style.display = 'none';
+        document.getElementById('app').style.display = 'block';
+        document.body.style.backgroundColor = '#f9f8f3';
+      } else {
+        // Si no está autenticado, muestra el gatekeeper
+        document.getElementById('gatekeeper').style.display = 'block';
+      }
+    });
+
     function verifyKey() {
       const code = document.getElementById('passInput').value.trim();
       if (code !== "") {
+        // Guardar en localStorage para que la sesión quede abierta permanentemente
+        localStorage.setItem('fondo_authenticated', 'true');
+        
         document.getElementById('gatekeeper').style.display = 'none';
         
         if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
