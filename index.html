@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FONDO — Atención Ampliada</title>
   
-  <!-- FAVICON E ICONO INSTITUCIONAL EMBEBIDO -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%2318181a'/%3E%3Ctext x='50' y='72' font-family='Georgia, serif' font-size='65' fill='%238c6d3b' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%2318181a'/%3E%3Ctext x='50' y='72' font-family='Georgia, serif' font-size='65' fill='%238c6d3b' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
 
@@ -34,7 +33,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* 1. GATEKEEPER (PÁGINA DE ACCESO) */
+    /* GATEKEEPER */
     #gatekeeper { text-align: center; padding: 20px; width: 100%; max-width: 400px; display: none; }
     .brand-title { font-size: 2.2rem; letter-spacing: 12px; margin-bottom: 8px; font-weight: normal; }
     .brand-sub { font-size: 0.9rem; font-style: italic; color: var(--accent-oro); margin-bottom: 32px; }
@@ -42,7 +41,7 @@
     .login-input { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--accent-oro); color: var(--bg-marfil); padding: 14px 16px; font-family: monospace; text-align: center; font-size: 0.95rem; outline: none; letter-spacing: 2px; }
     .login-btn { background: var(--accent-oro); color: var(--text-grafito); border: none; padding: 14px; font-family: var(--font-serif); font-weight: bold; cursor: pointer; letter-spacing: 2px; text-transform: uppercase; font-size: 0.85rem; }
 
-    /* 2. PLIEGO DE TRANSICIÓN: RITUAL DE ANCLAJE */
+    /* RITUAL DE ANCLAJE */
     #anchor-step { display: none; text-align: left; padding: 40px 30px; width: 100%; max-width: 580px; background: var(--bg-marfil); color: var(--text-grafito); border: 1px solid var(--accent-oro); }
     .anchor-brand { font-size: 1.4rem; letter-spacing: 6px; text-align: center; margin-bottom: 6px; }
     .anchor-title { font-size: 0.85rem; letter-spacing: 3px; color: var(--accent-oro); text-transform: uppercase; margin-bottom: 24px; text-align: center; }
@@ -53,10 +52,9 @@
     .anchor-btn:hover { background: var(--accent-oro); }
     .anchor-skip { background: none; border: none; color: var(--accent-oro); font-family: var(--font-serif); font-size: 0.75rem; letter-spacing: 1px; cursor: pointer; text-transform: uppercase; text-align: center; padding: 8px; }
 
-    /* APP PRINCIPAL (CONTENEDOR GENERAL) */
+    /* APP PRINCIPAL */
     #app { display: none; background-color: var(--bg-marfil); color: var(--text-grafito); width: 100%; min-height: 100vh; }
     
-    /* ENCABEZADO CENTRADO Y DE ANCHO TOTAL */
     .app-header {
       border-bottom: 1px solid var(--gris-borde);
       padding: 20px 24px;
@@ -114,11 +112,8 @@
       padding: 0;
     }
 
-    .header-nav button:hover {
-      color: var(--text-grafito);
-    }
+    .header-nav button:hover { color: var(--text-grafito); }
 
-    /* MENCIÓN EDITORIAL INSTITUCIONAL */
     .editorial-manifesto-bar {
       background: #f1efea;
       border: 1px solid var(--gris-borde);
@@ -134,9 +129,8 @@
     .container { max-width: 900px; margin: 0 auto; padding: 30px 20px 80px 20px; width: 100%; }
     .catalog-section-title { font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-oro); margin-bottom: 20px; display: block; border-bottom: 1px solid var(--accent-oro); padding-bottom: 6px; margin-top: 30px; }
 
-    /* 3. CATÁLOGO: ÍNDICE EDITORIAL TIPO LIBRO */
+    /* CATÁLOGO */
     #catalog-view { display: block; }
-    
     .hero-card { border: 1px solid var(--accent-oro); background: #ffffff; cursor: pointer; margin-bottom: 40px; box-shadow: 0 4px 16px rgba(0,0,0,0.04); overflow: hidden; }
     .hero-cover-img { width: 100%; height: 360px; object-fit: cover; display: block; }
     .hero-content { padding: 32px; }
@@ -147,7 +141,6 @@
     .hero-author { font-size: 0.75rem; color: var(--accent-oro); font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase; }
     .hero-time { font-size: 0.75rem; color: #777; font-style: italic; }
 
-    /* ÍNDICE VERTICAL SOBRIO (FICHAS EDITORIALES) */
     .editorial-index-list { display: flex; flex-direction: column; gap: 16px; margin-bottom: 50px; }
     .index-item { background: #ffffff; border: 1px solid var(--gris-borde); padding: 24px; cursor: pointer; display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; transition: border-color 0.2s; }
     .index-item:hover { border-color: var(--accent-oro); }
@@ -164,61 +157,15 @@
       .index-side { text-align: left; margin-top: 10px; }
     }
 
-    .community-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      margin-top: 60px;
-    }
+    .community-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 60px; }
+    @media (max-width: 768px) { .community-grid { grid-template-columns: 1fr; } }
+    .community-box { background: #f1efea; border: 1px solid var(--gris-borde); padding: 28px; border-radius: 2px; }
+    .community-box h3 { font-size: 0.95rem; letter-spacing: 2px; color: var(--accent-oro); margin-top: 0; margin-bottom: 12px; text-transform: uppercase; }
+    .community-box p { font-size: 0.9rem; line-height: 1.6; color: #4a4a4d; margin-bottom: 20px; }
+    .action-btn { background: var(--text-grafito); color: var(--bg-marfil); border: none; padding: 12px 20px; font-family: var(--font-serif); font-size: 0.8rem; letter-spacing: 1.5px; cursor: pointer; text-transform: uppercase; text-decoration: none; display: inline-block; text-align: center; width: 100%; }
+    .action-btn:hover { background: var(--accent-oro); }
 
-    @media (max-width: 768px) {
-      .community-grid { grid-template-columns: 1fr; }
-    }
-
-    .community-box {
-      background: #f1efea;
-      border: 1px solid var(--gris-borde);
-      padding: 28px;
-      border-radius: 2px;
-    }
-
-    .community-box h3 {
-      font-size: 0.95rem;
-      letter-spacing: 2px;
-      color: var(--accent-oro);
-      margin-top: 0;
-      margin-bottom: 12px;
-      text-transform: uppercase;
-    }
-
-    .community-box p {
-      font-size: 0.9rem;
-      line-height: 1.6;
-      color: #4a4a4d;
-      margin-bottom: 20px;
-    }
-
-    .action-btn {
-      background: var(--text-grafito);
-      color: var(--bg-marfil);
-      border: none;
-      padding: 12px 20px;
-      font-family: var(--font-serif);
-      font-size: 0.8rem;
-      letter-spacing: 1.5px;
-      cursor: pointer;
-      text-transform: uppercase;
-      text-decoration: none;
-      display: inline-block;
-      text-align: center;
-      width: 100%;
-    }
-
-    .action-btn:hover {
-      background: var(--accent-oro);
-    }
-
-    /* SUBPÁGINA: BUZÓN DE INVITADOS (FORMULARIO) */
+    /* BUZÓN */
     #mailbox-view { display: none; max-width: 640px; margin: 0 auto; background: #ffffff; border: 1px solid var(--accent-oro); padding: 40px; }
     .mailbox-title { font-size: 1.3rem; letter-spacing: 3px; color: var(--accent-oro); text-transform: uppercase; margin-bottom: 10px; text-align: center; }
     .mailbox-sub { font-size: 0.85rem; color: #666; text-align: center; margin-bottom: 30px; font-style: italic; }
@@ -226,41 +173,28 @@
     .form-label { font-size: 0.8rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-grafito); font-weight: bold; }
     .form-input, .form-textarea { background: var(--bg-marfil); border: 1px solid var(--gris-borde); padding: 12px; font-family: var(--font-serif); font-size: 0.9rem; color: var(--text-grafito); outline: none; }
     .form-textarea { resize: vertical; height: 140px; }
-    .form-input:focus, .form-textarea:focus { border-color: var(--accent-oro); }
 
-    /* 4. VISTA DE LECTOR: REGLA UNIVERSAL PARA TODAS LAS ENTREGAS */
+    /* ========================================================
+       SISTEMA RESPONSIVO DEFINITIVO: PC VS CELULAR
+       ======================================================== */
     #reader-view { display: none; width: 100%; }
-    
+
+    /* VISTA DE PC: Mantiene su caja tipográfica perfecta de libro */
     .reader-container { 
-      width: 100% !important;
-      max-width: 100% !important; 
-      margin: 0 !important; 
-      padding: 20px 14px 80px 14px !important; /* Margen simétrico de respiro en móviles */
+      width: 100%;
+      max-width: 740px; 
+      margin: 0 auto; 
+      padding: 40px 20px 80px 20px; 
       text-align: left; 
       line-height: 1.8; 
       font-size: 1.05rem; 
     }
-    
-    /* REGLA MAESTRA GLOBAL: ANULA CUALQUIER RESTRICCIÓN DE CUALQUIER ARCHIVO EXTERNO */
-    #article-content, 
-    #article-content *, 
-    #article-content div, 
-    #article-content p, 
-    #article-content span, 
-    #article-content article, 
-    #article-content section {
-      width: 100% !important;
-      max-width: 100% !important;
-      margin-left: 0 !important;
-      margin-right: 0 !important;
-      box-sizing: border-box !important;
-      text-align: left !important;
-    }
 
     #article-content p {
       margin-bottom: 1.6em;
+      text-align: justify;
     }
-    
+
     #article-content h2, #article-content h3 {
       line-height: 1.3;
       margin-top: 2em;
@@ -268,15 +202,39 @@
       color: var(--text-grafito);
     }
 
-    /* Letra capital controlada universal */
     #article-content .dropcap, #article-content p:first-of-type::first-letter {
-      font-size: 3.2rem !important;
+      font-size: 3.8rem;
       float: left;
       line-height: 0.8;
-      padding-top: 4px;
-      padding-right: 8px;
-      padding-bottom: 0;
+      margin-top: 4px;
+      margin-right: 10px;
       color: var(--text-grafito);
+      font-weight: bold;
+    }
+
+    /* VISTA EXCLUSIVA PARA CELULARES (Pantallas menores a 768px):
+       Ancho total fluido con 14px de respiro lateral y lectura alineada a la izquierda */
+    @media (max-width: 768px) {
+      .reader-container {
+        max-width: 100% !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 20px 14px 80px 14px !important;
+      }
+
+      #article-content, 
+      #article-content * {
+        max-width: 100% !important;
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        box-sizing: border-box !important;
+      }
+
+      #article-content p {
+        text-align: left !important;
+        font-size: 1.05rem !important;
+      }
     }
 
     .reader-back-btn { background: none; border: none; color: var(--accent-oro); font-family: var(--font-serif); font-size: 0.8rem; letter-spacing: 2px; cursor: pointer; text-transform: uppercase; margin-bottom: 30px; padding: 0; display: inline-block; }
@@ -285,9 +243,8 @@
 </head>
 <body>
 
-  <!-- NIVEL 1: PÁGINA DE ACCESO (GATEKEEPER) -->
   <div id="gatekeeper">
-    <div class="brand-title">F O N DO</div>
+    <div class="brand-title">F O N D O</div>
     <div class="brand-sub">Atención ampliada contra la inmediatez</div>
     <div class="login-box">
       <input type="text" id="passInput" class="login-input" placeholder="[ Ingrese Clave de Acceso ]" autocomplete="off">
@@ -295,9 +252,8 @@
     </div>
   </div>
 
-  <!-- NIVEL 2: PLIEGO DE TRANSICIÓN (RITUAL DE ANCLAJE) -->
   <div id="anchor-step">
-    <div class="anchor-brand">F O N DO</div>
+    <div class="anchor-brand">F O N D O</div>
     <div class="anchor-title">[ Ritual de Anclaje Institucional ]</div>
     <p class="anchor-text">
       Ha ingresado al refugio. Para preservar la independencia del archivo y asegurar un espacio al que volver sin que ningún algoritmo lo empuje, le sugerimos fijar este acceso en su dispositivo.
@@ -313,10 +269,8 @@
     </div>
   </div>
 
-  <!-- CONTENEDOR DE LA APP (NIVELES 3 Y 4 + SUBPÁGINAS) -->
   <div id="app">
     <header class="app-header">
-      <!-- LOGO CENTRADO Y DE ANCHO TOTAL -->
       <div class="brand" onclick="showCatalog()"><span class="brand-isotipo">F</span>ONDO</div>
       <nav class="header-nav">
         <button onclick="alert('Membresía institucional: Sostén voluntario del archivo y la independencia editorial.')">Aportes / Membresía</button>
@@ -326,12 +280,10 @@
 
     <div class="container">
 
-      <!-- MENCIÓN EDITORIAL INSTITUCIONAL -->
       <div class="editorial-manifesto-bar" id="manifesto-bar">
         Espacio sostenido por lectores — Atención de largo aliento y archivo protegido.
       </div>
       
-      <!-- NIVEL 3: CATÁLOGO (ÍNDICE EDITORIAL TIPO LIBRO) -->
       <div id="catalog-view">
         <span class="catalog-section-title">ENTREGA INAUGURAL DESTACADA</span>
         <div class="hero-card" onclick="loadArticle('entrega1.html')">
@@ -388,7 +340,6 @@
 
         </div>
 
-        <!-- BLOQUE INFERIOR DE APORTES Y BUZÓN -->
         <div class="community-grid">
           <div class="community-box">
             <h3>[ Membresía y Sostén ]</h3>
@@ -404,7 +355,6 @@
 
       </div>
 
-      <!-- SUBPÁGINA: BUZÓN DE INVITADOS (FORMULARIO) -->
       <div id="mailbox-view">
         <div class="mailbox-title">[ Buzón de Invitados ]</div>
         <div class="mailbox-sub">Canal institucional de sugerencias y aportes documentales</div>
@@ -426,7 +376,6 @@
         </form>
       </div>
 
-      <!-- NIVEL 4: VISTA DE LECTOR (INMERSIVA) -->
       <div id="reader-view">
         <div class="reader-container">
           <button onclick="showCatalog()" class="reader-back-btn">← Volver al Índice</button>
@@ -438,7 +387,6 @@
   </div>
 
   <script>
-    // VERIFICACIÓN INMEDIATA DE PERSISTENCIA AL ABRIR LA APP
     (function() {
       const isAuth = localStorage.getItem('fondo_authenticated');
       if (isAuth === 'true') {
