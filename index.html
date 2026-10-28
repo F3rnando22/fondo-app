@@ -69,7 +69,7 @@
       align-items: center;
       justify-content: center;
       gap: 12px;
-      max-width: 100%;
+      width: 100%;
       margin: 0 auto;
       text-align: center;
     }
@@ -228,16 +228,16 @@
     .form-textarea { resize: vertical; height: 140px; }
     .form-input:focus, .form-textarea:focus { border-color: var(--accent-oro); }
 
-    /* 4. VISTA DE LECTOR (CAJA AMPLIADA PARA 50-55 CARACTERES) */
+    /* 4. VISTA DE LECTOR (ANCHO MÁXIMO DE PUNTA A PUNTA EN MÓVIL) */
     #reader-view { display: none; width: 100%; }
     .reader-container { 
       width: 100%;
-      max-width: 860px; /* Límite amplio para tablets y PC */
+      max-width: 920px; 
       margin: 0 auto; 
-      padding: 20px 12px 80px 12px; /* Márgenes laterales reducidos al mínimo en celular */
+      padding: 20px 10px 80px 10px; /* Márgenes laterales mínimos de 10px para liberar toda la pantalla */
       text-align: left; 
       line-height: 1.75; 
-      font-size: 1rem; /* Tamaño optimizado para ganar caracteres por renglón sin fatigar */
+      font-size: 0.95rem; /* Ligeramente más compacto para garantizar los 50+ caracteres por renglón */
     }
     
     #article-content p {
