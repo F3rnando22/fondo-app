@@ -56,7 +56,7 @@
     /* APP PRINCIPAL (CONTENEDOR GENERAL) */
     #app { display: none; background-color: var(--bg-marfil); color: var(--text-grafito); width: 100%; min-height: 100vh; }
     
-    /* ENCABEZADO REDISEÑADO: CENTRADO Y DE ANCHO TOTAL */
+    /* ENCABEZADO CENTRADO Y DE ANCHO TOTAL */
     .app-header {
       border-bottom: 1px solid var(--gris-borde);
       padding: 20px 24px;
@@ -69,7 +69,7 @@
       align-items: center;
       justify-content: center;
       gap: 12px;
-      max-width: 960px;
+      max-width: 100%;
       margin: 0 auto;
       text-align: center;
     }
@@ -228,19 +228,20 @@
     .form-textarea { resize: vertical; height: 140px; }
     .form-input:focus, .form-textarea:focus { border-color: var(--accent-oro); }
 
-    /* 4. VISTA DE LECTOR (INMERSIVA, FLUIDA Y AMPLIA EN MÓVIL) */
-    #reader-view { display: none; }
+    /* 4. VISTA DE LECTOR (CAJA AMPLIADA PARA 50-55 CARACTERES) */
+    #reader-view { display: none; width: 100%; }
     .reader-container { 
-      max-width: 800px; /* Ampliado para que la columna respire mejor */
+      width: 100%;
+      max-width: 860px; /* Límite amplio para tablets y PC */
       margin: 0 auto; 
-      padding: 20px 16px 80px 16px; /* Márgenes laterales más cómodos en móviles */
+      padding: 20px 12px 80px 12px; /* Márgenes laterales reducidos al mínimo en celular */
       text-align: left; 
-      line-height: 1.8; 
-      font-size: 1.1rem; /* Tipografía más generosa y legible */
+      line-height: 1.75; 
+      font-size: 1rem; /* Tamaño optimizado para ganar caracteres por renglón sin fatigar */
     }
     
     #article-content p {
-      margin-bottom: 1.6em;
+      margin-bottom: 1.5em;
       text-align: left;
     }
     #article-content h2, #article-content h3 {
@@ -288,7 +289,7 @@
   <!-- CONTENEDOR DE LA APP (NIVELES 3 Y 4 + SUBPÁGINAS) -->
   <div id="app">
     <header class="app-header">
-      <!-- LOGO CENTRADO Y DE GRAN PRESENCIA VISUAL -->
+      <!-- LOGO CENTRADO Y DE ANCHO TOTAL -->
       <div class="brand" onclick="showCatalog()"><span class="brand-isotipo">F</span>ONDO</div>
       <nav class="header-nav">
         <button onclick="alert('Membresía institucional: Sostén voluntario del archivo y la independencia editorial.')">Aportes / Membresía</button>
