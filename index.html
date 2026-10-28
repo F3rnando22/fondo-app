@@ -175,66 +175,50 @@
     .form-textarea { resize: vertical; height: 140px; }
 
     /* ========================================================
-       SISTEMA RESPONSIVO DEFINITIVO: PC VS CELULAR
+       VISTA DE LECTOR: CAJA TIPOGRÁFICA ESTILO MEDIO (INFOBAE)
        ======================================================== */
     #reader-view { display: none; width: 100%; }
 
-    /* VISTA DE PC: Mantiene su caja tipográfica perfecta de libro */
     .reader-container { 
       width: 100%;
-      max-width: 740px; 
+      max-width: 680px; /* Ancho idóneo simétrico y elegante en móvil y PC */
       margin: 0 auto; 
-      padding: 40px 20px 80px 20px; 
+      padding: 30px 20px 80px 20px; 
       text-align: left; 
       line-height: 1.8; 
       font-size: 1.05rem; 
     }
+    
+    #article-content {
+      width: 100%;
+      max-width: 100%;
+      margin: 0;
+      padding: 0;
+      text-align: left;
+    }
 
     #article-content p {
       margin-bottom: 1.6em;
-      text-align: justify;
+      text-align: left;
     }
-
+    
     #article-content h2, #article-content h3 {
+      text-align: left;
       line-height: 1.3;
       margin-top: 2em;
       margin-bottom: 1em;
       color: var(--text-grafito);
     }
 
+    /* Letra capital controlada */
     #article-content .dropcap, #article-content p:first-of-type::first-letter {
-      font-size: 3.8rem;
+      font-size: 3.5rem;
       float: left;
       line-height: 0.8;
-      margin-top: 4px;
-      margin-right: 10px;
+      padding-top: 4px;
+      padding-right: 10px;
+      padding-bottom: 0;
       color: var(--text-grafito);
-      font-weight: bold;
-    }
-
-    /* VISTA EXCLUSIVA PARA CELULARES (Pantallas menores a 768px):
-       Ancho total fluido con 14px de respiro lateral y lectura alineada a la izquierda */
-    @media (max-width: 768px) {
-      .reader-container {
-        max-width: 100% !important;
-        width: 100% !important;
-        margin: 0 !important;
-        padding: 20px 14px 80px 14px !important;
-      }
-
-      #article-content, 
-      #article-content * {
-        max-width: 100% !important;
-        width: 100% !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-        box-sizing: border-box !important;
-      }
-
-      #article-content p {
-        text-align: left !important;
-        font-size: 1.05rem !important;
-      }
     }
 
     .reader-back-btn { background: none; border: none; color: var(--accent-oro); font-family: var(--font-serif); font-size: 0.8rem; letter-spacing: 2px; cursor: pointer; text-transform: uppercase; margin-bottom: 30px; padding: 0; display: inline-block; }
