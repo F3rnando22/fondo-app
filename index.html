@@ -56,55 +56,61 @@
     /* APP PRINCIPAL (CONTENEDOR GENERAL) */
     #app { display: none; background-color: var(--bg-marfil); color: var(--text-grafito); width: 100%; min-height: 100vh; }
     
+    /* ENCABEZADO REDISEÑADO: CENTRADO Y DE ANCHO TOTAL */
     .app-header {
       border-bottom: 1px solid var(--gris-borde);
-      padding: 16px 24px;
+      padding: 20px 24px;
       background: var(--bg-marfil);
       position: sticky;
       top: 0;
       z-index: 100;
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: center;
+      justify-content: center;
+      gap: 12px;
       max-width: 960px;
       margin: 0 auto;
+      text-align: center;
     }
 
-    /* ISOTIPO Y MARCA REDISEÑADA EN EL ENCABEZADO */
     .app-header .brand {
-      font-size: 1.6rem;
-      letter-spacing: 8px;
+      font-size: 2rem;
+      letter-spacing: 10px;
       color: var(--text-grafito);
       cursor: pointer;
       font-weight: normal;
       display: flex;
       align-items: baseline;
+      justify-content: center;
     }
+    
     .brand-isotipo {
-      font-size: 2rem;
+      font-size: 2.4rem;
       color: var(--accent-oro);
       font-weight: bold;
-      margin-right: 2px;
+      margin-right: 3px;
       line-height: 1;
     }
 
     .header-nav {
       display: flex;
-      gap: 20px;
-      font-size: 0.8rem;
-      letter-spacing: 1px;
+      gap: 24px;
+      font-size: 0.75rem;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
       align-items: center;
+      justify-content: center;
     }
 
     .header-nav button {
       background: none;
       border: none;
       font-family: var(--font-serif);
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       color: var(--accent-oro);
       cursor: pointer;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
       padding: 0;
     }
 
@@ -156,7 +162,6 @@
     @media (max-width: 768px) {
       .index-item { flex-direction: column; }
       .index-side { text-align: left; margin-top: 10px; }
-      .app-header { flex-direction: column; gap: 12px; align-items: flex-start; }
     }
 
     .community-grid {
@@ -223,19 +228,19 @@
     .form-textarea { resize: vertical; height: 140px; }
     .form-input:focus, .form-textarea:focus { border-color: var(--accent-oro); }
 
-    /* 4. VISTA DE LECTOR (INMERSIVA Y FLUIDA) */
+    /* 4. VISTA DE LECTOR (INMERSIVA, FLUIDA Y AMPLIA EN MÓVIL) */
     #reader-view { display: none; }
     .reader-container { 
-      max-width: 720px; 
+      max-width: 800px; /* Ampliado para que la columna respire mejor */
       margin: 0 auto; 
-      padding: 20px 24px 80px 24px; 
-      text-align: left; /* Alineado a la izquierda natural */
-      line-height: 1.75; 
-      font-size: 1.05rem;
+      padding: 20px 16px 80px 16px; /* Márgenes laterales más cómodos en móviles */
+      text-align: left; 
+      line-height: 1.8; 
+      font-size: 1.1rem; /* Tipografía más generosa y legible */
     }
     
     #article-content p {
-      margin-bottom: 1.5em;
+      margin-bottom: 1.6em;
       text-align: left;
     }
     #article-content h2, #article-content h3 {
@@ -283,7 +288,7 @@
   <!-- CONTENEDOR DE LA APP (NIVELES 3 Y 4 + SUBPÁGINAS) -->
   <div id="app">
     <header class="app-header">
-      <!-- LOGO REDISEÑADO CON ISOTIPO DESTACADO -->
+      <!-- LOGO CENTRADO Y DE GRAN PRESENCIA VISUAL -->
       <div class="brand" onclick="showCatalog()"><span class="brand-isotipo">F</span>ONDO</div>
       <nav class="header-nav">
         <button onclick="alert('Membresía institucional: Sostén voluntario del archivo y la independencia editorial.')">Aportes / Membresía</button>
