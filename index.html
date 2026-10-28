@@ -228,19 +228,18 @@
     .form-textarea { resize: vertical; height: 140px; }
     .form-input:focus, .form-textarea:focus { border-color: var(--accent-oro); }
 
-    /* 4. VISTA DE LECTOR: ANCHO TOTAL FORZADO Y ANULACIÓN DE RESTRICCIONES EXTERNAS */
+    /* 4. VISTA DE LECTOR: GEOMETRÍA ADAPTATIVA (VERTICAL Y HORIZONTAL) */
     #reader-view { display: none; width: 100%; }
     .reader-container { 
       width: 100% !important;
-      max-width: 100% !important; 
+      max-width: 900px; 
       margin: 0 auto; 
-      padding: 20px 8px 80px 8px !important; /* Márgenes laterales mínimos absolutos en celular */
+      padding: 20px 16px 80px 16px !important; /* 16px de respiro lateral perfecto para vertical y horizontal */
       text-align: left; 
-      line-height: 1.75; 
+      line-height: 1.8; 
       font-size: 1.05rem; 
     }
     
-    /* Forzamos que cualquier elemento dentro del artículo respete el ancho total y alinee a la izquierda */
     #article-content {
       width: 100% !important;
       max-width: 100% !important;
@@ -250,7 +249,7 @@
     }
 
     #article-content p {
-      margin-bottom: 1.5em;
+      margin-bottom: 1.6em;
       text-align: left !important;
     }
     
@@ -262,7 +261,7 @@
       color: var(--text-grafito);
     }
 
-    /* Control estricto de la letra capital para que no deforme el renglón en móviles */
+    /* Letra capital controlada */
     #article-content .dropcap, #article-content p:first-of-type::first-letter {
       font-size: 3.2rem !important;
       float: left;
@@ -281,7 +280,7 @@
 
   <!-- NIVEL 1: PÁGINA DE ACCESO (GATEKEEPER) -->
   <div id="gatekeeper">
-    <div class="brand-title">F O N D O</div>
+    <div class="brand-title">F O N DO</div>
     <div class="brand-sub">Atención ampliada contra la inmediatez</div>
     <div class="login-box">
       <input type="text" id="passInput" class="login-input" placeholder="[ Ingrese Clave de Acceso ]" autocomplete="off">
