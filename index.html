@@ -51,7 +51,7 @@
     .spontaneous-btn { background: var(--text-grafito); color: var(--bg-marfil); border: none; padding: 14px; font-family: var(--font-serif); font-size: 0.8rem; letter-spacing: 2px; cursor: pointer; text-transform: uppercase; text-align: center; width: 100%; }
     .spontaneous-btn:hover { background: var(--accent-oro); }
 
-    /* MODAL DE CONTACTO PARA INICIADORES TRAS LLEGAR AL FINAL */
+    /* MODAL DE CONTACTO PARA INICIADORES */
     #initiator-contact-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(24,24,26,0.85); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
     .modal-box { background: var(--bg-marfil); color: var(--text-grafito); border: 1px solid var(--accent-oro); padding: 40px; width: 100%; max-width: 560px; text-align: left; }
     .modal-brand { font-size: 1.3rem; letter-spacing: 6px; text-align: center; margin-bottom: 6px; }
@@ -147,34 +147,99 @@
     }
 
     .container { max-width: 900px; margin: 0 auto; padding: 30px 20px 80px 20px; width: 100%; }
-    .catalog-section-title { font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-oro); margin-bottom: 20px; display: block; border-bottom: 1px solid var(--accent-oro); padding-bottom: 6px; margin-top: 30px; }
+    .catalog-section-title { font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-oro); margin-bottom: 24px; display: block; border-bottom: 1px solid var(--accent-oro); padding-bottom: 6px; margin-top: 30px; }
 
-    /* CATÁLOGO */
+    /* CATÁLOGO CRONOLÓGICO UNIFORME CON MINIATURA */
     #catalog-view { display: block; }
-    .hero-card { border: 1px solid var(--accent-oro); background: #ffffff; cursor: pointer; margin-bottom: 40px; box-shadow: 0 4px 16px rgba(0,0,0,0.04); overflow: hidden; }
-    .hero-cover-img { width: 100%; height: 360px; object-fit: cover; display: block; }
-    .hero-content { padding: 32px; }
-    .hero-badge { font-size: 0.75rem; letter-spacing: 2px; color: var(--accent-oro); font-weight: bold; }
-    .hero-title { font-size: 1.8rem; line-height: 1.25; margin: 12px 0; color: var(--text-grafito); }
-    .hero-snippet { font-size: 0.95rem; color: #4a4a4d; line-height: 1.7; margin-bottom: 20px; }
-    .hero-meta-row { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #f0ede6; padding-top: 16px; margin-top: 16px; }
-    .hero-author { font-size: 0.75rem; color: var(--accent-oro); font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase; }
-    .hero-time { font-size: 0.75rem; color: #777; font-style: italic; }
+    
+    .catalog-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-bottom: 50px;
+    }
 
-    .editorial-index-list { display: flex; flex-direction: column; gap: 16px; margin-bottom: 50px; }
-    .index-item { background: #ffffff; border: 1px solid var(--gris-borde); padding: 24px; cursor: pointer; display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; transition: border-color 0.2s; }
-    .index-item:hover { border-color: var(--accent-oro); }
-    .index-main { flex-grow: 1; }
-    .index-meta-top { font-size: 0.7rem; letter-spacing: 2px; color: var(--accent-oro); font-weight: bold; text-transform: uppercase; margin-bottom: 6px; display: block; }
-    .index-title { font-size: 1.2rem; color: var(--text-grafito); margin: 0 0 8px 0; line-height: 1.3; }
-    .index-snippet { font-size: 0.85rem; color: #555; line-height: 1.6; margin: 0; }
-    .index-side { text-align: right; min-width: 140px; }
-    .index-time { font-size: 0.75rem; color: #777; font-style: italic; display: block; margin-bottom: 4px; }
-    .index-author { font-size: 0.75rem; color: var(--accent-oro); font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+    .catalog-card {
+      background: #ffffff;
+      border: 1px solid var(--gris-borde);
+      display: flex;
+      flex-direction: row;
+      cursor: pointer;
+      transition: border-color 0.2s;
+      overflow: hidden;
+    }
+
+    .catalog-card:hover {
+      border-color: var(--accent-oro);
+    }
+
+    .catalog-thumb {
+      width: 260px;
+      min-height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .catalog-content {
+      padding: 24px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .catalog-meta-top {
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      color: var(--accent-oro);
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .catalog-title {
+      font-size: 1.35rem;
+      color: var(--text-grafito);
+      margin: 0 0 10px 0;
+      line-height: 1.25;
+    }
+
+    .catalog-snippet {
+      font-size: 0.9rem;
+      color: #4a4a4d;
+      line-height: 1.6;
+      margin: 0 0 16px 0;
+    }
+
+    .catalog-meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #f0ede6;
+      padding-top: 12px;
+      font-size: 0.75rem;
+    }
+
+    .catalog-author {
+      color: var(--accent-oro);
+      font-weight: bold;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .catalog-time {
+      color: #777;
+      font-style: italic;
+    }
 
     @media (max-width: 768px) {
-      .index-item { flex-direction: column; }
-      .index-side { text-align: left; margin-top: 10px; }
+      .catalog-card {
+        flex-direction: column;
+      }
+      .catalog-thumb {
+        width: 100%;
+        height: 200px;
+      }
     }
 
     .community-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 60px; }
@@ -194,16 +259,16 @@
     .form-input, .form-textarea { background: var(--bg-marfil); border: 1px solid var(--gris-borde); padding: 12px; font-family: var(--font-serif); font-size: 0.9rem; color: var(--text-grafito); outline: none; }
     .form-textarea { resize: vertical; height: 140px; }
 
-    /* VISTA DE LECTOR Y LETRA CAPITAL CORREGIDA */
+    /* VISTA DE LECTOR: CAJA TIPOGRÁFICA ADAPTATIVA PC Y MÓVIL */
     #reader-view { display: none; width: 100%; }
 
     .reader-container { 
       width: 100%;
-      max-width: 680px; 
+      max-width: 720px; 
       margin: 0 auto; 
       padding: 30px 20px 80px 20px; 
       text-align: left; 
-      line-height: 1.8; 
+      line-height: 1.85; 
       font-size: 1.05rem; 
     }
     
@@ -226,6 +291,17 @@
       margin-top: 2em;
       margin-bottom: 1em;
       color: var(--text-grafito);
+    }
+
+    /* ESTILOS PARA FOTOGRAFÍAS PRINCIPALES E INTERNAS EN LAS ENTREGAS */
+    #article-content img {
+      width: 100%;
+      height: auto;
+      max-height: 480px;
+      object-fit: cover;
+      margin-bottom: 24px;
+      border: 1px solid var(--gris-borde);
+      display: block;
     }
 
     #article-content p:first-of-type::first-letter,
@@ -303,7 +379,7 @@
     </div>
   </div>
 
-  <!-- MODAL DE CONTACTO PARA INICIADORES TRAS LLEGAR AL FINAL -->
+  <!-- MODAL DE CONTACTO PARA INICIADORES -->
   <div id="initiator-contact-modal">
     <div class="modal-box">
       <div class="modal-brand">F O N D O</div>
@@ -353,56 +429,71 @@
       </div>
       
       <div id="catalog-view">
-        <span class="catalog-section-title">ENTREGA INAUGURAL DESTACADA</span>
-        <div class="hero-card" onclick="loadArticle('entrega1.html')">
-          <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80" alt="Caso Celihueta" class="hero-cover-img">
-          <div class="hero-content">
-            <span class="hero-badge">CRÓNICA COMPLETA — 4 CAPÍTULOS</span>
-            <h2 class="hero-title">Archivo criminal: la enigmática desaparición de la veterinaria Adriana Celihueta</h2>
-            <p class="hero-snippet">Investigación íntegra sobre la misteriosa ausencia en Necochea que rozó al poder político y permanece sin respuestas tras 35 años.</p>
-            <div class="hero-meta-row">
-              <span class="hero-author">POR FERNANDO DEL RIO</span>
-              <span class="hero-time">Lectura: 45 min</span>
-            </div>
-          </div>
-        </div>
-
-        <span class="catalog-section-title">ARCHIVO PILOTO — ÍNDICE DE ENTREGAS</span>
-        <div class="editorial-index-list">
+        <span class="catalog-section-title">CATÁLOGO CRONOLÓGICO — ARCHIVO PILOTO</span>
+        
+        <div class="catalog-grid">
           
-          <div class="index-item" onclick="loadArticle('entrega2.html')">
-            <div class="index-main">
-              <span class="index-meta-top">ENTREGA N° 02 — DISPONIBLE</span>
-              <h3 class="index-title">Vida y leyenda de una mujer dura</h3>
-              <p class="index-snippet">Margarita Di Tulio, una hija de familia que se volcó al hampa y construyó una carrera implacable en la noche y los bajos fondos.</p>
-            </div>
-            <div class="index-side">
-              <span class="index-time">Lectura: 25 min</span>
-              <span class="index-author">Alberto Repetto</span>
-            </div>
-          </div>
-
-          <div class="index-item" onclick="loadArticle('entrega3.html')">
-            <div class="index-main">
-              <span class="index-meta-top">ENTREGA N° 03 — EN PREPARACIÓN</span>
-              <h3 class="index-title">Tercera Entrega del Archivo Piloto</h3>
-              <p class="index-snippet">Espacio reservado para la próxima investigación de largo aliento en desarrollo.</p>
-            </div>
-            <div class="index-side">
-              <span class="index-time">Próximamente</span>
-              <span class="index-author">Fernando del Rio</span>
+          <!-- ENTREGA 02 -->
+          <div class="catalog-card" onclick="loadArticle('entrega2.html')">
+            <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=600&q=80" alt="Mujer dura" class="catalog-thumb">
+            <div class="catalog-content">
+              <div>
+                <span class="catalog-meta-top">ENTREGA N° 02 — DISPONIBLE</span>
+                <h3 class="catalog-title">Vida y leyenda de una mujer dura</h3>
+                <p class="catalog-snippet">Margarita Di Tulio, una hija de familia que se volcó al hampa y construyó una carrera implacable en la noche y los bajos fondos.</p>
+              </div>
+              <div class="catalog-meta-row">
+                <span class="catalog-author">Alberto Repetto</span>
+                <span class="catalog-time">Lectura: 25 min</span>
+              </div>
             </div>
           </div>
 
-          <div class="index-item" onclick="loadArticle('entrega4.html')">
-            <div class="index-main">
-              <span class="index-meta-top">ENTREGA N° 04 — EN PREPARACIÓN</span>
-              <h3 class="index-title">Cuarta Entrega del Archivo Piloto</h3>
-              <p class="index-snippet">Espacio reservado para la cuarta crónica de la serie temática.</p>
+          <!-- ENTREGA 01 -->
+          <div class="catalog-card" onclick="loadArticle('entrega1.html')">
+            <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=600&q=80" alt="Caso Celihueta" class="catalog-thumb">
+            <div class="catalog-content">
+              <div>
+                <span class="catalog-meta-top">ENTREGA N° 01 — INAUGURAL</span>
+                <h3 class="catalog-title">Archivo criminal: la enigmática desaparición de la veterinaria Adriana Celihueta</h3>
+                <p class="catalog-snippet">Investigación íntegra sobre la misteriosa ausencia en Necochea que rozó al poder político y permanece sin respuestas tras 35 años.</p>
+              </div>
+              <div class="catalog-meta-row">
+                <span class="catalog-author">Fernando del Rio</span>
+                <span class="catalog-time">Lectura: 45 min</span>
+              </div>
             </div>
-            <div class="index-side">
-              <span class="index-time">Próximamente</span>
-              <span class="index-author">Fernando del Rio</span>
+          </div>
+
+          <!-- ENTREGA 03 -->
+          <div class="catalog-card" onclick="loadArticle('entrega3.html')">
+            <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=600&q=80" alt="En preparación" class="catalog-thumb">
+            <div class="catalog-content">
+              <div>
+                <span class="catalog-meta-top">ENTREGA N° 03 — EN PREPARACIÓN</span>
+                <h3 class="catalog-title">Tercera Entrega del Archivo Piloto</h3>
+                <p class="catalog-snippet">Espacio reservado para la próxima investigación de largo aliento en desarrollo dentro del ciclo de crónicas.</p>
+              </div>
+              <div class="catalog-meta-row">
+                <span class="catalog-author">Fernando del Rio</span>
+                <span class="catalog-time">Próximamente</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ENTREGA 04 -->
+          <div class="catalog-card" onclick="loadArticle('entrega4.html')">
+            <img src="https://images.unsplash.com/photo-1507842229443-77d83839c59b?auto=format&fit=crop&w=600&q=80" alt="En preparación" class="catalog-thumb">
+            <div class="catalog-content">
+              <div>
+                <span class="catalog-meta-top">ENTREGA N° 04 — EN PREPARACIÓN</span>
+                <h3 class="catalog-title">Cuarta Entrega del Archivo Piloto</h3>
+                <p class="catalog-snippet">Espacio reservado para la cuarta crónica de la serie temática sobre los expedientes históricos.</p>
+              </div>
+              <div class="catalog-meta-row">
+                <span class="catalog-author">Fernando del Rio</span>
+                <span class="catalog-time">Próximamente</span>
+              </div>
             </div>
           </div>
 
@@ -446,8 +537,7 @@
 
       <div id="reader-view">
         <div class="reader-container">
-          <!-- Único botón limpio de regreso superior -->
-          <button onclick="showCatalog()" class="reader-back-btn">← Volver al Índice</button>
+          <button onclick="showCatalog()" class="reader-back-btn">← Volver al Catálogo</button>
           <div id="article-content"></div>
         </div>
       </div>
@@ -565,7 +655,7 @@
         div.innerHTML = `
           <div class="salvo-complete-title">[ SALVOCONDUCTO DE ATENCIÓN AMPLIADA ]</div>
           <p class="salvo-complete-text">Si ha llegado hasta aquí, es porque ha mantenido su atención ampliada intacta, eludiendo la inercia del algoritmo y la prisa digital. Su lectura ha sido registrada.</p>
-          <button onclick="showCatalog()" class="action-btn" style="margin-top: 20px; max-width: 280px; margin-left: auto; margin-right: auto; display: block;">VOLVER AL ÍNDICE</button>
+          <button onclick="showCatalog()" class="action-btn" style="margin-top: 20px; max-width: 280px; margin-left: auto; margin-right: auto; display: block;">VOLVER AL CATÁLOGO</button>
         `;
         articleContainer.appendChild(div);
       }
@@ -603,7 +693,6 @@
         if (!response.ok) throw new Error('No se pudo cargar el archivo');
         let html = await response.text();
         
-        // Limpia cualquier header o bloque viejo incrustado en el archivo externo HTML de la entrega
         html = html.replace(/<header class="app-header">[\s\S]*?<\/header>/gi, '');
         html = html.replace(/<div[^>]*class="[^"]*salvo[^"]*"[^>]*>[\s\S]*?<\/div>/gi, '');
 
