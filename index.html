@@ -51,7 +51,7 @@
     .spontaneous-btn { background: var(--text-grafito); color: var(--bg-marfil); border: none; padding: 14px; font-family: var(--font-serif); font-size: 0.8rem; letter-spacing: 2px; cursor: pointer; text-transform: uppercase; text-align: center; width: 100%; }
     .spontaneous-btn:hover { background: var(--accent-oro); }
 
-    /* PLIEGO DE CONTACTO POST-SALVOCONDUCTO PARA INICIADORES */
+    /* MODAL DE CONTACTO PARA INICIADORES TRAS LLEGAR AL FINAL */
     #initiator-contact-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(24,24,26,0.85); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
     .modal-box { background: var(--bg-marfil); color: var(--text-grafito); border: 1px solid var(--accent-oro); padding: 40px; width: 100%; max-width: 560px; text-align: left; }
     .modal-brand { font-size: 1.3rem; letter-spacing: 6px; text-align: center; margin-bottom: 6px; }
@@ -194,7 +194,7 @@
     .form-input, .form-textarea { background: var(--bg-marfil); border: 1px solid var(--gris-borde); padding: 12px; font-family: var(--font-serif); font-size: 0.9rem; color: var(--text-grafito); outline: none; }
     .form-textarea { resize: vertical; height: 140px; }
 
-    /* VISTA DE LECTOR: CAJA TIPOGRÁFICA */
+    /* VISTA DE LECTOR Y LETRA CAPITAL CORREGIDA (SIN SOLAPAMIENTO) */
     #reader-view { display: none; width: 100%; }
 
     .reader-container { 
@@ -228,18 +228,44 @@
       color: var(--text-grafito);
     }
 
-    #article-content .dropcap, #article-content p:first-of-type::first-letter {
-      font-size: 3.5rem;
+    /* Corrección limpia de la letra capital para evitar saltos de línea extraños */
+    #article-content p:first-of-type::first-letter,
+    #article-content .dropcap {
+      font-size: 3.2rem;
       float: left;
-      line-height: 0.8;
-      padding-top: 4px;
-      padding-right: 10px;
+      line-height: 0.9;
+      padding-top: 2px;
+      padding-right: 12px;
       padding-bottom: 0;
       color: var(--text-grafito);
     }
 
     .reader-back-btn { background: none; border: none; color: var(--accent-oro); font-family: var(--font-serif); font-size: 0.8rem; letter-spacing: 2px; cursor: pointer; text-transform: uppercase; margin-bottom: 30px; padding: 0; display: inline-block; }
     .reader-back-btn:hover { color: var(--text-grafito); }
+
+    /* LEYENDA INSTITUCIONAL AL FINAL DEL SCROLL */
+    .salvo-complete-box {
+      margin-top: 50px;
+      padding: 30px;
+      background: #f1efea;
+      border: 1px solid var(--accent-oro);
+      text-align: center;
+    }
+    .salvo-complete-title {
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      color: var(--accent-oro);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    .salvo-complete-text {
+      font-size: 0.95rem;
+      color: #333;
+      font-style: italic;
+      line-height: 1.6;
+      margin-bottom: 0;
+    }
   </style>
 </head>
 <body>
@@ -278,7 +304,7 @@
     </div>
   </div>
 
-  <!-- MODAL DE CONTACTO PARA INICIADORES TRAS SALVOCONDUCTO -->
+  <!-- MODAL DE CONTACTO PARA INICIADORES TRAS LLEGAR AL FINAL -->
   <div id="initiator-contact-modal">
     <div class="modal-box">
       <div class="modal-brand">F O N D O</div>
@@ -445,7 +471,6 @@
       if (code !== "") {
         localStorage.setItem('fondo_authenticated', 'true');
         
-        // Reconocimiento inteligente de perfil INI vs INV
         if (code.includes('INI')) {
           localStorage.setItem('fondo_role', 'initiator');
         } else {
@@ -517,16 +542,43 @@
       showCatalog();
     }
 
-    // Intercepta el registro de salvoconducto del lector
-    function registerSalvoconducto() {
+    // Detector automático por Scroll al llegar al final del texto
+    let scrollDetected = false;
+    window.addEventListener('scroll', function() {
+      if (document.getElementById('reader-view').style.display === 'block' && !scrollDetected) {
+        const scrollPosition = window.innerHeight + window.scrollY;
+        const threshold = document.documentElement.scrollHeight - 80;
+
+        if (scrollPosition >= threshold) {
+          scrollDetected = true;
+          handleReadingCompleted();
+        }
+      }
+    });
+
+    function handleReadingCompleted() {
+      // Agrega la leyenda institucional al final del artículo de forma limpia
+      const articleContainer = document.getElementById('article-content');
+      if (!document.getElementById('salvo-box-rendered')) {
+        const div = document.createElement('div');
+        div.id = 'salvo-box-rendered';
+        div.className = 'salvo-complete-box';
+        div.innerHTML = `
+          <div class="salvo-complete-title">[ SALVOCONDUCTO DE ATENCIÓN AMPLIADA ]</div>
+          <p class="salvo-complete-text">Si ha llegado hasta aquí, es porque ha mantenido su atención ampliada intacta, eludiendo la inercia del algoritmo y la prisa digital. Su lectura ha sido registrada.</p>
+          <button onclick="showCatalog()" class="action-btn" style="margin-top: 20px; max-width: 280px; margin-left: auto; margin-right: auto; display: block;">VOLVER AL ÍNDICE</button>
+        `;
+        articleContainer.appendChild(div);
+      }
+
+      // Evalúa si es Iniciador y debe dejar contacto para sus claves
       const role = localStorage.getItem('fondo_role');
       const contactRegistered = localStorage.getItem('fondo_contact_registered');
 
       if (role === 'initiator' && contactRegistered !== 'true') {
-        // Muestra el modal para pedir el contacto al Iniciador
-        document.getElementById('initiator-contact-modal').style.display = 'flex';
-      } else {
-        showCatalog();
+        setTimeout(() => {
+          document.getElementById('initiator-contact-modal').style.display = 'flex';
+        }, 1200);
       }
     }
 
@@ -541,13 +593,13 @@
         localStorage.setItem('fondo_contact_registered', 'true');
         document.getElementById('initiator-contact-modal').style.display = 'none';
         alert('Contacto transmitido con éxito. Gracias por afianzar la red de FONDO.');
-        showCatalog();
       } else {
         alert('Por favor, ingrese un medio de contacto válido.');
       }
     }
 
     async function loadArticle(file) {
+      scrollDetected = false; // Reinicia el detector para la nueva lectura
       try {
         const response = await fetch(file);
         if (!response.ok) throw new Error('No se pudo cargar el archivo');
@@ -556,16 +608,6 @@
         html = html.replace(/<header class="app-header">[\s\S]*?<\/header>/gi, '');
 
         document.getElementById('article-content').innerHTML = html;
-        
-        // Ajusta el botón del salvoconducto dentro de la entrega para que ejecute nuestra función inteligente
-        setTimeout(() => {
-          const salvoconductoBtn = document.querySelector('#article-content button, #article-content .salvo-btn, #article-content [onclick]');
-          if (salvoconductoBtn) {
-            salvoconductoBtn.removeAttribute('onclick');
-            salvoconductoBtn.onclick = function() { registerSalvoconducto(); };
-          }
-        }, 100);
-
         document.getElementById('catalog-view').style.display = 'none';
         document.getElementById('mailbox-view').style.display = 'none';
         document.getElementById('manifesto-bar').style.display = 'none';
