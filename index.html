@@ -235,7 +235,7 @@
       padding: 24px;
       display: flex;
       flex-direction: column;
-      height: 420px; /* Misma altura aproximada del hero para alinear portada */
+      height: 420px;
     }
 
     .sidebar-title {
@@ -270,16 +270,9 @@
       padding-right: 4px;
     }
 
-    /* Estilo barra de scroll fina y elegante */
-    .sidebar-scroll-area::-webkit-scrollbar {
-      width: 4px;
-    }
-    .sidebar-scroll-area::-webkit-scrollbar-track {
-      background: #f1efea;
-    }
-    .sidebar-scroll-area::-webkit-scrollbar-thumb {
-      background: var(--accent-oro);
-    }
+    .sidebar-scroll-area::-webkit-scrollbar { width: 4px; }
+    .sidebar-scroll-area::-webkit-scrollbar-track { background: #f1efea; }
+    .sidebar-scroll-area::-webkit-scrollbar-thumb { background: var(--accent-oro); }
 
     .sidebar-item {
       padding: 12px 0;
@@ -287,9 +280,7 @@
       cursor: pointer;
     }
 
-    .sidebar-item:last-child {
-      border-bottom: none;
-    }
+    .sidebar-item:last-child { border-bottom: none; }
 
     .sidebar-item-num {
       font-size: 0.7rem;
@@ -322,7 +313,7 @@
       display: block;
       border-bottom: 1px solid var(--accent-oro);
       padding-bottom: 6px;
-      margin-top: 40px;
+      margin-top: 20px;
     }
 
     .catalog-grid-bottom {
@@ -333,13 +324,8 @@
     }
 
     @media (max-width: 900px) {
-      .catalog-grid-bottom {
-        grid-template-columns: 1fr;
-      }
-      .sidebar-latest {
-        height: auto;
-        max-height: 380px;
-      }
+      .catalog-grid-bottom { grid-template-columns: 1fr; }
+      .sidebar-latest { height: auto; max-height: 380px; }
     }
 
     .grid-card {
@@ -352,9 +338,7 @@
       transition: border-color 0.2s;
     }
 
-    .grid-card:hover {
-      border-color: var(--accent-oro);
-    }
+    .grid-card:hover { border-color: var(--accent-oro); }
 
     .grid-thumb {
       width: 100%;
@@ -396,14 +380,6 @@
       color: var(--accent-oro);
       font-weight: bold;
     }
-
-    .community-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px; }
-    @media (max-width: 768px) { .community-grid { grid-template-columns: 1fr; } }
-    .community-box { background: #f1efea; border: 1px solid var(--gris-borde); padding: 28px; border-radius: 2px; }
-    .community-box h3 { font-size: 0.95rem; letter-spacing: 2px; color: var(--accent-oro); margin-top: 0; margin-bottom: 12px; text-transform: uppercase; }
-    .community-box p { font-size: 0.9rem; line-height: 1.6; color: #4a4a4d; margin-bottom: 20px; }
-    .action-btn { background: var(--text-grafito); color: var(--bg-marfil); border: none; padding: 12px 20px; font-family: var(--font-serif); font-size: 0.8rem; letter-spacing: 1.5px; cursor: pointer; text-transform: uppercase; text-decoration: none; display: inline-block; text-align: center; width: 100%; }
-    .action-btn:hover { background: var(--accent-oro); }
 
     /* BUZÓN */
     #mailbox-view { display: none; max-width: 640px; margin: 0 auto; background: #ffffff; border: 1px solid var(--accent-oro); padding: 40px; }
@@ -472,7 +448,7 @@
     .reader-back-btn { background: none; border: none; color: var(--accent-oro); font-family: var(--font-serif); font-size: 0.8rem; letter-spacing: 2px; cursor: pointer; text-transform: uppercase; margin-bottom: 30px; padding: 0; display: inline-block; }
     .reader-back-btn:hover { color: var(--text-grafito); }
 
-    /* LEYENDA INSTITUCIONAL AL FINAL DEL SCROLL */
+    /* LEYENDA INSTITUCIONAL Y ACCESOS AL FINAL DEL SCROLL */
     .salvo-complete-box {
       margin-top: 50px;
       padding: 30px;
@@ -493,8 +469,17 @@
       color: #333;
       font-style: italic;
       line-height: 1.6;
-      margin-bottom: 0;
+      margin-bottom: 16px;
     }
+    .article-footer-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 24px;
+    }
+    @media (max-width: 600px) { .article-footer-actions { grid-template-columns: 1fr; } }
+    .action-btn { background: var(--text-grafito); color: var(--bg-marfil); border: none; padding: 12px 20px; font-family: var(--font-serif); font-size: 0.8rem; letter-spacing: 1.5px; cursor: pointer; text-transform: uppercase; text-decoration: none; display: inline-block; text-align: center; width: 100%; }
+    .action-btn:hover { background: var(--accent-oro); }
   </style>
 </head>
 <body>
@@ -698,19 +683,6 @@
 
         </div>
 
-        <div class="community-grid">
-          <div class="community-box">
-            <h3>[ Membresía y Sostén ]</h3>
-            <p>La independencia editorial se edifica colectivamente. Los aportes garantizan la continuidad de las investigaciones sin publicidad comercial.</p>
-            <button class="action-btn" onclick="alert('Pasarela de aportes voluntarios habilitada para lectores.')">Realizar Aporte</button>
-          </div>
-          <div class="community-box">
-            <h3>[ Buzón de Invitados ]</h3>
-            <p>Canal abierto de comunicación, sugerencias y aportes documentales destinados al equipo de investigación de FONDO.</p>
-            <button class="action-btn" onclick="showMailbox()">Acceder al Buzón</button>
-          </div>
-        </div>
-
       </div>
 
       <div id="mailbox-view">
@@ -848,7 +820,7 @@
       showCatalog();
     }
 
-    // Detector automático por Scroll al llegar al final del texto
+    // Detector automático por Scroll al llegar al final del texto (con llamadas a la acción integradas)
     let scrollDetected = false;
     window.addEventListener('scroll', function() {
       if (document.getElementById('reader-view').style.display === 'block' && !scrollDetected) {
@@ -871,7 +843,13 @@
         div.innerHTML = `
           <div class="salvo-complete-title">[ SALVOCONDUCTO DE ATENCIÓN AMPLIADA ]</div>
           <p class="salvo-complete-text">Si ha llegado hasta aquí, es porque ha mantenido su atención ampliada intacta, eludiendo la inercia del algoritmo y la prisa digital. Su lectura ha sido registrada.</p>
-          <button onclick="showCatalog()" class="action-btn" style="margin-top: 20px; max-width: 280px; margin-left: auto; margin-right: auto; display: block;">VOLVER AL CATÁLOGO</button>
+          
+          <div class="article-footer-actions">
+            <button onclick="alert('Pasarela de aportes voluntarios habilitada para lectores de FONDO.')" class="action-btn">REALIZAR APORTE / MEMBRESÍA</button>
+            <button onclick="showMailbox()" class="action-btn">ACCEDER AL BUZÓN DE INVITADOS</button>
+          </div>
+
+          <button onclick="showCatalog()" class="action-btn" style="margin-top: 16px; max-width: 100%; display: block; background: var(--accent-oro); color: var(--text-grafito);">VOLVER AL CATÁLOGO</button>
         `;
         articleContainer.appendChild(div);
       }
@@ -898,7 +876,7 @@
         document.getElementById('initiator-contact-modal').style.display = 'none';
         alert('Contacto transmitido con éxito. Gracias por afianzar la red de FONDO.');
       } else {
-        alert('Por favor, ingresé un medio de contacto válido.');
+        alert('Por favor, ingrese un medio de contacto válido.');
       }
     }
 
