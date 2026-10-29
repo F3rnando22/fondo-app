@@ -148,14 +148,14 @@
 
     .container { max-width: 1100px; margin: 0 auto; padding: 30px 20px 80px 20px; width: 100%; }
 
-    /* NUEVO DISEÑO DE CATÁLOGO (ESTILO PORTADA PERIODÍSTICA) */
+    /* CATÁLOGO ESTILO PORTADA PERIODÍSTICA */
     #catalog-view { display: block; }
 
     .catalog-top-layout {
       display: grid;
       grid-template-columns: 2fr 1fr;
       gap: 24px;
-      margin-bottom: 30px;
+      margin-bottom: 40px;
     }
 
     @media (max-width: 900px) {
@@ -228,14 +228,14 @@
       font-weight: bold;
     }
 
-    /* Panel Lateral de Últimas Entregas */
+    /* Panel Lateral con Scroll Independiente y Buscador */
     .sidebar-latest {
       background: #ffffff;
       border: 1px solid var(--gris-borde);
       padding: 24px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      height: 420px; /* Misma altura aproximada del hero para alinear portada */
     }
 
     .sidebar-title {
@@ -245,8 +245,40 @@
       text-transform: uppercase;
       border-bottom: 1px solid var(--gris-borde);
       padding-bottom: 8px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       font-weight: bold;
+    }
+
+    .sidebar-search-box {
+      margin-bottom: 14px;
+    }
+
+    .sidebar-search-input {
+      width: 100%;
+      background: var(--bg-marfil);
+      border: 1px solid var(--gris-borde);
+      padding: 8px 12px;
+      font-family: var(--font-serif);
+      font-size: 0.8rem;
+      color: var(--text-grafito);
+      outline: none;
+    }
+
+    .sidebar-scroll-area {
+      overflow-y: auto;
+      flex-grow: 1;
+      padding-right: 4px;
+    }
+
+    /* Estilo barra de scroll fina y elegante */
+    .sidebar-scroll-area::-webkit-scrollbar {
+      width: 4px;
+    }
+    .sidebar-scroll-area::-webkit-scrollbar-track {
+      background: #f1efea;
+    }
+    .sidebar-scroll-area::-webkit-scrollbar-thumb {
+      background: var(--accent-oro);
     }
 
     .sidebar-item {
@@ -267,30 +299,46 @@
     }
 
     .sidebar-item-title {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       color: var(--text-grafito);
       margin: 4px 0 6px 0;
       line-height: 1.3;
     }
 
     .sidebar-item-meta {
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       color: #777;
       text-transform: uppercase;
       letter-spacing: 1px;
     }
 
-    /* Grilla Inferior de Archivo */
+    /* Grilla Inferior de Archivo (Cronológica) */
+    .catalog-section-title {
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent-oro);
+      margin-bottom: 20px;
+      display: block;
+      border-bottom: 1px solid var(--accent-oro);
+      padding-bottom: 6px;
+      margin-top: 40px;
+    }
+
     .catalog-grid-bottom {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 20px;
-      margin-top: 30px;
+      margin-top: 20px;
     }
 
     @media (max-width: 900px) {
       .catalog-grid-bottom {
         grid-template-columns: 1fr;
+      }
+      .sidebar-latest {
+        height: auto;
+        max-height: 380px;
       }
     }
 
@@ -536,7 +584,7 @@
       
       <div id="catalog-view">
         
-        <!-- DISEÑO SUPERIOR: HERO PRINCIPAL + PANEL LATERAL -->
+        <!-- DISEÑO SUPERIOR: HERO PRINCIPAL + PANEL LATERAL CON BUSCADOR Y SCROLL -->
         <div class="catalog-top-layout">
           
           <!-- ENTREGA N° 02 (PRINCIPAL / RECIENTE) -->
@@ -552,32 +600,52 @@
             </div>
           </div>
 
-          <!-- PANEL LATERAL: ÚLTIMAS ENTREGAS -->
+          <!-- PANEL LATERAL CON BUSCADOR Y SCROLL -->
           <div class="sidebar-latest">
             <div>
-              <div class="sidebar-title">ÚLTIMAS ENTREGAS</div>
+              <div class="sidebar-title">ÍNDICE DE ARCHIVO</div>
+              <div class="sidebar-search-box">
+                <input type="text" id="sidebarSearch" class="sidebar-search-input" placeholder="[ Buscar entrega o autor... ]" onkeyup="filterSidebar()">
+              </div>
+            </div>
+
+            <div class="sidebar-scroll-area" id="sidebarList">
               
-              <div class="sidebar-item" onclick="loadArticle('entrega1.html')">
+              <div class="sidebar-item" onclick="loadArticle('entrega2.html')" data-title="Vida y leyenda de una mujer dura" data-author="Alberto Repetto">
+                <span class="sidebar-item-num">02</span>
+                <h4 class="sidebar-item-title">Vida y leyenda de una mujer dura</h4>
+                <div class="sidebar-item-meta">ALBERTO REPETTO &bull; Lectura: 25 min</div>
+              </div>
+
+              <div class="sidebar-item" onclick="loadArticle('entrega1.html')" data-title="Archivo criminal: la enigmática desaparición de la veterinaria Adriana Celihueta" data-author="Fernando del Río">
                 <span class="sidebar-item-num">01</span>
                 <h4 class="sidebar-item-title">Archivo criminal: la enigmática desaparición de la veterinaria Adriana Celihueta</h4>
                 <div class="sidebar-item-meta">FERNANDO DEL RÍO &bull; Lectura: 45 min</div>
               </div>
 
-              <div class="sidebar-item" onclick="loadArticle('entrega3.html')">
+              <div class="sidebar-item" onclick="loadArticle('entrega3.html')" data-title="Tercera Entrega del Archivo Piloto" data-author="Fernando del Río">
                 <span class="sidebar-item-num">03</span>
                 <h4 class="sidebar-item-title">Tercera Entrega del Archivo Piloto</h4>
                 <div class="sidebar-item-meta">FERNANDO DEL RÍO &bull; Próximamente</div>
               </div>
+
+              <div class="sidebar-item" onclick="loadArticle('entrega4.html')" data-title="Cuarta Entrega del Archivo Piloto" data-author="Fernando del Río">
+                <span class="sidebar-item-num">04</span>
+                <h4 class="sidebar-item-title">Cuarta Entrega del Archivo Piloto</h4>
+                <div class="sidebar-item-meta">FERNANDO DEL RÍO &bull; Próximamente</div>
+              </div>
+
             </div>
 
-            <div style="font-size: 0.7rem; color: var(--accent-oro); text-transform: uppercase; letter-spacing: 1.5px; border-top: 1px solid var(--gris-borde); padding-top: 12px; margin-top: 12px;">
+            <div style="font-size: 0.65rem; color: var(--accent-oro); text-transform: uppercase; letter-spacing: 1.5px; border-top: 1px solid var(--gris-borde); padding-top: 10px; margin-top: 10px; text-align: center;">
               Archivo protegido
             </div>
           </div>
 
         </div>
 
-        <!-- GRILLA INFERIOR DE ARCHIVO -->
+        <!-- GRILLA INFERIOR (HISTORIAL CRONOLÓGICO) -->
+        <span class="catalog-section-title">HISTORIAL DE ENTREGAS — ARCHIVO PILOTO</span>
         <div class="catalog-grid-bottom">
           
           <!-- ENTREGA 01 -->
@@ -748,6 +816,23 @@
       window.scrollTo(0, 0);
     }
 
+    // Buscador instantáneo para la columna lateral
+    function filterSidebar() {
+      const input = document.getElementById('sidebarSearch').value.toLowerCase();
+      const items = document.getElementsByClassName('sidebar-item');
+
+      for (let i = 0; i < items.length; i++) {
+        const title = items[i].getAttribute('data-title').toLowerCase();
+        const author = items[i].getAttribute('data-author').toLowerCase();
+
+        if (title.includes(input) || author.includes(input)) {
+          items[i].style.display = "block";
+        } else {
+          items[i].style.display = "none";
+        }
+      }
+    }
+
     function submitMailbox(e) {
       e.preventDefault();
       const name = document.getElementById('guestName').value;
@@ -813,7 +898,7 @@
         document.getElementById('initiator-contact-modal').style.display = 'none';
         alert('Contacto transmitido con éxito. Gracias por afianzar la red de FONDO.');
       } else {
-        alert('Por favor, ingrese un medio de contacto válido.');
+        alert('Por favor, ingresé un medio de contacto válido.');
       }
     }
 
@@ -824,10 +909,9 @@
         if (!response.ok) throw new Error('No se pudo cargar el archivo');
         let html = await response.text();
         
-        // Limpieza quirúrgica de botones de retorno sobrantes en los archivos externos de las entregas
         html = html.replace(/<header class="app-header">[\s\S]*?<\/header>/gi, '');
         html = html.replace(/<button[^>]*class="[^"]*reader-back-btn[^"]*"[^>]*>[\s\S]*?<\/button>/gi, '');
-        html = html.replace(/<div[^>]*class="[^"]*salvo[^"]*"[^>]*>[\s\S]*?<\/div>/gi, '');
+        html = html.replace(/<div[^>]*class="[^"]*resguardo-card[^"]*"[^>]*>[\s\S]*?<\/div>/gi, '');
 
         document.getElementById('article-content').innerHTML = html;
         document.getElementById('catalog-view').style.display = 'none';
