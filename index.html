@@ -665,7 +665,7 @@
             </div>
           </div>
 
-          <!-- ENTREGA 04 -->
+          <!-- ENTREGA 04 (CORREGIDA CON SU MINIATURA) -->
           <div class="grid-card" onclick="loadArticle('entrega4.html')">
             <img src="https://images.unsplash.com/photo-1507842229443-77d83839c59b?auto=format&fit=crop&w=600&q=80" alt="En preparación" class="grid-thumb">
             <div class="grid-content">
@@ -788,7 +788,6 @@
       window.scrollTo(0, 0);
     }
 
-    // Buscador instantáneo para la columna lateral
     function filterSidebar() {
       const input = document.getElementById('sidebarSearch').value.toLowerCase();
       const items = document.getElementsByClassName('sidebar-item');
@@ -820,7 +819,6 @@
       showCatalog();
     }
 
-    // Detector automático por Scroll al llegar al final del texto (con llamadas a la acción integradas)
     let scrollDetected = false;
     window.addEventListener('scroll', function() {
       if (document.getElementById('reader-view').style.display === 'block' && !scrollDetected) {
@@ -865,7 +863,7 @@
     }
 
     function submitInitiatorContact() {
-      const contact = document.getElementById('initiatorContactInput').value.trim();
+      const contact = document.getElementById('initiatorContactInputInstance').value.trim();
       if (contact !== "") {
         const subject = encodeURIComponent("Nuevo Contacto de Iniciador - FONDO");
         const body = encodeURIComponent("Medio de contacto seguro aportado por el Iniciador:\n\n" + contact);
