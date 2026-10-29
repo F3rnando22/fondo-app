@@ -194,7 +194,7 @@
     .form-input, .form-textarea { background: var(--bg-marfil); border: 1px solid var(--gris-borde); padding: 12px; font-family: var(--font-serif); font-size: 0.9rem; color: var(--text-grafito); outline: none; }
     .form-textarea { resize: vertical; height: 140px; }
 
-    /* VISTA DE LECTOR Y LETRA CAPITAL CORREGIDA (SIN SOLAPAMIENTO) */
+    /* VISTA DE LECTOR Y LETRA CAPITAL CORREGIDA */
     #reader-view { display: none; width: 100%; }
 
     .reader-container { 
@@ -228,7 +228,6 @@
       color: var(--text-grafito);
     }
 
-    /* Corrección limpia de la letra capital para evitar saltos de línea extraños */
     #article-content p:first-of-type::first-letter,
     #article-content .dropcap {
       font-size: 3.2rem;
@@ -243,7 +242,7 @@
     .reader-back-btn { background: none; border: none; color: var(--accent-oro); font-family: var(--font-serif); font-size: 0.8rem; letter-spacing: 2px; cursor: pointer; text-transform: uppercase; margin-bottom: 30px; padding: 0; display: inline-block; }
     .reader-back-btn:hover { color: var(--text-grafito); }
 
-    /* LEYENDA INSTITUCIONAL AL FINAL DEL SCROLL */
+    /* LEYENDA INSTITUCIONAL ÚNICA AL FINAL DEL SCROLL */
     .salvo-complete-box {
       margin-top: 50px;
       padding: 30px;
@@ -447,6 +446,7 @@
 
       <div id="reader-view">
         <div class="reader-container">
+          <!-- Único botón limpio de regreso superior -->
           <button onclick="showCatalog()" class="reader-back-btn">← Volver al Índice</button>
           <div id="article-content"></div>
         </div>
@@ -557,7 +557,6 @@
     });
 
     function handleReadingCompleted() {
-      // Agrega la leyenda institucional al final del artículo de forma limpia
       const articleContainer = document.getElementById('article-content');
       if (!document.getElementById('salvo-box-rendered')) {
         const div = document.createElement('div');
@@ -571,7 +570,6 @@
         articleContainer.appendChild(div);
       }
 
-      // Evalúa si es Iniciador y debe dejar contacto para sus claves
       const role = localStorage.getItem('fondo_role');
       const contactRegistered = localStorage.getItem('fondo_contact_registered');
 
@@ -599,13 +597,15 @@
     }
 
     async function loadArticle(file) {
-      scrollDetected = false; // Reinicia el detector para la nueva lectura
+      scrollDetected = false;
       try {
         const response = await fetch(file);
         if (!response.ok) throw new Error('No se pudo cargar el archivo');
         let html = await response.text();
         
+        // Limpia cualquier header o bloque viejo incrustado en el archivo externo HTML de la entrega
         html = html.replace(/<header class="app-header">[\s\S]*?<\/header>/gi, '');
+        html = html.replace(/<div[^>]*class="[^"]*salvo[^"]*"[^>]*>[\s\S]*?<\/div>/gi, '');
 
         document.getElementById('article-content').innerHTML = html;
         document.getElementById('catalog-view').style.display = 'none';
