@@ -38,7 +38,7 @@
     .brand-title { font-size: 2.2rem; letter-spacing: 12px; margin-bottom: 8px; font-weight: normal; }
     .brand-sub { font-size: 0.9rem; font-style: italic; color: var(--accent-oro); margin-bottom: 32px; }
     .login-box { display: flex; flex-direction: column; gap: 14px; }
-    .login-input { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--accent-oro); color: var(--bg-marfil); padding: 14px 16px; font-family: monospace; text-align: center; font-size: 0.95rem; outline: none; letter-spacing: 2px; }
+    .login-input { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--accent-oro); color: var(--bg-marfil); padding: 14px 16px; font-family: monospace; text-align: center; font-size: 0.95rem; outline: none; letter-spacing: 2px; text-transform: uppercase; }
     .login-btn { background: var(--accent-oro); color: var(--text-grafito); border: none; padding: 14px; font-family: var(--font-serif); font-weight: bold; cursor: pointer; letter-spacing: 2px; text-transform: uppercase; font-size: 0.85rem; }
 
     /* PLIEGO DE ADHESIÓN ESPONTÁNEA */
@@ -50,6 +50,16 @@
     .spontaneous-actions { display: flex; flex-direction: column; gap: 12px; }
     .spontaneous-btn { background: var(--text-grafito); color: var(--bg-marfil); border: none; padding: 14px; font-family: var(--font-serif); font-size: 0.8rem; letter-spacing: 2px; cursor: pointer; text-transform: uppercase; text-align: center; width: 100%; }
     .spontaneous-btn:hover { background: var(--accent-oro); }
+
+    /* PLIEGO DE CONTACTO POST-SALVOCONDUCTO PARA INICIADORES */
+    #initiator-contact-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(24,24,26,0.85); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
+    .modal-box { background: var(--bg-marfil); color: var(--text-grafito); border: 1px solid var(--accent-oro); padding: 40px; width: 100%; max-width: 560px; text-align: left; }
+    .modal-brand { font-size: 1.3rem; letter-spacing: 6px; text-align: center; margin-bottom: 6px; }
+    .modal-title { font-size: 0.8rem; letter-spacing: 2px; color: var(--accent-oro); text-transform: uppercase; text-align: center; margin-bottom: 24px; }
+    .modal-text { font-size: 0.95rem; line-height: 1.7; color: #333; margin-bottom: 20px; }
+    .modal-form-group { margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px; }
+    .modal-label { font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-grafito); font-weight: bold; }
+    .modal-input { background: #ffffff; border: 1px solid var(--gris-borde); padding: 12px; font-family: var(--font-serif); font-size: 0.9rem; color: var(--text-grafito); outline: none; }
 
     /* RITUAL DE ANCLAJE */
     #anchor-step { display: none; text-align: left; padding: 40px 30px; width: 100%; max-width: 580px; background: var(--bg-marfil); color: var(--text-grafito); border: 1px solid var(--accent-oro); }
@@ -184,7 +194,7 @@
     .form-input, .form-textarea { background: var(--bg-marfil); border: 1px solid var(--gris-borde); padding: 12px; font-family: var(--font-serif); font-size: 0.9rem; color: var(--text-grafito); outline: none; }
     .form-textarea { resize: vertical; height: 140px; }
 
-    /* VISTA DE LECTOR: CAJA TIPOGRÁFICA ESTILO MEDIO (INFOBAE) */
+    /* VISTA DE LECTOR: CAJA TIPOGRÁFICA */
     #reader-view { display: none; width: 100%; }
 
     .reader-container { 
@@ -234,12 +244,12 @@
 </head>
 <body>
 
-  <!-- GATEKEEPER CON ACCESO INSTITUCIONAL Y ESPONTÁNEO -->
+  <!-- GATEKEEPER -->
   <div id="gatekeeper">
     <div class="brand-title">F O N D O</div>
     <div class="brand-sub">Atención ampliada contra la inmediatez</div>
     <div class="login-box">
-      <input type="text" id="passInput" class="login-input" placeholder="[ Ingrese Clave de Acceso ]" autocomplete="off">
+      <input type="text" id="passInput" class="login-input" placeholder="[ Ingrese Clave ]" autocomplete="off">
       <button onclick="verifyKey()" class="login-btn">INGRESAR AL RESGUARDO</button>
       
       <div style="margin-top: 20px; border-top: 1px solid var(--gris-borde); padding-top: 20px;">
@@ -265,6 +275,22 @@
     <div class="spontaneous-actions">
       <button onclick="window.location.href='https://link-de-pago-o-pasarela.com'" class="spontaneous-btn">PROCEDER AL PAGO DE LA MEMBRESÍA</button>
       <button onclick="hideSpontaneousInfo()" style="background: none; border: none; color: var(--accent-oro); font-family: var(--font-serif); font-size: 0.75rem; letter-spacing: 1px; cursor: pointer; text-transform: uppercase; text-align: center; padding: 8px; margin-top: 8px;">← Volver al acceso con clave</button>
+    </div>
+  </div>
+
+  <!-- MODAL DE CONTACTO PARA INICIADORES TRAS SALVOCONDUCTO -->
+  <div id="initiator-contact-modal">
+    <div class="modal-box">
+      <div class="modal-brand">F O N D O</div>
+      <div class="modal-title">[ Registro de Iniciador Confirmado ]</div>
+      <p class="modal-text">
+        Ha completado con éxito la primera lectura de resguardo. Como miembro Iniciador de este espacio, se le asignarán próximamente diez claves digitales y su respectiva carta para convocar a los primeros invitados de su confianza.
+      </p>
+      <div class="modal-form-group">
+        <label class="modal-label">Indique un medio de contacto seguro (Correo o canal alternativo)</label>
+        <input type="text" id="initiatorContactInput" class="modal-input" placeholder="[ Su correo o vía de contacto ]">
+      </div>
+      <button onclick="submitInitiatorContact()" class="action-btn">TRANSMITIR CONTACTO A LA DIRECCIÓN</button>
     </div>
   </div>
 
@@ -415,9 +441,17 @@
     })();
 
     function verifyKey() {
-      const code = document.getElementById('passInput').value.trim();
+      const code = document.getElementById('passInput').value.trim().toUpperCase();
       if (code !== "") {
         localStorage.setItem('fondo_authenticated', 'true');
+        
+        // Reconocimiento inteligente de perfil INI vs INV
+        if (code.includes('INI')) {
+          localStorage.setItem('fondo_role', 'initiator');
+        } else {
+          localStorage.setItem('fondo_role', 'guest');
+        }
+
         document.getElementById('gatekeeper').style.display = 'none';
         
         if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
@@ -483,6 +517,36 @@
       showCatalog();
     }
 
+    // Intercepta el registro de salvoconducto del lector
+    function registerSalvoconducto() {
+      const role = localStorage.getItem('fondo_role');
+      const contactRegistered = localStorage.getItem('fondo_contact_registered');
+
+      if (role === 'initiator' && contactRegistered !== 'true') {
+        // Muestra el modal para pedir el contacto al Iniciador
+        document.getElementById('initiator-contact-modal').style.display = 'flex';
+      } else {
+        showCatalog();
+      }
+    }
+
+    function submitInitiatorContact() {
+      const contact = document.getElementById('initiatorContactInput').value.trim();
+      if (contact !== "") {
+        const subject = encodeURIComponent("Nuevo Contacto de Iniciador - FONDO");
+        const body = encodeURIComponent("Medio de contacto seguro aportado por el Iniciador:\n\n" + contact);
+        
+        window.location.href = `mailto:FONDOFONDO@gmail.com?subject=${subject}&body=${body}`;
+        
+        localStorage.setItem('fondo_contact_registered', 'true');
+        document.getElementById('initiator-contact-modal').style.display = 'none';
+        alert('Contacto transmitido con éxito. Gracias por afianzar la red de FONDO.');
+        showCatalog();
+      } else {
+        alert('Por favor, ingrese un medio de contacto válido.');
+      }
+    }
+
     async function loadArticle(file) {
       try {
         const response = await fetch(file);
@@ -492,6 +556,16 @@
         html = html.replace(/<header class="app-header">[\s\S]*?<\/header>/gi, '');
 
         document.getElementById('article-content').innerHTML = html;
+        
+        // Ajusta el botón del salvoconducto dentro de la entrega para que ejecute nuestra función inteligente
+        setTimeout(() => {
+          const salvoconductoBtn = document.querySelector('#article-content button, #article-content .salvo-btn, #article-content [onclick]');
+          if (salvoconductoBtn) {
+            salvoconductoBtn.removeAttribute('onclick');
+            salvoconductoBtn.onclick = function() { registerSalvoconducto(); };
+          }
+        }, 100);
+
         document.getElementById('catalog-view').style.display = 'none';
         document.getElementById('mailbox-view').style.display = 'none';
         document.getElementById('manifesto-bar').style.display = 'none';
