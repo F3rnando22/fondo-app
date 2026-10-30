@@ -19,7 +19,6 @@
 
     * { box-sizing: border-box; }
 
-    /* EL BODY SE ADAPTA SEGÚN LA CLASE DE ESTADO */
     body.is-locked {
       background-color: var(--text-grafito);
       color: var(--bg-marfil);
@@ -42,7 +41,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* GATEKEEPER (PANTALLA DE ACCESO OSCURA) */
+    /* GATEKEEPER */
     #gatekeeper { 
       text-align: center; 
       padding: 20px; 
@@ -66,12 +65,8 @@
     .spontaneous-btn { background: var(--text-grafito); color: var(--bg-marfil); border: none; padding: 14px; font-family: var(--font-serif); font-size: 0.8rem; letter-spacing: 2px; cursor: pointer; text-transform: uppercase; text-align: center; width: 100%; }
     .spontaneous-btn:hover { background: var(--accent-oro); }
 
-    /* MODAL DE CONTACTO PARA INICIADORES */
-    #initiator-contact-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(24,24,26,0.85); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
-    
-    /* MODAL DE MEMBRESÍA POR ALIAS BANCARIO */
-    #membership-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(24,24,26,0.85); z-index: 1100; justify-content: center; align-items: center; padding: 20px; overflow-y: auto; }
-    
+    /* MODALES */
+    #initiator-contact-modal, #membership-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(24,24,26,0.85); z-index: 1100; justify-content: center; align-items: center; padding: 20px; overflow-y: auto; }
     .modal-box { background: var(--bg-marfil); color: var(--text-grafito); border: 1px solid var(--accent-oro); padding: 40px; width: 100%; max-width: 560px; text-align: left; }
     .modal-brand { font-size: 1.3rem; letter-spacing: 6px; text-align: center; margin-bottom: 6px; }
     .modal-title { font-size: 0.8rem; letter-spacing: 2px; color: var(--accent-oro); text-transform: uppercase; text-align: center; margin-bottom: 24px; }
@@ -172,7 +167,7 @@
       .container { padding: 16px 12px 60px 12px; }
     }
 
-    /* CATÁLOGO ESTILO PORTADA PERIODÍSTICA */
+    /* CATÁLOGO */
     #catalog-view { display: block; }
 
     .catalog-top-layout {
@@ -183,12 +178,9 @@
     }
 
     @media (max-width: 900px) {
-      .catalog-top-layout {
-        grid-template-columns: 1fr;
-      }
+      .catalog-top-layout { grid-template-columns: 1fr; }
     }
 
-    /* Hero Principal (Última Entrega / Reciente) */
     .hero-featured {
       position: relative;
       background-size: cover;
@@ -257,7 +249,6 @@
       font-weight: bold;
     }
 
-    /* Panel Lateral con Scroll Independiente y Buscador */
     .sidebar-latest {
       background: #ffffff;
       border: 1px solid var(--gris-borde);
@@ -278,9 +269,7 @@
       font-weight: bold;
     }
 
-    .sidebar-search-box {
-      margin-bottom: 14px;
-    }
+    .sidebar-search-box { margin-bottom: 14px; }
 
     .sidebar-search-input {
       width: 100%;
@@ -332,7 +321,6 @@
       letter-spacing: 1px;
     }
 
-    /* Grilla Inferior de Archivo (Orden Decreciente: 3, 2, 1) */
     .catalog-section-title {
       font-size: 0.8rem;
       letter-spacing: 2px;
@@ -426,14 +414,16 @@
     .form-input, .form-textarea { background: var(--bg-marfil); border: 1px solid var(--gris-borde); padding: 12px; font-family: var(--font-serif); font-size: 0.9rem; color: var(--text-grafito); outline: none; }
     .form-textarea { resize: vertical; height: 140px; }
 
-    /* VISTA DE LECTOR ADAPTATIVA Y FLUIDA EN MÓVILES */
+    /* ==========================================================
+       VISTA DE LECTOR Y SANEAMIENTO AUTOMÁTICO DE ARCHIVOS EXTERNOS
+       ========================================================== */
     #reader-view { display: none; width: 100%; }
 
     .reader-container { 
       width: 100%;
-      max-width: 760px; 
+      max-width: 800px; 
       margin: 0 auto; 
-      padding: 30px 24px 80px 24px; 
+      padding: 30px 20px 80px 20px; 
       text-align: left; 
       line-height: 1.85; 
       font-size: 1.05rem; 
@@ -441,18 +431,37 @@
 
     @media (max-width: 768px) {
       .reader-container {
-        max-width: 100%;
-        padding: 20px 14px 60px 14px;
+        max-width: 100% !important;
+        width: 100% !important;
+        padding: 16px 10px 60px 10px !important;
         font-size: 1rem;
       }
     }
     
     #article-content {
-      width: 100%;
-      max-width: 100%;
-      margin: 0;
-      padding: 0;
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
       text-align: left;
+    }
+
+    /* REGLA MAESTRA ANTICORTE MÓVIL: 
+       Fuerza a que CUALQUIER contenedor o tarjeta interna dentro de los HTMLs externos 
+       se expanda al 100% del ancho del teléfono sin márgenes rígidos en pantallas chicas. */
+    @media (max-width: 768px) {
+      #article-content div, 
+      #article-content article, 
+      #article-content section, 
+      #article-content main {
+        max-width: 100% !important;
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding-left: 4px !important;
+        padding-right: 4px !important;
+        box-sizing: border-box !important;
+      }
     }
 
     #article-content p {
@@ -469,8 +478,8 @@
     }
 
     #article-content img {
-      width: 100%;
-      height: auto;
+      width: 100% !important;
+      height: auto !important;
       max-height: 480px;
       object-fit: cover;
       margin-bottom: 24px;
