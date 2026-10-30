@@ -168,6 +168,10 @@
 
     .container { max-width: 1100px; margin: 0 auto; padding: 30px 20px 80px 20px; width: 100%; }
 
+    @media (max-width: 768px) {
+      .container { padding: 16px 12px 60px 12px; }
+    }
+
     /* CATÁLOGO ESTILO PORTADA PERIODÍSTICA */
     #catalog-view { display: block; }
 
@@ -210,6 +214,11 @@
       z-index: 2;
       padding: 36px;
       color: #fff;
+    }
+
+    @media (max-width: 768px) {
+      .hero-featured-content { padding: 20px; }
+      .hero-title { font-size: 1.5rem !important; }
     }
 
     .hero-badge {
@@ -417,17 +426,25 @@
     .form-input, .form-textarea { background: var(--bg-marfil); border: 1px solid var(--gris-borde); padding: 12px; font-family: var(--font-serif); font-size: 0.9rem; color: var(--text-grafito); outline: none; }
     .form-textarea { resize: vertical; height: 140px; }
 
-    /* VISTA DE LECTOR ADAPTATIVA */
+    /* VISTA DE LECTOR ADAPTATIVA Y FLUIDA EN MÓVILES */
     #reader-view { display: none; width: 100%; }
 
     .reader-container { 
       width: 100%;
-      max-width: 720px; 
+      max-width: 760px; 
       margin: 0 auto; 
-      padding: 30px 20px 80px 20px; 
+      padding: 30px 24px 80px 24px; 
       text-align: left; 
       line-height: 1.85; 
       font-size: 1.05rem; 
+    }
+
+    @media (max-width: 768px) {
+      .reader-container {
+        max-width: 100%;
+        padding: 20px 14px 60px 14px;
+        font-size: 1rem;
+      }
     }
     
     #article-content {
