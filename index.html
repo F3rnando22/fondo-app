@@ -19,9 +19,18 @@
 
     * { box-sizing: border-box; }
 
-    body {
+    /* EL BODY SE ADAPTA SEGÚN LA CLASE DE ESTADO */
+    body.is-locked {
+      background-color: var(--text-grafito);
+      color: var(--bg-marfil);
+    }
+
+    body.is-unlocked {
       background-color: var(--bg-marfil);
       color: var(--text-grafito);
+    }
+
+    body {
       font-family: var(--font-serif);
       margin: 0;
       padding: 0;
@@ -33,12 +42,18 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* GATEKEEPER Y ACCESO ESPONTÁNEA */
-    #gatekeeper { text-align: center; padding: 40px; width: 100%; max-width: 440px; background: #ffffff; border: 1px solid var(--accent-oro); display: none; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-    .brand-title { font-size: 2.2rem; letter-spacing: 12px; margin-bottom: 8px; font-weight: normal; color: var(--text-grafito); }
+    /* GATEKEEPER (PANTALLA DE ACCESO OSCURA) */
+    #gatekeeper { 
+      text-align: center; 
+      padding: 20px; 
+      width: 100%; 
+      max-width: 420px; 
+      display: none; 
+    }
+    .brand-title { font-size: 2.2rem; letter-spacing: 12px; margin-bottom: 8px; font-weight: normal; color: var(--bg-marfil); }
     .brand-sub { font-size: 0.9rem; font-style: italic; color: var(--accent-oro); margin-bottom: 32px; }
     .login-box { display: flex; flex-direction: column; gap: 14px; }
-    .login-input { background: var(--bg-marfil); border: 1px solid var(--accent-oro); color: var(--text-grafito); padding: 14px 16px; font-family: monospace; text-align: center; font-size: 0.95rem; outline: none; letter-spacing: 2px; text-transform: uppercase; }
+    .login-input { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--accent-oro); color: var(--bg-marfil); padding: 14px 16px; font-family: monospace; text-align: center; font-size: 0.95rem; outline: none; letter-spacing: 2px; text-transform: uppercase; }
     .login-btn { background: var(--accent-oro); color: var(--text-grafito); border: none; padding: 14px; font-family: var(--font-serif); font-weight: bold; cursor: pointer; letter-spacing: 2px; text-transform: uppercase; font-size: 0.85rem; }
 
     /* PLIEGO DE ADHESIÓN ESPONTÁNEA */
@@ -494,7 +509,7 @@
     .action-btn:hover { background: var(--accent-oro); }
   </style>
 </head>
-<body>
+<body class="is-locked">
 
   <!-- GATEKEEPER -->
   <div id="gatekeeper">
@@ -504,7 +519,7 @@
       <input type="text" id="passInput" class="login-input" placeholder="[ Ingrese Clave ]" autocomplete="off">
       <button onclick="verifyKey()" class="login-btn">INGRESAR AL RESGUARDO</button>
       
-      <div style="margin-top: 20px; border-top: 1px solid var(--gris-borde); padding-top: 20px;">
+      <div style="margin-top: 20px; border-top: 1px solid var(--accent-oro); padding-top: 20px;">
         <p style="font-size: 0.8rem; color: #a09d90; margin-bottom: 12px; font-style: italic;">¿No posee una clave de invitación institucional?</p>
         <button onclick="showSpontaneousInfo()" style="background: none; border: 1px solid var(--accent-oro); color: var(--accent-oro); padding: 12px; font-family: var(--font-serif); font-size: 0.75rem; letter-spacing: 2px; cursor: pointer; text-transform: uppercase; width: 100%;">Quiero acceder a FONDO</button>
       </div>
@@ -767,8 +782,11 @@
     (function() {
       const isAuth = localStorage.getItem('fondo_authenticated');
       if (isAuth === 'true') {
+        document.body.classList.remove('is-locked');
+        document.body.classList.add('is-unlocked');
         document.getElementById('app').style.display = 'block';
       } else {
+        document.body.classList.add('is-locked');
         document.getElementById('gatekeeper').style.display = 'block';
       }
     })();
@@ -787,6 +805,8 @@
         document.getElementById('gatekeeper').style.display = 'none';
         
         if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
+          document.body.classList.remove('is-locked');
+          document.body.classList.add('is-unlocked');
           document.getElementById('app').style.display = 'block';
         } else {
           document.getElementById('anchor-step').style.display = 'block';
@@ -835,6 +855,8 @@
 
     function completeAnchor() {
       document.getElementById('anchor-step').style.display = 'none';
+      document.body.classList.remove('is-locked');
+      document.body.classList.add('is-unlocked');
       document.getElementById('app').style.display = 'block';
       window.scrollTo(0, 0);
     }
