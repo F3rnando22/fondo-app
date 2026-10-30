@@ -19,7 +19,6 @@
 
     * { box-sizing: border-box; }
 
-    /* EL BODY INICIA SIEMPRE CON EL FONDO MARFIL PARA EVITAR PANTALLA NEGRA */
     body {
       background-color: var(--bg-marfil);
       color: var(--text-grafito);
@@ -34,17 +33,8 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* CONTENEDOR DE ACCESO (GATEKEEPER) */
-    #gatekeeper { 
-      text-align: center; 
-      padding: 40px; 
-      width: 100%; 
-      max-width: 440px; 
-      background: #ffffff; 
-      border: 1px solid var(--accent-oro); 
-      display: none; 
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
+    /* GATEKEEPER Y ACCESO ESPONTÁNEO */
+    #gatekeeper { text-align: center; padding: 40px; width: 100%; max-width: 440px; background: #ffffff; border: 1px solid var(--accent-oro); display: none; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
     .brand-title { font-size: 2.2rem; letter-spacing: 12px; margin-bottom: 8px; font-weight: normal; color: var(--text-grafito); }
     .brand-sub { font-size: 0.9rem; font-style: italic; color: var(--accent-oro); margin-bottom: 32px; }
     .login-box { display: flex; flex-direction: column; gap: 14px; }
@@ -659,10 +649,10 @@
                 <div class="sidebar-item-meta">FERNANDO DEL RÍO &bull; Lectura: 45 min</div>
               </div>
 
-              <div class="sidebar-item" onclick="loadArticle('entrega3.html')" data-title="Tercera Entrega del Archivo Piloto" data-author="Fernando del Río">
+              <div class="sidebar-item" onclick="loadArticle('entrega3.html')" data-title="Fernando Lario: los silencios y ruidos de uno de los casos más enigmáticos de Mar del Plata" data-author="Fernando del Río">
                 <span class="sidebar-item-num">03</span>
-                <h4 class="sidebar-item-title">Tercera Entrega del Archivo Piloto</h4>
-                <div class="sidebar-item-meta">FERNANDO DEL RÍO &bull; Próximamente</div>
+                <h4 class="sidebar-item-title">Fernando Lario: los silencios y ruidos de uno de los casos más enigmáticos de Mar del Plata</h4>
+                <div class="sidebar-item-meta">FERNANDO DEL RÍO &bull; Lectura: 35 min</div>
               </div>
 
               <div class="sidebar-item" onclick="loadArticle('entrega4.html')" data-title="Cuarta Entrega del Archivo Piloto" data-author="Fernando del Río">
@@ -702,20 +692,20 @@
             </div>
           </div>
 
-          <!-- ENTREGA 03 -->
+          <!-- ENTREGA 03 (ACTUALIZADA CON EL CASO LARIO) -->
           <div class="grid-card" onclick="loadArticle('entrega3.html')">
             <div class="grid-thumb-container">
-              <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=600&q=80" alt="En preparación" class="grid-thumb">
+              <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=600&q=80" alt="Caso Lario" class="grid-thumb">
             </div>
             <div class="grid-content">
               <div>
-                <span style="font-size: 0.65rem; color: var(--accent-oro); font-weight: bold; letter-spacing: 2px; text-transform: uppercase;">ENTREGA N° 03 — EN PREPARACIÓN</span>
-                <h3 class="grid-card-title">Tercera Entrega del Archivo Piloto</h3>
-                <p class="grid-card-snippet">Espacio reservado para la próxima investigación en desarrollo.</p>
+                <span style="font-size: 0.65rem; color: var(--accent-oro); font-weight: bold; letter-spacing: 2px; text-transform: uppercase;">ENTREGA N° 03 — ARCHIVO PILOTO</span>
+                <h3 class="grid-card-title">Fernando Lario: los silencios y ruidos de uno de los casos más enigmáticos de Mar del Plata</h3>
+                <p class="grid-card-snippet">Catorce años después, el voluminoso expediente transita su tramo final hacia un agotamiento investigativo.</p>
               </div>
               <div class="grid-card-meta">
                 <span>FERNANDO DEL RÍO</span>
-                <span>Próximamente</span>
+                <span>Lectura: 35 min</span>
               </div>
             </div>
           </div>
