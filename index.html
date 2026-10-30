@@ -563,8 +563,9 @@
 
     <div class="container">
 
+      <!-- BARRA DE ESPÍRITU / MANIFIESTO ACTUALIZADA -->
       <div class="editorial-manifesto-bar" id="manifesto-bar">
-        Espacio sostenido por lectores — Atención de largo aliento y archivo protegido.
+        Espacio de atención ampliada y archivo protegido — Al margen de la inercia algorítmica.
       </div>
       
       <div id="catalog-view">
@@ -665,7 +666,7 @@
             </div>
           </div>
 
-          <!-- ENTREGA 04 (CORREGIDA CON SU MINIATURA) -->
+          <!-- ENTREGA 04 (CON MINIATURA CORREGIDA) -->
           <div class="grid-card" onclick="loadArticle('entrega4.html')">
             <img src="https://images.unsplash.com/photo-1507842229443-77d83839c59b?auto=format&fit=crop&w=600&q=80" alt="En preparación" class="grid-thumb">
             <div class="grid-content">
@@ -863,7 +864,7 @@
     }
 
     function submitInitiatorContact() {
-      const contact = document.getElementById('initiatorContactInputInstance').value.trim();
+      const contact = document.getElementById('initiatorContactInput').value.trim();
       if (contact !== "") {
         const subject = encodeURIComponent("Nuevo Contacto de Iniciador - FONDO");
         const body = encodeURIComponent("Medio de contacto seguro aportado por el Iniciador:\n\n" + contact);
