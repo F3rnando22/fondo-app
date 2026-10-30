@@ -415,7 +415,7 @@
     .form-textarea { resize: vertical; height: 140px; }
 
     /* ==========================================================
-       VISTA DE LECTOR Y ANULACIÓN ABSOLUTA DE MÁRGENES INTERNOS
+       VISTA DE LECTOR Y FLUIDEZ MÓVIL FORZADA
        ========================================================== */
     #reader-view { display: none; width: 100%; }
 
@@ -433,7 +433,7 @@
       .reader-container {
         max-width: 100% !important;
         width: 100% !important;
-        padding: 12px 6px 60px 6px !important;
+        padding: 8px 4px 60px 4px !important;
         font-size: 1rem;
       }
     }
@@ -444,25 +444,6 @@
       margin: 0 !important;
       padding: 0 !important;
       text-align: left;
-    }
-
-    /* REGLA ANTICORTE MÓVIL: Fuerza cero márgenes y ancho total en cualquier contenedor interno de la nota */
-    @media (max-width: 768px) {
-      #article-content div, 
-      #article-content article, 
-      #article-content section, 
-      #article-content main,
-      #article-content p,
-      #article-content h2,
-      #article-content h3 {
-        max-width: 100% !important;
-        width: 100% !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-        padding-left: 2px !important;
-        padding-right: 2px !important;
-        box-sizing: border-box !important;
-      }
     }
 
     #article-content p {
@@ -1011,16 +992,20 @@
         let container = document.getElementById('article-content');
         container.innerHTML = html;
 
-        // Limpieza profunda de cualquier elemento interno rígido o con márgenes excesivos heredados
-        const allInnerElements = container.querySelectorAll('*');
-        allInnerElements.forEach(el => {
-          el.style.maxWidth = '100%';
-          el.style.marginLeft = '0';
-          el.style.marginRight = '0';
-          el.style.paddingLeft = '2px';
-          el.style.paddingRight = '2px';
-          el.style.boxSizing = 'border-box';
-        });
+        // SANITIZACIÓN AUTOMÁTICA PROFUNDA PARA TODAS LAS ENTREGAS:
+        // Remueve márgenes y rellenos excesivos de cualquier contenedor interno en pantallas móviles
+        if (window.innerWidth <= 768) {
+          const allElements = container.querySelectorAll('*');
+          allElements.forEach(el => {
+            el.style.maxWidth = '100%';
+            el.style.width = '100%';
+            el.style.marginLeft = '0';
+            el.style.marginRight = '0';
+            el.style.paddingLeft = '4px';
+            el.style.paddingRight = '4px';
+            el.style.boxSizing = 'border-box';
+          });
+        }
 
         document.getElementById('catalog-view').style.display = 'none';
         document.getElementById('mailbox-view').style.display = 'none';
@@ -1028,7 +1013,6 @@
         document.getElementById('reader-view').style.display = 'block';
         window.scrollTo(0, 0);
 
-        // Registrar en el historial para que el botón "Atrás" del celular devuelva al catálogo
         history.pushState({ view: 'reader' }, '', '');
       } catch (err) {
         document.getElementById('article-content').innerHTML = '<h2>Entrega en preparación</h2><p>El contenido de esta entrega se activará próximamente.</p>';
@@ -1040,7 +1024,6 @@
       }
     }
 
-    // Escuchar el evento de retroceso del navegador / dispositivo móvil
     window.addEventListener('popstate', function(event) {
       document.getElementById('mailbox-view').style.display = 'none';
       document.getElementById('reader-view').style.display = 'none';
