@@ -164,7 +164,7 @@
     .container { max-width: 1100px; margin: 0 auto; padding: 30px 20px 80px 20px; width: 100%; }
 
     @media (max-width: 768px) {
-      .container { padding: 16px 12px 60px 12px; }
+      .container { padding: 16px 8px 60px 8px; }
     }
 
     /* CATÁLOGO */
@@ -209,7 +209,7 @@
     }
 
     @media (max-width: 768px) {
-      .hero-featured-content { padding: 20px; }
+      .hero-featured-content { padding: 20px 14px; }
       .hero-title { font-size: 1.5rem !important; }
     }
 
@@ -415,7 +415,7 @@
     .form-textarea { resize: vertical; height: 140px; }
 
     /* ==========================================================
-       VISTA DE LECTOR Y SANEAMIENTO AUTOMÁTICO DE ARCHIVOS EXTERNOS
+       VISTA DE LECTOR Y ANULACIÓN ABSOLUTA DE MÁRGENES INTERNOS
        ========================================================== */
     #reader-view { display: none; width: 100%; }
 
@@ -433,7 +433,7 @@
       .reader-container {
         max-width: 100% !important;
         width: 100% !important;
-        padding: 16px 10px 60px 10px !important;
+        padding: 12px 6px 60px 6px !important;
         font-size: 1rem;
       }
     }
@@ -446,20 +446,21 @@
       text-align: left;
     }
 
-    /* REGLA MAESTRA ANTICORTE MÓVIL: 
-       Fuerza a que CUALQUIER contenedor o tarjeta interna dentro de los HTMLs externos 
-       se expanda al 100% del ancho del teléfono sin márgenes rígidos en pantallas chicas. */
+    /* REGLA ANTICORTE MÓVIL: Fuerza cero márgenes y ancho total en cualquier contenedor interno de la nota */
     @media (max-width: 768px) {
       #article-content div, 
       #article-content article, 
       #article-content section, 
-      #article-content main {
+      #article-content main,
+      #article-content p,
+      #article-content h2,
+      #article-content h3 {
         max-width: 100% !important;
         width: 100% !important;
         margin-left: 0 !important;
         margin-right: 0 !important;
-        padding-left: 4px !important;
-        padding-right: 4px !important;
+        padding-left: 2px !important;
+        padding-right: 2px !important;
         box-sizing: border-box !important;
       }
     }
@@ -790,13 +791,13 @@
             <textarea id="guestMessage" class="form-textarea" placeholder="[ Escriba aquí su mensaje de forma extendida... ]" required></textarea>
           </div>
           <button type="submit" class="action-btn" style="margin-top: 10px;">Transmitir a FONDOFONDO@gmail.com</button>
-          <button type="button" onclick="showCatalog()" style="background: none; border: none; color: var(--accent-oro); font-family: var(--font-serif); font-size: 0.8rem; letter-spacing: 1px; cursor: pointer; width: 100%; margin-top: 15px; text-transform: uppercase;">← Volver al Catálogo</button>
+          <button type="button" onclick="showCatalog(true)" style="background: none; border: none; color: var(--accent-oro); font-family: var(--font-serif); font-size: 0.8rem; letter-spacing: 1px; cursor: pointer; width: 100%; margin-top: 15px; text-transform: uppercase;">← Volver al Catálogo</button>
         </form>
       </div>
 
       <div id="reader-view">
         <div class="reader-container">
-          <button onclick="showCatalog()" class="reader-back-btn">← Volver al Catálogo</button>
+          <button onclick="showCatalog(true)" class="reader-back-btn">← Volver al Catálogo</button>
           <div id="article-content"></div>
         </div>
       </div>
@@ -887,12 +888,15 @@
       window.scrollTo(0, 0);
     }
 
-    function showCatalog() {
+    function showCatalog(fromHistory = false) {
       document.getElementById('catalog-view').style.display = 'block';
       document.getElementById('mailbox-view').style.display = 'none';
       document.getElementById('reader-view').style.display = 'none';
       document.getElementById('manifesto-bar').style.display = 'block';
       window.scrollTo(0, 0);
+      if (!fromHistory && history.state && history.state.view === 'reader') {
+        history.pushState({ view: 'catalog' }, '', '');
+      }
     }
 
     function showMailbox() {
@@ -962,7 +966,7 @@
             <button onclick="showMailbox()" class="action-btn">ACCEDER AL BUZÓN DE INVITADOS</button>
           </div>
 
-          <button onclick="showCatalog()" class="action-btn" style="margin-top: 16px; max-width: 100%; display: block; background: var(--accent-oro); color: var(--text-grafito);">VOLVER AL CATÁLOGO</button>
+          <button onclick="showCatalog(true)" class="action-btn" style="margin-top: 16px; max-width: 100%; display: block; background: var(--accent-oro); color: var(--text-grafito);">VOLVER AL CATÁLOGO</button>
         `;
         articleContainer.appendChild(div);
       }
@@ -1004,20 +1008,46 @@
         html = html.replace(/<button[^>]*class="[^"]*reader-back-btn[^"]*"[^>]*>[\s\S]*?<\/button>/gi, '');
         html = html.replace(/<div[^>]*class="[^"]*resguardo-card[^"]*"[^>]*>[\s\S]*?<\/div>/gi, '');
 
-        document.getElementById('article-content').innerHTML = html;
+        let container = document.getElementById('article-content');
+        container.innerHTML = html;
+
+        // Limpieza profunda de cualquier elemento interno rígido o con márgenes excesivos heredados
+        const allInnerElements = container.querySelectorAll('*');
+        allInnerElements.forEach(el => {
+          el.style.maxWidth = '100%';
+          el.style.marginLeft = '0';
+          el.style.marginRight = '0';
+          el.style.paddingLeft = '2px';
+          el.style.paddingRight = '2px';
+          el.style.boxSizing = 'border-box';
+        });
+
         document.getElementById('catalog-view').style.display = 'none';
         document.getElementById('mailbox-view').style.display = 'none';
         document.getElementById('manifesto-bar').style.display = 'none';
         document.getElementById('reader-view').style.display = 'block';
         window.scrollTo(0, 0);
+
+        // Registrar en el historial para que el botón "Atrás" del celular devuelva al catálogo
+        history.pushState({ view: 'reader' }, '', '');
       } catch (err) {
         document.getElementById('article-content').innerHTML = '<h2>Entrega en preparación</h2><p>El contenido de esta entrega se activará próximamente.</p>';
         document.getElementById('catalog-view').style.display = 'none';
         document.getElementById('mailbox-view').style.display = 'none';
         document.getElementById('manifesto-bar').style.display = 'none';
         document.getElementById('reader-view').style.display = 'block';
+        history.pushState({ view: 'reader' }, '', '');
       }
     }
+
+    // Escuchar el evento de retroceso del navegador / dispositivo móvil
+    window.addEventListener('popstate', function(event) {
+      document.getElementById('mailbox-view').style.display = 'none';
+      document.getElementById('reader-view').style.display = 'none';
+      document.getElementById('catalog-view').style.display = 'block';
+      document.getElementById('manifesto-bar').style.display = 'block';
+      window.scrollTo(0, 0);
+    });
   </script>
 </body>
 </html>
