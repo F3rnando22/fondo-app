@@ -33,7 +33,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* GATEKEEPER Y ACCESO ESPONTÁNEO */
+    /* GATEKEEPER Y ACCESO ESPONTÁNEA */
     #gatekeeper { text-align: center; padding: 40px; width: 100%; max-width: 440px; background: #ffffff; border: 1px solid var(--accent-oro); display: none; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
     .brand-title { font-size: 2.2rem; letter-spacing: 12px; margin-bottom: 8px; font-weight: normal; color: var(--text-grafito); }
     .brand-sub { font-size: 0.9rem; font-style: italic; color: var(--accent-oro); margin-bottom: 32px; }
@@ -169,7 +169,7 @@
       }
     }
 
-    /* Hero Principal (Última Entrega) */
+    /* Hero Principal (Última Entrega / Reciente) */
     .hero-featured {
       position: relative;
       background-size: cover;
@@ -308,7 +308,7 @@
       letter-spacing: 1px;
     }
 
-    /* Grilla Inferior de Archivo (Cronológica) */
+    /* Grilla Inferior de Archivo (Orden Decreciente) */
     .catalog-section-title {
       font-size: 0.8rem;
       letter-spacing: 2px;
@@ -610,23 +610,23 @@
       
       <div id="catalog-view">
         
-        <!-- DISEÑO SUPERIOR: HERO PRINCIPAL + PANEL LATERAL CON BUSCADOR Y SCROLL -->
+        <!-- DISEÑO SUPERIOR: HERO PRINCIPAL (ENTREGA 4) + PANEL LATERAL -->
         <div class="catalog-top-layout">
           
-          <!-- ENTREGA N° 02 (PRINCIPAL / RECIENTE) -->
-          <div class="hero-featured" style="background-image: url('https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1200&q=80');" onclick="loadArticle('entrega2.html')">
+          <!-- ENTREGA N° 04 (PRINCIPAL / RECIENTE) -->
+          <div class="hero-featured" style="background-image: url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80');" onclick="loadArticle('entrega4.html')">
             <div class="hero-featured-content">
-              <span class="hero-badge">ENTREGA N° 02 — RECIENTE</span>
-              <h2 class="hero-title">Vida y leyenda de una mujer dura</h2>
-              <p class="hero-snippet">Margarita Di Tulio, una hija de familia que se volcó al hampa y construyó una carrera implacable en la noche y los bajos fondos.</p>
+              <span class="hero-badge">ENTREGA N° 04 — RECIENTE</span>
+              <h2 class="hero-title">Mar del Plata conectada en el tiempo por una asombrosa historia de submarinos</h2>
+              <p class="hero-snippet">En el muelle de submarinos de la Base Naval de Mar del Plata se rendía la nave nazi U-530, conectando un hilo invisible con el ARA San Juan.</p>
               <div class="hero-meta">
-                <span>ALBERTO REPETTO</span>
-                <span>Lectura: 25 min</span>
+                <span>FERNANDO DEL RÍO</span>
+                <span>Lectura: 30 min</span>
               </div>
             </div>
           </div>
 
-          <!-- PANEL LATERAL CON BUSCADOR Y SCROLL -->
+          <!-- PANEL LATERAL CON BUSCADOR Y SCROLL (ORDEN DECRECIENTE) -->
           <div class="sidebar-latest">
             <div>
               <div class="sidebar-title">ÍNDICE DE ARCHIVO</div>
@@ -637,6 +637,18 @@
 
             <div class="sidebar-scroll-area" id="sidebarList">
               
+              <div class="sidebar-item" onclick="loadArticle('entrega4.html')" data-title="Mar del Plata conectada en el tiempo por una asombrosa historia de submarinos" data-author="Fernando del Río">
+                <span class="sidebar-item-num">04</span>
+                <h4 class="sidebar-item-title">Mar del Plata conectada en el tiempo por una asombrosa historia de submarinos</h4>
+                <div class="sidebar-item-meta">FERNANDO DEL RÍO &bull; Lectura: 30 min</div>
+              </div>
+
+              <div class="sidebar-item" onclick="loadArticle('entrega3.html')" data-title="Fernando Lario: los silencios y ruidos de uno de los casos más enigmáticos de Mar del Plata" data-author="Fernando del Río">
+                <span class="sidebar-item-num">03</span>
+                <h4 class="sidebar-item-title">Fernando Lario: los silencios y ruidos de uno de los casos más enigmáticos de Mar del Plata</h4>
+                <div class="sidebar-item-meta">FERNANDO DEL RÍO &bull; Lectura: 35 min</div>
+              </div>
+
               <div class="sidebar-item" onclick="loadArticle('entrega2.html')" data-title="Vida y leyenda de una mujer dura" data-author="Alberto Repetto">
                 <span class="sidebar-item-num">02</span>
                 <h4 class="sidebar-item-title">Vida y leyenda de una mujer dura</h4>
@@ -649,18 +661,6 @@
                 <div class="sidebar-item-meta">FERNANDO DEL RÍO &bull; Lectura: 45 min</div>
               </div>
 
-              <div class="sidebar-item" onclick="loadArticle('entrega3.html')" data-title="Fernando Lario: los silencios y ruidos de uno de los casos más enigmáticos de Mar del Plata" data-author="Fernando del Río">
-                <span class="sidebar-item-num">03</span>
-                <h4 class="sidebar-item-title">Fernando Lario: los silencios y ruidos de uno de los casos más enigmáticos de Mar del Plata</h4>
-                <div class="sidebar-item-meta">FERNANDO DEL RÍO &bull; Lectura: 35 min</div>
-              </div>
-
-              <div class="sidebar-item" onclick="loadArticle('entrega4.html')" data-title="Cuarta Entrega del Archivo Piloto" data-author="Fernando del Río">
-                <span class="sidebar-item-num">04</span>
-                <h4 class="sidebar-item-title">Cuarta Entrega del Archivo Piloto</h4>
-                <div class="sidebar-item-meta">FERNANDO DEL RÍO &bull; Próximamente</div>
-              </div>
-
             </div>
 
             <div style="font-size: 0.65rem; color: var(--accent-oro); text-transform: uppercase; letter-spacing: 1.5px; border-top: 1px solid var(--gris-borde); padding-top: 10px; margin-top: 10px; text-align: center;">
@@ -670,10 +670,46 @@
 
         </div>
 
-        <!-- GRILLA INFERIOR (HISTORIAL CRONOLÓGICO) -->
+        <!-- GRILLA INFERIOR (HISTORIAL CRONOLÓGICO DECRECIENTE: 3, 2, 1) -->
         <span class="catalog-section-title">HISTORIAL DE ENTREGAS — ARCHIVO PILOTO</span>
         <div class="catalog-grid-bottom">
           
+          <!-- ENTREGA 03 -->
+          <div class="grid-card" onclick="loadArticle('entrega3.html')">
+            <div class="grid-thumb-container">
+              <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=600&q=80" alt="Caso Lario" class="grid-thumb">
+            </div>
+            <div class="grid-content">
+              <div>
+                <span style="font-size: 0.65rem; color: var(--accent-oro); font-weight: bold; letter-spacing: 2px; text-transform: uppercase;">ENTREGA N° 03</span>
+                <h3 class="grid-card-title">Fernando Lario: los silencios y ruidos de uno de los casos más enigmáticos de Mar del Plata</h3>
+                <p class="grid-card-snippet">Catorce años después, el voluminoso expediente transita su tramo final hacia un agotamiento investigativo.</p>
+              </div>
+              <div class="grid-card-meta">
+                <span>FERNANDO DEL RÍO</span>
+                <span>Lectura: 35 min</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ENTREGA 02 -->
+          <div class="grid-card" onclick="loadArticle('entrega2.html')">
+            <div class="grid-thumb-container">
+              <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=600&q=80" alt="Vida y leyenda de una mujer dura" class="grid-thumb">
+            </div>
+            <div class="grid-content">
+              <div>
+                <span style="font-size: 0.65rem; color: var(--accent-oro); font-weight: bold; letter-spacing: 2px; text-transform: uppercase;">ENTREGA N° 02</span>
+                <h3 class="grid-card-title">Vida y leyenda de una mujer dura</h3>
+                <p class="grid-card-snippet">Margarita Di Tulio, una hija de familia que se volcó al hampa y construyó una carrera implacable.</p>
+              </div>
+              <div class="grid-card-meta">
+                <span>ALBERTO REPETTO</span>
+                <span>Lectura: 25 min</span>
+              </div>
+            </div>
+          </div>
+
           <!-- ENTREGA 01 -->
           <div class="grid-card" onclick="loadArticle('entrega1.html')">
             <div class="grid-thumb-container">
@@ -688,42 +724,6 @@
               <div class="grid-card-meta">
                 <span>FERNANDO DEL RÍO</span>
                 <span>Lectura: 45 min</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- ENTREGA 03 (ACTUALIZADA CON EL CASO LARIO) -->
-          <div class="grid-card" onclick="loadArticle('entrega3.html')">
-            <div class="grid-thumb-container">
-              <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=600&q=80" alt="Caso Lario" class="grid-thumb">
-            </div>
-            <div class="grid-content">
-              <div>
-                <span style="font-size: 0.65rem; color: var(--accent-oro); font-weight: bold; letter-spacing: 2px; text-transform: uppercase;">ENTREGA N° 03 — ARCHIVO PILOTO</span>
-                <h3 class="grid-card-title">Fernando Lario: los silencios y ruidos de uno de los casos más enigmáticos de Mar del Plata</h3>
-                <p class="grid-card-snippet">Catorce años después, el voluminoso expediente transita su tramo final hacia un agotamiento investigativo.</p>
-              </div>
-              <div class="grid-card-meta">
-                <span>FERNANDO DEL RÍO</span>
-                <span>Lectura: 35 min</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- ENTREGA 04 -->
-          <div class="grid-card" onclick="loadArticle('entrega4.html')">
-            <div class="grid-thumb-container">
-              <img src="https://images.unsplash.com/photo-1507842229443-77d83839c59b?auto=format&fit=crop&w=600&q=80" alt="En preparación" class="grid-thumb">
-            </div>
-            <div class="grid-content">
-              <div>
-                <span style="font-size: 0.65rem; color: var(--accent-oro); font-weight: bold; letter-spacing: 2px; text-transform: uppercase;">ENTREGA N° 04 — EN PREPARACIÓN</span>
-                <h3 class="grid-card-title">Cuarta Entrega del Archivo Piloto</h3>
-                <p class="grid-card-snippet">Espacio reservado para la cuarta crónica de la serie temática.</p>
-              </div>
-              <div class="grid-card-meta">
-                <span>FERNANDO DEL RÍO</span>
-                <span>Próximamente</span>
               </div>
             </div>
           </div>
