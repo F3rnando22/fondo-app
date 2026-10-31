@@ -415,7 +415,7 @@
     .form-textarea { resize: vertical; height: 140px; }
 
     /* ==========================================================
-       VISTA DE LECTOR Y REPRODUCTOR SONORO INTEGRADO (REDISEÑADO)
+       VISTA DE LECTOR Y REPRODUCTOR SONORO INTEGRADO (REDISEÑO ESTRICTO)
        ========================================================== */
     #reader-view { display: none; width: 100%; }
 
@@ -446,31 +446,34 @@
       text-align: left;
     }
 
-    /* REDISEÑO DE LA CAJA DE AUDIO: MÁS COMPACTA, ELEGANTE Y FLUIDA */
+    /* CAJA DE AUDIO REDISEÑADA (COMPACTA, FLOTADA A LA IZQUIERDA Y SIN OCUPAR TODO EL ANCHO) */
     .fondo-audio-box {
-      margin: 24px 0 32px 0;
-      padding: 16px 20px;
-      background: #f1efea;
-      border-left: 3px solid var(--accent-oro);
-      border-top: 1px solid var(--gris-borde);
-      border-right: 1px solid var(--gris-borde);
-      border-bottom: 1px solid var(--gris-borde);
-      max-width: 480px;
-      margin-left: 0; /* Alineada a la izquierda junto al cuerpo del texto */
+      margin: 24px 0 32px 0 !important;
+      padding: 14px 18px !important;
+      background: #f1efea !important;
+      border-left: 3px solid var(--accent-oro) !important;
+      border-top: 1px solid var(--gris-borde) !important;
+      border-right: 1px solid var(--gris-borde) !important;
+      border-bottom: 1px solid var(--gris-borde) !important;
+      width: 100% !important;
+      max-width: 380px !important;
+      box-sizing: border-box !important;
     }
 
     .fondo-audio-quote {
-      font-size: 0.8rem;
-      font-style: italic;
-      color: var(--accent-oro);
-      margin-bottom: 8px;
-      letter-spacing: 0.5px;
+      font-size: 0.75rem !important;
+      font-style: italic !important;
+      color: var(--accent-oro) !important;
+      margin-bottom: 6px !important;
+      letter-spacing: 0.5px !important;
     }
 
     .fondo-audio-player {
-      width: 100%;
-      height: 32px;
-      outline: none;
+      width: 100% !important;
+      max-width: 100% !important;
+      height: 28px !important;
+      outline: none !important;
+      display: block !important;
     }
 
     #article-content p {
@@ -660,10 +663,10 @@
       
       <div id="catalog-view">
         
-        <!-- DISEÑO SUPERIOR: HERO PRINCIPAL (ENTREGA 4) + PANEL LATERAL (SIN TIEMPO DE LECTURA) -->
+        <!-- DISEÑO SUPERIOR: HERO PRINCIPAL (ENTREGA 4) + PANEL LATERAL -->
         <div class="catalog-top-layout">
           
-          <!-- ENTREGA N° 04 (PRINCIPAL / RECIENTE EN HERO) -->
+          <!-- ENTREGA N° 04 -->
           <div class="hero-featured" style="background-image: url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80');" onclick="loadArticle('entrega4.html')">
             <div class="hero-featured-content">
               <span class="hero-badge">ENTREGA N° 04 — RECIENTE</span>
@@ -676,7 +679,7 @@
             </div>
           </div>
 
-          <!-- PANEL LATERAL CON BUSCADOR Y SCROLL (SIN TIEMPO DE LECTURA) -->
+          <!-- PANEL LATERAL -->
           <div class="sidebar-latest">
             <div>
               <div class="sidebar-title">ÍNDICE DE ARCHIVO</div>
@@ -720,7 +723,7 @@
 
         </div>
 
-        <!-- GRILLA INFERIOR (SIN TIEMPO DE LECTURA) -->
+        <!-- GRILLA INFERIOR -->
         <span class="catalog-section-title">HISTORIAL DE ENTREGAS — ARCHIVO PILOTO</span>
         <div class="catalog-grid-bottom">
           
@@ -1015,11 +1018,15 @@
         html = html.replace(/<header class="app-header">[\s\S]*?<\/header>/gi, '');
         html = html.replace(/<button[^>]*class="[^"]*reader-back-btn[^"]*"[^>]*>[\s\S]*?<\/button>/gi, '');
         html = html.replace(/<div[^>]*class="[^"]*resguardo-card[^"]*"[^>]*>[\s\S]*?<\/div>/gi, '');
+        
+        // LIMPIEZA AUTOMÁTICA DE TIEMPOS DE LECTURA DENTRO DE LOS ARCHIVOS HTML
+        html = html.replace(/LECTURA:\s*\d+\s*MIN/gi, '');
+        html = html.replace(/\+\s*LECTURA:\s*\d+\s*MIN/gi, '');
 
         let container = document.getElementById('article-content');
         container.innerHTML = html;
 
-        // INYECCIÓN DINÁMICA DEL REPRODUCTOR REDISEÑADO Y DISCRETO
+        // INYECCIÓN DINÁMICA DEL REPRODUCTOR COMPACTO Y ELEGANTE
         const entregaNumMatch = file.match(/entrega(\d+)\.html/i);
         if (entregaNumMatch) {
           const num = entregaNumMatch[1];
@@ -1060,6 +1067,7 @@
     }
 
     window.addEventListener('popstate', function(event) {
+      document.getElementById('article-content').innerHTML = '';
       document.getElementById('mailbox-view').style.display = 'none';
       document.getElementById('reader-view').style.display = 'none';
       document.getElementById('catalog-view').style.display = 'block';
