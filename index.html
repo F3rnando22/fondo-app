@@ -415,7 +415,7 @@
     .form-textarea { resize: vertical; height: 140px; }
 
     /* ==========================================================
-       VISTA DE LECTOR Y REPRODUCTOR SONORO INTEGRADO (REDISEÑO ESTRICTO)
+       VISTA DE LECTOR Y REPRODUCTOR SONORO INTEGRADO (FORZADO COMPACTO)
        ========================================================== */
     #reader-view { display: none; width: 100%; }
 
@@ -446,17 +446,17 @@
       text-align: left;
     }
 
-    /* CAJA DE AUDIO REDISEÑADA (COMPACTA, FLOTADA A LA IZQUIERDA Y SIN OCUPAR TODO EL ANCHO) */
+    /* REPRODUCTOR DE AUDIO ESTRECHO Y CONTENIDO */
     .fondo-audio-box {
       margin: 24px 0 32px 0 !important;
-      padding: 14px 18px !important;
+      padding: 12px 16px !important;
       background: #f1efea !important;
       border-left: 3px solid var(--accent-oro) !important;
       border-top: 1px solid var(--gris-borde) !important;
       border-right: 1px solid var(--gris-borde) !important;
       border-bottom: 1px solid var(--gris-borde) !important;
       width: 100% !important;
-      max-width: 380px !important;
+      max-width: 340px !important;
       box-sizing: border-box !important;
     }
 
@@ -471,7 +471,7 @@
     .fondo-audio-player {
       width: 100% !important;
       max-width: 100% !important;
-      height: 28px !important;
+      height: 26px !important;
       outline: none !important;
       display: block !important;
     }
@@ -1019,14 +1019,14 @@
         html = html.replace(/<button[^>]*class="[^"]*reader-back-btn[^"]*"[^>]*>[\s\S]*?<\/button>/gi, '');
         html = html.replace(/<div[^>]*class="[^"]*resguardo-card[^"]*"[^>]*>[\s\S]*?<\/div>/gi, '');
         
-        // LIMPIEZA AUTOMÁTICA DE TIEMPOS DE LECTURA DENTRO DE LOS ARCHIVOS HTML
+        // LIMPIEZA AUTOMÁTICA DE TIEMPOS DE LECTURA
         html = html.replace(/LECTURA:\s*\d+\s*MIN/gi, '');
         html = html.replace(/\+\s*LECTURA:\s*\d+\s*MIN/gi, '');
 
         let container = document.getElementById('article-content');
         container.innerHTML = html;
 
-        // INYECCIÓN DINÁMICA DEL REPRODUCTOR COMPACTO Y ELEGANTE
+        // INYECCIÓN DINÁMICA DEL REPRODUCTOR COMPACTO Y ESTRECHO
         const entregaNumMatch = file.match(/entrega(\d+)\.html/i);
         if (entregaNumMatch) {
           const num = entregaNumMatch[1];
