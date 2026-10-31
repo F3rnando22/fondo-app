@@ -415,7 +415,7 @@
     .form-textarea { resize: vertical; height: 140px; }
 
     /* ==========================================================
-       VISTA DE LECTOR Y REPRODUCTOR SONORO INTEGRADO
+       VISTA DE LECTOR Y REPRODUCTOR SONORO INTEGRADO (REDISEÑADO)
        ========================================================== */
     #reader-view { display: none; width: 100%; }
 
@@ -446,25 +446,30 @@
       text-align: left;
     }
 
+    /* REDISEÑO DE LA CAJA DE AUDIO: MÁS COMPACTA, ELEGANTE Y FLUIDA */
     .fondo-audio-box {
-      margin: 30px 0 40px 0;
-      padding: 22px 20px;
+      margin: 24px 0 32px 0;
+      padding: 16px 20px;
       background: #f1efea;
-      border: 1px solid var(--gris-borde);
-      text-align: center;
+      border-left: 3px solid var(--accent-oro);
+      border-top: 1px solid var(--gris-borde);
+      border-right: 1px solid var(--gris-borde);
+      border-bottom: 1px solid var(--gris-borde);
+      max-width: 480px;
+      margin-left: 0; /* Alineada a la izquierda junto al cuerpo del texto */
     }
 
     .fondo-audio-quote {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-style: italic;
       color: var(--accent-oro);
-      margin-bottom: 12px;
-      letter-spacing: 1px;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
     }
 
     .fondo-audio-player {
       width: 100%;
-      max-width: 440px;
+      height: 32px;
       outline: none;
     }
 
@@ -648,14 +653,14 @@
 
     <div class="container">
 
-      <!-- BARRA DE ESPÍRITU / MANIFIESTO ACTUALIZADA -->
+      <!-- BARRA DE ESPÍRITU / MANIFIESTO -->
       <div class="editorial-manifesto-bar" id="manifesto-bar">
         Espacio de atención ampliada y archivo protegido — Al margen de la inercia algorítmica.
       </div>
       
       <div id="catalog-view">
         
-        <!-- DISEÑO SUPERIOR: HERO PRINCIPAL (ENTREGA 4) + PANEL LATERAL -->
+        <!-- DISEÑO SUPERIOR: HERO PRINCIPAL (ENTREGA 4) + PANEL LATERAL (SIN TIEMPO DE LECTURA) -->
         <div class="catalog-top-layout">
           
           <!-- ENTREGA N° 04 (PRINCIPAL / RECIENTE EN HERO) -->
@@ -666,12 +671,12 @@
               <p class="hero-snippet">En el muelle de submarinos de la Base Naval de Mar del Plata se rendía la nave nazi U-530, conectando un hilo invisible con el ARA San Juan.</p>
               <div class="hero-meta">
                 <span>FERNANDO DEL RÍO</span>
-                <span>Lectura: 30 min</span>
+                <span>REGISTRO DE ARCHIVO</span>
               </div>
             </div>
           </div>
 
-          <!-- PANEL LATERAL CON BUSCADOR Y SCROLL (ORDEN DECRECIENTE) -->
+          <!-- PANEL LATERAL CON BUSCADOR Y SCROLL (SIN TIEMPO DE LECTURA) -->
           <div class="sidebar-latest">
             <div>
               <div class="sidebar-title">ÍNDICE DE ARCHIVO</div>
@@ -685,25 +690,25 @@
               <div class="sidebar-item" onclick="loadArticle('entrega4.html')" data-title="Mar del Plata conectada en el tiempo por una asombrosa historia de submarinos" data-author="Fernando del Río">
                 <span class="sidebar-item-num">04</span>
                 <h4 class="sidebar-item-title">Mar del Plata conectada en el tiempo por una asombrosa historia de submarinos</h4>
-                <div class="sidebar-item-meta">FERNANDO DEL RÍO &bull; Lectura: 30 min</div>
+                <div class="sidebar-item-meta">FERNANDO DEL RÍO</div>
               </div>
 
               <div class="sidebar-item" onclick="loadArticle('entrega3.html')" data-title="Fernando Lario: los silencios y ruidos de uno de los casos más enigmáticos de Mar del Plata" data-author="Fernando del Río">
                 <span class="sidebar-item-num">03</span>
                 <h4 class="sidebar-item-title">Fernando Lario: los silencios y ruidos de uno de los casos más enigmáticos de Mar del Plata</h4>
-                <div class="sidebar-item-meta">FERNANDO DEL RÍO &bull; Lectura: 35 min</div>
+                <div class="sidebar-item-meta">FERNANDO DEL RÍO</div>
               </div>
 
               <div class="sidebar-item" onclick="loadArticle('entrega2.html')" data-title="Vida y leyenda de una mujer dura" data-author="Alberto Repetto">
                 <span class="sidebar-item-num">02</span>
                 <h4 class="sidebar-item-title">Vida y leyenda de una mujer dura</h4>
-                <div class="sidebar-item-meta">ALBERTO REPETTO &bull; Lectura: 25 min</div>
+                <div class="sidebar-item-meta">ALBERTO REPETTO</div>
               </div>
 
               <div class="sidebar-item" onclick="loadArticle('entrega1.html')" data-title="Archivo criminal: la enigmática desaparición de la veterinaria Adriana Celihueta" data-author="Fernando del Río">
                 <span class="sidebar-item-num">01</span>
                 <h4 class="sidebar-item-title">Archivo criminal: la enigmática desaparición de la veterinaria Adriana Celihueta</h4>
-                <div class="sidebar-item-meta">FERNANDO DEL RÍO &bull; Lectura: 45 min</div>
+                <div class="sidebar-item-meta">FERNANDO DEL RÍO</div>
               </div>
 
             </div>
@@ -715,11 +720,11 @@
 
         </div>
 
-        <!-- GRILLA INFERIOR (HISTORIAL CRONOLÓGICO DECRECIENTE: 3, 2, 1) -->
+        <!-- GRILLA INFERIOR (SIN TIEMPO DE LECTURA) -->
         <span class="catalog-section-title">HISTORIAL DE ENTREGAS — ARCHIVO PILOTO</span>
         <div class="catalog-grid-bottom">
           
-          <!-- ENTREGA 03 (CON IMAGEN DE MINIATURA ASEGURADA) -->
+          <!-- ENTREGA 03 -->
           <div class="grid-card" onclick="loadArticle('entrega3.html')">
             <div class="grid-thumb-container">
               <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=600&q=80" alt="Caso Lario" class="grid-thumb">
@@ -732,7 +737,7 @@
               </div>
               <div class="grid-card-meta">
                 <span>FERNANDO DEL RÍO</span>
-                <span>Lectura: 35 min</span>
+                <span>INVESTIGACIÓN</span>
               </div>
             </div>
           </div>
@@ -750,7 +755,7 @@
               </div>
               <div class="grid-card-meta">
                 <span>ALBERTO REPETTO</span>
-                <span>Lectura: 25 min</span>
+                <span>CRÓNICA</span>
               </div>
             </div>
           </div>
@@ -768,7 +773,7 @@
               </div>
               <div class="grid-card-meta">
                 <span>FERNANDO DEL RÍO</span>
-                <span>Lectura: 45 min</span>
+                <span>DOCUMENTO</span>
               </div>
             </div>
           </div>
@@ -1014,7 +1019,7 @@
         let container = document.getElementById('article-content');
         container.innerHTML = html;
 
-        // INYECCIÓN AUTOMÁTICA DEL REPRODUCTOR DE AUDIO CON LA FRASE SOLICITADA
+        // INYECCIÓN DINÁMICA DEL REPRODUCTOR REDISEÑADO Y DISCRETO
         const entregaNumMatch = file.match(/entrega(\d+)\.html/i);
         if (entregaNumMatch) {
           const num = entregaNumMatch[1];
