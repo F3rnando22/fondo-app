@@ -415,7 +415,7 @@
     .form-textarea { resize: vertical; height: 140px; }
 
     /* ==========================================================
-       VISTA DE LECTOR Y REPRODUCTOR SONORO INTEGRADO (FORZADO COMPACTO)
+       VISTA DE LECTOR Y REPRODUCTOR SONORO INTEGRADO (CONTENIDO Y ESTRECHO)
        ========================================================== */
     #reader-view { display: none; width: 100%; }
 
@@ -446,17 +446,23 @@
       text-align: left;
     }
 
-    /* REPRODUCTOR DE AUDIO ESTRECHO Y CONTENIDO */
-    .fondo-audio-box {
+    /* CONTENEDOR FLEXIBLE PARA EVITAR QUE LA CAJA OCUPE TODO EL ANCHO */
+    .fondo-audio-wrapper {
+      display: flex !important;
+      justify-content: flex-start !important;
+      width: 100% !important;
       margin: 24px 0 32px 0 !important;
+    }
+
+    .fondo-audio-box {
       padding: 12px 16px !important;
       background: #f1efea !important;
       border-left: 3px solid var(--accent-oro) !important;
       border-top: 1px solid var(--gris-borde) !important;
       border-right: 1px solid var(--gris-borde) !important;
       border-bottom: 1px solid var(--gris-borde) !important;
-      width: 100% !important;
-      max-width: 340px !important;
+      width: 360px !important;
+      max-width: 100% !important;
       box-sizing: border-box !important;
     }
 
@@ -1026,18 +1032,20 @@
         let container = document.getElementById('article-content');
         container.innerHTML = html;
 
-        // INYECCIÓN DINÁMICA DEL REPRODUCTOR COMPACTO Y ESTRECHO
+        // INYECCIÓN DINÁMICA CON CONTENEDOR ESTRECHO
         const entregaNumMatch = file.match(/entrega(\d+)\.html/i);
         if (entregaNumMatch) {
           const num = entregaNumMatch[1];
           
           const audioHtml = `
-            <div class="fondo-audio-box">
-              <div class="fondo-audio-quote">“Así se produjo esta nota”</div>
-              <audio controls class="fondo-audio-player">
-                <source src="audios/AudioEntrega${num}.mp3" type="audio/mpeg">
-                Tu navegador no soporta el registro sonoro.
-              </audio>
+            <div class="fondo-audio-wrapper">
+              <div class="fondo-audio-box">
+                <div class="fondo-audio-quote">“Así se produjo esta nota”</div>
+                <audio controls class="fondo-audio-player">
+                  <source src="audios/AudioEntrega${num}.mp3" type="audio/mpeg">
+                  Tu navegador no soporta el registro sonoro.
+                </audio>
+              </div>
             </div>
           `;
           
