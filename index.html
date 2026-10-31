@@ -415,7 +415,7 @@
     .form-textarea { resize: vertical; height: 140px; }
 
     /* ==========================================================
-       VISTA DE LECTOR Y FLUIDEZ MÓVIL FORZADA
+       VISTA DE LECTOR Y REPRODUCTOR SONORO INTEGRADO
        ========================================================== */
     #reader-view { display: none; width: 100%; }
 
@@ -444,6 +444,28 @@
       margin: 0 !important;
       padding: 0 !important;
       text-align: left;
+    }
+
+    .fondo-audio-box {
+      margin: 30px 0 40px 0;
+      padding: 22px 20px;
+      background: #f1efea;
+      border: 1px solid var(--gris-borde);
+      text-align: center;
+    }
+
+    .fondo-audio-quote {
+      font-size: 0.85rem;
+      font-style: italic;
+      color: var(--accent-oro);
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+
+    .fondo-audio-player {
+      width: 100%;
+      max-width: 440px;
+      outline: none;
     }
 
     #article-content p {
@@ -992,19 +1014,27 @@
         let container = document.getElementById('article-content');
         container.innerHTML = html;
 
-        // SANITIZACIÓN AUTOMÁTICA PROFUNDA PARA TODAS LAS ENTREGAS:
-        // Remueve márgenes y rellenos excesivos de cualquier contenedor interno en pantallas móviles
-        if (window.innerWidth <= 768) {
-          const allElements = container.querySelectorAll('*');
-          allElements.forEach(el => {
-            el.style.maxWidth = '100%';
-            el.style.width = '100%';
-            el.style.marginLeft = '0';
-            el.style.marginRight = '0';
-            el.style.paddingLeft = '4px';
-            el.style.paddingRight = '4px';
-            el.style.boxSizing = 'border-box';
-          });
+        // INYECCIÓN AUTOMÁTICA DEL REPRODUCTOR DE AUDIO CON LA FRASE SOLICITADA
+        const entregaNumMatch = file.match(/entrega(\d+)\.html/i);
+        if (entregaNumMatch) {
+          const num = entregaNumMatch[1];
+          
+          const audioHtml = `
+            <div class="fondo-audio-box">
+              <div class="fondo-audio-quote">“Así se produjo esta nota”</div>
+              <audio controls class="fondo-audio-player">
+                <source src="audios/AudioEntrega${num}.mp3" type="audio/mpeg">
+                Tu navegador no soporta el registro sonoro.
+              </audio>
+            </div>
+          `;
+          
+          const firstHeading = container.querySelector('h1, h2, h3');
+          if (firstHeading) {
+            firstHeading.insertAdjacentHTML('afterend', audioHtml);
+          } else {
+            container.insertAdjacentHTML('afterbegin', audioHtml);
+          }
         }
 
         document.getElementById('catalog-view').style.display = 'none';
